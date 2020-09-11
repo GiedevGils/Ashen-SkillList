@@ -50,6 +50,7 @@ namespace SkillListBackEnd
             services.AddScoped<IAdminHelper, AdminHelper>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ICharacterRepository, CharacterRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -76,7 +76,7 @@ namespace SkillListBackEnd.Controllers
         /// <param name="characterId">The character ID, which is given in the body</param>
         /// <returns>A <see cref="IActionResult"/> with a boolean of success</returns>
         [HttpDelete("delete-character")]
-        public async Task<IActionResult> DeleteCharacter(UserForDeleteDto character)
+        public async Task<IActionResult> DeleteCharacter(CharacterForDeleteDto character)
         {
             int userId = GetUserIdFromToken();
             bool success = await _charRepo.DeleteCharacter(userId, character.Id);

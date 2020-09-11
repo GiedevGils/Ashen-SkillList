@@ -6,11 +6,6 @@
     public class Answer : BaseDatabaseItem
     {
         /// <summary>
-        /// The question the answer belogns to
-        /// </summary>
-        public Question Question { get; set; }
-
-        /// <summary>
         /// The rating of the answer. Is always a number
         /// </summary>
         public int Rating { get; set; }
