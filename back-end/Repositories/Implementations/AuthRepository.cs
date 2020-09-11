@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using SkillListBackEnd.Data;
 using SkillListBackEnd.Helpers;
 using SkillListBackEnd.Models;
 using SkillListBackEnd.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,9 +33,9 @@ namespace SkillListBackEnd.Repositories.Implementations
             User newUser = new User
             {
                 Name = username,
-                Code = LoginCodeGenerator.GenerateCode()
+                Code = LoginCodeHelper.GenerateCode()
             };
-            _context.Users.Add(newUser);
+            await _context.Users.AddAsync(newUser);
             await _context.SaveChangesAsync();
             return newUser;
         }

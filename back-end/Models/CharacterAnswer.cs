@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SkillListBackEnd.Models
+﻿namespace SkillListBackEnd.Models
 {
     /// <summary>
-    /// A in which user answers can be saved
+    /// A in which character answers can be saved
     /// </summary>
-    public class UserAnswer : BaseDatabaseItem
+    public class CharacterAnswer : BaseDatabaseItem
     {
         /// <summary>
         /// The character to which the answer applies

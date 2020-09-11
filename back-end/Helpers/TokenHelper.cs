@@ -1,18 +1,17 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using SkillListBackEnd.Data;
 using SkillListBackEnd.Models;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Helpers
 {
-    public static class Crypto
+    public static class TokenHelper
     {
-        
+
         public static string GenerateJwtForUser(User user, string appSettingsToken)
         {
             var claims = new[]
@@ -36,5 +35,6 @@ namespace SkillListBackEnd.Helpers
             return tokenHandler.WriteToken(token);
 
         }
+
     }
 }

@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using SkillListBackEnd.DTOs.Users;
 using SkillListBackEnd.Helpers;
 using SkillListBackEnd.Models;
 using SkillListBackEnd.Repositories.Interfaces;
+using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Controllers
 {
     [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : SkillListControllerBase
     {
         private readonly IAuthRepository _authRepo;
         private readonly IConfiguration _config;
@@ -45,7 +40,7 @@ namespace SkillListBackEnd.Controllers
                 return Unauthorized();
             }
 
-            string token = Crypto.GenerateJwtForUser(userFromRepo, _config.GetSection("AppSettings:Token").Value);
+            string token = TokenHelper.GenerateJwtForUser(userFromRepo, _config.GetSection("AppSettings:Token").Value);
             return Ok(new { token });
         }
     }

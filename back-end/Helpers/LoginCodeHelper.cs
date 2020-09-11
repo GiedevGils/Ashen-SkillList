@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Helpers
 {
@@ -11,13 +8,13 @@ namespace SkillListBackEnd.Helpers
     /// This is based on the RNGCryptoServiceProvider example given by Microsoft, found here:
     /// https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.rngcryptoserviceprovider?view=netcore-3.1
     /// </summary>
-    public static class LoginCodeGenerator
+    public static class LoginCodeHelper
     {
         private static RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
 
         private readonly static string[] potentialCharacters = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
         private const int codeLength = 6;
-        
+
         /// <summary>
         /// Generate a code for the user.
         /// </summary>

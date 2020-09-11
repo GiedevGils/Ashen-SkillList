@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SkillListBackEnd.DTOs.Users
+﻿namespace SkillListBackEnd.DTOs.Users
 {
     /// <summary>
     /// DTO for logging in

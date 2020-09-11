@@ -23,6 +23,11 @@ namespace SkillListBackEnd.Models
         [MinLength(6)]
         public string Code { get; set; }
 
-        public IEnumerable<Character> Characters { get; set; }
+        public ICollection<Character> Characters { get; set; }
+
+        /// <summary>
+        /// Whether the user is an admin or not. This is not settable, and can only be changed in the database itself.
+        /// </summary>
+        public bool IsAdmin { get; set; }
     }
 }

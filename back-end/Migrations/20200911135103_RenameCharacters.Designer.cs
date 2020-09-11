@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SkillListBackEnd.Data;
 
 namespace SkillListBackEnd.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200911135103_RenameCharacters")]
+    partial class RenameCharacters
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,33 +69,6 @@ namespace SkillListBackEnd.Migrations
                     b.ToTable("Characters");
                 });
 
-            modelBuilder.Entity("SkillListBackEnd.Models.CharacterAnswer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AnswerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CharacterId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnswerId");
-
-                    b.HasIndex("CharacterId");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("CharacterAnswer");
-                });
-
             modelBuilder.Entity("SkillListBackEnd.Models.Question", b =>
                 {
                     b.Property<int>("Id")
@@ -135,9 +110,6 @@ namespace SkillListBackEnd.Migrations
                         .HasColumnType("nvarchar(6)")
                         .HasMaxLength(6);
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(40)")
                         .HasMaxLength(40);
@@ -145,6 +117,33 @@ namespace SkillListBackEnd.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("SkillListBackEnd.Models.UserAnswer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AnswerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CharacterId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnswerId");
+
+                    b.HasIndex("CharacterId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("UserAnswers");
                 });
 
             modelBuilder.Entity("SkillListBackEnd.Models.Answer", b =>
@@ -161,7 +160,7 @@ namespace SkillListBackEnd.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("SkillListBackEnd.Models.CharacterAnswer", b =>
+            modelBuilder.Entity("SkillListBackEnd.Models.UserAnswer", b =>
                 {
                     b.HasOne("SkillListBackEnd.Models.Answer", "Answer")
                         .WithMany()
