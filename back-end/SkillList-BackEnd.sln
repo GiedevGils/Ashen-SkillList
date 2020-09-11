@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "back-end", "back-end.csproj", "{8A2C5E22-55F9-4889-B123-B2A32755456F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkillList-BackEnd", "SkillList-BackEnd.csproj", "{EBB0C4B1-EC0C-41EE-909A-DF58DB7A2274}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8A2C5E22-55F9-4889-B123-B2A32755456F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A2C5E22-55F9-4889-B123-B2A32755456F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A2C5E22-55F9-4889-B123-B2A32755456F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A2C5E22-55F9-4889-B123-B2A32755456F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBB0C4B1-EC0C-41EE-909A-DF58DB7A2274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBB0C4B1-EC0C-41EE-909A-DF58DB7A2274}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBB0C4B1-EC0C-41EE-909A-DF58DB7A2274}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBB0C4B1-EC0C-41EE-909A-DF58DB7A2274}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

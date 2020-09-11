@@ -1,10 +1,12 @@
-using SkillListBackEnd.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using SkillListBackEnd.Data;
+using SkillListBackEnd.Repositories.Implementations;
+using SkillListBackEnd.Repositories.Interfaces;
 
 namespace SkillListBackEnd
 {
@@ -23,6 +25,8 @@ namespace SkillListBackEnd
             services.AddControllers();
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            // Services
+            services.AddScoped<IAuthRepository, AuthRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
