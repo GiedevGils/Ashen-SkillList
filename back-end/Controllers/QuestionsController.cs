@@ -12,6 +12,9 @@ using SkillListBackEnd.Repositories.Interfaces;
 
 namespace SkillListBackEnd.Controllers
 {
+    /// <summary>
+    /// Controls the requests for questions and question categories. Only accesible by admins
+    /// </summary>
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -64,9 +67,9 @@ namespace SkillListBackEnd.Controllers
 
             QuestionCategory category = _mapper.Map<QuestionCategory>(categoryToUpdate);
 
-            QuestionCategory questionCategory = await _questionRepository.UpdateQuestionCategory(categoryToUpdate.Id, category);
+            QuestionCategory updatedCategory = await _questionRepository.UpdateQuestionCategory(categoryToUpdate.Id, category);
 
-            return Ok(questionCategory);
+            return Ok(updatedCategory);
         }
 
         [HttpDelete("delete-category")]

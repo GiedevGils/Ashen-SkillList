@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Controllers
 {
+    /// <summary>
+    /// Controls the requests for authentication and user data
+    /// </summary>
     [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]

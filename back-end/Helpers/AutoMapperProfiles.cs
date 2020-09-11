@@ -3,6 +3,7 @@ using SkillListBackEnd.DTOs.Characters;
 using SkillListBackEnd.DTOs.Categories;
 using SkillListBackEnd.Models;
 using SkillListBackEnd.DTOs.Questions;
+using SkillListBackEnd.DTOs.Answers;
 
 namespace SkillListBackEnd.Helpers
 {
@@ -21,6 +22,11 @@ namespace SkillListBackEnd.Helpers
 
             CreateMap<QuestionForCreateDto, Question>();
             CreateMap<QuestionForUpdateDto, Question>();
+            #endregion
+
+            #region Answers
+            CreateMap<AnswerForCreateDto, Answer>();
+            CreateMap<AnswerForUpdateDto, Answer>();
             #endregion
         }
     }
