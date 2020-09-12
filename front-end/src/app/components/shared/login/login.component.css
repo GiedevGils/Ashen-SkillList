@@ -1,0 +1,47 @@
+.form {
+  min-width: 500px;
+  max-width: 750px;
+  width: 100%;
+}
+
+.full-width {
+	width: 100%;
+}
+
+
+
+
+
+/* I shouldn't use ng-deep, but I couldn't find another way to do it. */
+::ng-deep .login-code-tooltip{
+    font-size: 0.8em;
+}
+
+::ng-deep .error-snackbar {
+  background-color: #D32F2F;
+}
+
+::ng-deep .success-snackbar {
+  background-color: #388E3C
+;
+}
+
+/* https://stackoverflow.com/questions/25180140/ */
+.code-input { 
+    text-transform: uppercase;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    text-transform: none;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    text-transform: none;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    text-transform: none;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    text-transform: none;
+}
+::placeholder { /* Recent browsers */
+    text-transform: none;
+}
