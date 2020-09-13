@@ -17,14 +17,6 @@
     font-size: 0.8em;
 }
 
-::ng-deep .error-snackbar {
-  background-color: #D32F2F;
-}
-
-::ng-deep .success-snackbar {
-  background-color: #388E3C
-;
-}
 
 /* https://stackoverflow.com/questions/25180140/ */
 .code-input { 

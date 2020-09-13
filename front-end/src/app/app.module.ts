@@ -8,20 +8,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/header/header.component';
-import { CharacterOverviewComponent } from './components/character-overview/character-overview.component';
-import { QuestionOverviewComponent } from './components/question-overview/question-overview.component';
-import { LoginComponent } from './components/shared/login/login.component';
-import { RegisterComponent } from './components/shared/register/register.component';
+import { CharacterOverviewComponent } from './components/characters/character-overview/character-overview.component';
+import { QuestionOverviewComponent } from './components/admin/question-overview/question-overview.component';
+import { LoginComponent } from './components/account/login/login.component';
+import { RegisterComponent } from './components/account/register/register.component';
 import { AppRoutingModule } from './routes/app-routing.module';
 import { InfoComponent } from './components/shared/info/info.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpHeadersInterceptor } from './interceptors/http-headers.interceptor';
 import { CookieService } from 'ngx-cookie-service';
+import { GenericTextPopupComponent } from './components/shared/generic-text-popup/generic-text-popup.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -32,10 +33,12 @@ import { CookieService } from 'ngx-cookie-service';
     LoginComponent,
     RegisterComponent,
     InfoComponent,
+    GenericTextPopupComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -47,7 +50,6 @@ import { CookieService } from 'ngx-cookie-service';
     MatDialogModule,
     MatInputModule,
     MatTooltipModule,
-    MatSnackBarModule,
   ],
   providers: [
     {

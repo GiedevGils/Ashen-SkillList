@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { InfoComponent } from '../info/info.component';
 import { MatDialog } from '@angular/material/dialog';
-import { RegisterComponent } from '../register/register.component';
-import { LoginComponent } from '../login/login.component';
+import { RegisterComponent } from '../../account/register/register.component';
+import { LoginComponent } from '../../account/login/login.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,10 +12,15 @@ import { LoginComponent } from '../login/login.component';
 })
 export class HeaderComponent implements OnInit {
   displayInfo: boolean;
+  isLoggedIn: boolean;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, protected authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.authService.getToken()) {
+      this.isLoggedIn = true;
+    }
+  }
 
   displayInfoPopup() {
     const dialog = this.dialog.open(InfoComponent);
@@ -26,5 +32,8 @@ export class HeaderComponent implements OnInit {
 
   displayLoginPopup() {
     const dialog = this.dialog.open(LoginComponent);
+    dialog.afterClosed().subscribe(() => {
+      this.isLoggedIn = true;
+    })
   }
 }

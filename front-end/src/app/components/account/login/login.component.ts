@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private snackbar: MatSnackBar
+    private toast: ToastService,
+    private dialogRef: MatDialogRef<LoginComponent>
   ) {}
 
   ngOnInit(): void {}
@@ -29,30 +31,25 @@ export class LoginComponent implements OnInit {
     const code = this.loginForm.get('loginCode').value;
 
     let message = '';
-    let classes = [];
 
-    this.authService.login(username, code).subscribe(
-      (res) => {
-        message = 'You are now logged in!';
-        classes = ['success-snackbar'];
-      },
-      (err) => {
-        if (err.status === 401) {
-          message = 'These login credentials were not correct';
-        } else {
-          message = 'There was an error, please let Ilthy know!';
+    this.authService
+      .login(username, code)
+      .subscribe(
+        (res) => {
+          this.authService.saveToken(res.token);
+          message = 'You are now logged in!';
+          this.toast.toastSuccess(message);
+        },
+        (err) => {
+          if (err.status === 401) {
+            message = 'These login credentials were not correct';
+          } else {
+            message = 'There was an error, please let Ilthy know!';
+          }
+          this.toast.toastError(message);
+          console.log(err);
         }
-        classes = ['error-snackbar'];
-        console.log(err);
-      },
-      () => {
-        this.snackbar.open(message, 'Ok!', {
-          duration: 5000,
-          horizontalPosition: 'end',
-          verticalPosition: 'top',
-          panelClass: classes,
-        });
-      }
-    );
+      )
+      .add(() => {});
   }
 }
