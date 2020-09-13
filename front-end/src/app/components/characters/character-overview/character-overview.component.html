@@ -1,5 +1,39 @@
-<h1 *ngIf="userInfo.isAdmin">All characters</h1>
-<h1 *ngIf="!userInfo.isAdmin">Your characters</h1>
-<mat-grid-list cols="3" rowHeight="25vh" >
-	<mat-grid-tile *ngFor='let char of characters'>{{char.name}}</mat-grid-tile>
-</mat-grid-list>
+<div *ngIf="!userInfo">You have to be logged in to view your characters.</div>
+
+<div *ngIf="userInfo">
+	<h1 *ngIf="userInfo.isAdmin">All characters</h1>
+	<h1 *ngIf="!userInfo.isAdmin">Your characters</h1>
+	<mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)" rowHeight="8em" gutterSize="25px">
+		<mat-grid-tile *ngFor='let char of characters'>
+			<mat-card class="character-card">
+				<mat-card-header>
+					<div mat-card-avatar class="squad-icon"
+						[ngClass]="{'blade': char.squad.toLowerCase() == 'blade', 'lance': char.squad.toLowerCase() == 'lance'}">
+					</div>
+					<mat-card-title>{{char.characterName}}</mat-card-title>
+					<mat-card-subtitle>{{char.squad}} - {{char.profession}}</mat-card-subtitle>
+				</mat-card-header>
+				<mat-card-actions align="end">
+					<button *ngIf="!userInfo.isAdmin" mat-stroked-button>Anwer questions for this character</button>
+					<button *ngIf="userInfo.isAdmin" mat-stroked-button>View character</button>
+					<button mat-icon-button color="error" (click)="deleteCharacter(char.id)">
+						<mat-icon>delete</mat-icon>
+					</button>
+				</mat-card-actions>
+			</mat-card>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<mat-card class="character-card">
+				<mat-card-header>
+					<mat-card-title>New character</mat-card-title>
+					<mat-card-subtitle>Add your next character!</mat-card-subtitle>
+				</mat-card-header>
+				<mat-card-actions align="end">
+					<button mat-stroked-button (click)="openCreateCharacterPopup()">
+						<mat-icon>add</mat-icon> Add
+					</button>
+				</mat-card-actions>
+			</mat-card>
+		</mat-grid-tile>
+	</mat-grid-list>
+</div>

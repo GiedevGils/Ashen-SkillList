@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SkillListBackEnd.Data;
 
 namespace SkillListBackEnd.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200913193944_AddProfessionToCharacter")]
+    partial class AddProfessionToCharacter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,7 +97,7 @@ namespace SkillListBackEnd.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("CharacterAnswers");
+                    b.ToTable("CharacterAnswer");
                 });
 
             modelBuilder.Entity("SkillListBackEnd.Models.Question", b =>
@@ -153,10 +155,6 @@ namespace SkillListBackEnd.Migrations
                         .HasMaxLength(40);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Users");
                 });

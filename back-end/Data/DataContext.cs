@@ -11,7 +11,14 @@ namespace SkillListBackEnd.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<QuestionCategory> Categories { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<CharacterAnswer> CharacterAnswer { get; set; }
+        public DbSet<CharacterAnswer> CharacterAnswers { get; set; }
         public DbSet<Character> Characters { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<User>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
+        }
     }
 }

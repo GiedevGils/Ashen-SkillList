@@ -7,5 +7,6 @@
     {
         public string CharacterName { get; set; }
         public string Squad { get; set; }
+        public string Profession { get; set; }
     }
 }

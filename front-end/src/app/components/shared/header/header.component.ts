@@ -17,25 +17,30 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean;
   userInfo: User;
 
-  constructor(public dialog: MatDialog, protected authService: AuthService, private toast: ToastService) {}
+  constructor(
+    public dialog: MatDialog,
+    protected authService: AuthService,
+    private toast: ToastService
+  ) {}
 
   ngOnInit(): void {
-    this.authService.getUserInfo().subscribe(
-      (res) => {
-        this.isLoggedIn = true;
-        this.userInfo = res;
-      },
-      (err) => {
-        if (err.status === 401) {
-          this.isLoggedIn = false;
-        }
-      }
-    );
+    this.authService.getUserInfo().subscribe((res) => {
+      this.userInfo = res;
+    });
+
+    this.authService.loginChange.subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
+    });
+
+    this.authService.userInfoChange.subscribe((userInfo) => {
+      this.userInfo = userInfo;
+    });
+    this.authService.getUserInfo();
   }
 
-  logout(){
+  logout() {
     this.authService.logout();
-    this.isLoggedIn = false;
+    this.authService.isLoggedIn = false;
     this.toast.toastInfo('You have been logged out');
   }
 
@@ -50,8 +55,7 @@ export class HeaderComponent implements OnInit {
   displayLoginPopup() {
     const dialog = this.dialog.open(LoginComponent);
     dialog.afterClosed().subscribe(() => {
-      this.userInfo = this.authService.getUserInfoCookie();
-      this.isLoggedIn = true;
+      this.authService.isLoggedIn = true;
     });
   }
 }

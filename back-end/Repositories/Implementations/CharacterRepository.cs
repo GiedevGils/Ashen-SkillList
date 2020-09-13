@@ -60,6 +60,7 @@ namespace SkillListBackEnd.Repositories.Implementations
             Character characterToUpdate = _context.Characters.FirstOrDefault(x => x.Id == characterId);
             characterToUpdate.CharacterName = updatedCharacter.CharacterName;
             characterToUpdate.Squad = updatedCharacter.Squad;
+            characterToUpdate.Profession = updatedCharacter.Profession;
             await _context.SaveChangesAsync();
             return characterToUpdate;
         }
@@ -71,6 +72,11 @@ namespace SkillListBackEnd.Repositories.Implementations
 
             Character charToDelete = await _context.Characters.FirstOrDefaultAsync(x => x.Id == characterId);
             _context.Characters.Remove(charToDelete);
+
+            // Remove character answers, too, or SQL will give error from not allowing the delete
+            IEnumerable<CharacterAnswer> answersToDelete = _context.CharacterAnswers.Where(x => x.Character == charToDelete);
+            _context.CharacterAnswers.RemoveRange(answersToDelete);
+
             await _context.SaveChangesAsync();
             return true;
         }

@@ -67,8 +67,8 @@ namespace SkillListBackEnd.Repositories.Implementations
             }
 
             // Delete existing entries, so that there's only one entry per answer per character
-            IEnumerable<CharacterAnswer> potentiallyExistingAnswers = _context.CharacterAnswer.Where(x => x.Question == question).Where(x => x.Character == character);
-            _context.CharacterAnswer.RemoveRange(potentiallyExistingAnswers);
+            IEnumerable<CharacterAnswer> potentiallyExistingAnswers = _context.CharacterAnswers.Where(x => x.Question == question).Where(x => x.Character == character);
+            _context.CharacterAnswers.RemoveRange(potentiallyExistingAnswers);
 
 
             CharacterAnswer charAnswer = new CharacterAnswer()
@@ -78,7 +78,7 @@ namespace SkillListBackEnd.Repositories.Implementations
                 Answer = answer
             };
 
-            _context.CharacterAnswer.Add(charAnswer);
+            _context.CharacterAnswers.Add(charAnswer);
             await _context.SaveChangesAsync();
             return charAnswer;
         }

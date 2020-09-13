@@ -39,6 +39,10 @@ namespace SkillListBackEnd.Repositories.Implementations
         {
             QuestionCategory category = _context.Categories.FirstOrDefault(x => x.Id == categoryId);
             _context.Categories.Remove(category);
+
+            // Delete the questions in the category
+            _context.Questions.RemoveRange(category.Questions);
+
             await _context.SaveChangesAsync();
             return true;
         }
@@ -78,6 +82,7 @@ namespace SkillListBackEnd.Repositories.Implementations
         {
             Question questionToDelete = await _context.Questions.FirstOrDefaultAsync(x => x.Id == questionId);
             _context.Questions.Remove(questionToDelete);
+            _context.Answers.RemoveRange(questionToDelete.Answers);
             await _context.SaveChangesAsync();
             return true;
         }

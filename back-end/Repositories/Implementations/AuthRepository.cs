@@ -36,7 +36,17 @@ namespace SkillListBackEnd.Repositories.Implementations
                 Code = LoginCodeHelper.GenerateCode()
             };
             await _context.Users.AddAsync(newUser);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            } 
+            catch(DbUpdateException ex)
+            {
+                if(ex.InnerException.Message.Contains("duplicate key"))
+                {
+                    return null;
+                }
+            }
             return newUser;
         }
 

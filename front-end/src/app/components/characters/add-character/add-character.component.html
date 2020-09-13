@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Create a new character</h2>
+
+<mat-dialog-content class="mat-typography">
+	<form class="form" [formGroup]="characterForm">
+		<mat-form-field class="full-width">
+			<mat-label>Character name</mat-label>
+
+			<input matInput #characterNameInput maxlength="40" placeholder="Character name" formControlName="characterName">
+
+			<mat-hint align="end">{{characterNameInput.value.length}} / 30</mat-hint>
+
+			<mat-error *ngIf="characterName.hasError('required')">
+				Character name is required.
+			</mat-error>
+		</mat-form-field>
+		<mat-form-field class="full-width">
+			<mat-label>Squad</mat-label>
+			<mat-select formControlName="squad">
+				<mat-option *ngFor="let squad of squads" [value]="squad">
+					{{squad}}
+				</mat-option>
+			</mat-select>
+
+			<mat-error *ngIf="squad.hasError('required')">
+				Squad is required.
+			</mat-error>
+		</mat-form-field>
+		<mat-form-field class="full-width">
+			<mat-label>Profession</mat-label>
+			<mat-select formControlName="profession">
+				<mat-option *ngFor="let profession of professions" [value]="profession">
+					{{profession}}
+				</mat-option>
+			</mat-select>
+		
+			<mat-error *ngIf="profession.hasError('required')">
+				Profession is required.
+			</mat-error>
+		</mat-form-field>
+	</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+	<button mat-button mat-dialog-close>Close</button>
+	<button mat-button color="primary"
+		[disabled]="characterName.hasError('required') || squad.hasError('required') || profession.hasError('required')"
+		(click)="addCharacter()">Add character</button>
+</mat-dialog-actions>

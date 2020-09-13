@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -25,6 +27,8 @@ import { HttpHeadersInterceptor } from './interceptors/http-headers.interceptor'
 import { CookieService } from 'ngx-cookie-service';
 import { GenericTextPopupComponent } from './components/shared/generic-text-popup/generic-text-popup.component';
 import { ToastrModule } from 'ngx-toastr';
+import { AddCharacterComponent } from './components/characters/add-character/add-character.component';
+import { WarningPopupComponent } from './components/shared/warning-popup/warning-popup.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +40,8 @@ import { ToastrModule } from 'ngx-toastr';
     RegisterComponent,
     InfoComponent,
     GenericTextPopupComponent,
+    AddCharacterComponent,
+    WarningPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +59,9 @@ import { ToastrModule } from 'ngx-toastr';
     MatInputModule,
     MatTooltipModule,
     MatMenuModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule,
+    MatSelectModule
   ],
   providers: [
     {

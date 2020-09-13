@@ -30,6 +30,10 @@ namespace SkillListBackEnd.Controllers
         public async Task<IActionResult> Register(UserForRegisterDto userForRegister)
         {
             var createdUser = await _authRepo.RegisterUser(userForRegister.Username);
+            if (createdUser == null)
+            {
+                return BadRequest("This username is already used. Please choose another username");
+            }
             return Created("no-url", createdUser);
         }
 
