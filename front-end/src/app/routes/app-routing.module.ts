@@ -4,6 +4,7 @@ import { CharacterOverviewComponent } from '../components/characters/character-o
 import { QuestionOverviewComponent } from '../components/admin/question-overview/question-overview.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'character-overview', pathMatch: 'full'},
   { path: 'character-overview', component: CharacterOverviewComponent },
   { path: 'question-overview', component: QuestionOverviewComponent },
 ]; // sets up routes constant where you define your routes

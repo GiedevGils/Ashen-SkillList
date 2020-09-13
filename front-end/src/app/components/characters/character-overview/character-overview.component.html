@@ -1,1 +1,5 @@
-<p>character-overview works!</p>
+<h1 *ngIf="userInfo.isAdmin">All characters</h1>
+<h1 *ngIf="!userInfo.isAdmin">Your characters</h1>
+<mat-grid-list cols="3" rowHeight="25vh" >
+	<mat-grid-tile *ngFor='let char of characters'>{{char.name}}</mat-grid-tile>
+</mat-grid-list>

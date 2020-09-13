@@ -6,3 +6,7 @@
   vertical-align: middle;
   padding-right: 0.1em;
 }
+
+mat-toolbar {
+  margin-bottom: 10vh;
+}

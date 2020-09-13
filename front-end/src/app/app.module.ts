@@ -9,6 +9,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -51,7 +52,8 @@ import { ToastrModule } from 'ngx-toastr';
     MatDialogModule,
     MatInputModule,
     MatTooltipModule,
-    MatMenuModule
+    MatMenuModule,
+    MatGridListModule
   ],
   providers: [
     {

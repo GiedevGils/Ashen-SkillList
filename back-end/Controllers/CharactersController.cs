@@ -44,7 +44,7 @@ namespace SkillListBackEnd.Controllers
         /// Get all characters for a user
         /// </summary>
         /// <returns>An <see cref="OkResult"/> with an <see cref="IEnumerable{T}"/></returns>
-        [HttpGet("characters")]
+        [HttpGet("get-all-characters")]
         public async Task<IActionResult> GetCharactersForUser()
         {
             int userId = GetUserIdFromToken();
