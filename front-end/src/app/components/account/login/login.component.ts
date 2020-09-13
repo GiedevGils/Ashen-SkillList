@@ -35,10 +35,10 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(username, code)
       .subscribe(
-        (res) => {
-          this.authService.saveToken(res.token);
+        _ => {
           message = 'You are now logged in!';
           this.toast.toastSuccess(message);
+          this.dialogRef.close();
         },
         (err) => {
           if (err.status === 401) {
@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit {
           this.toast.toastError(message);
           console.log(err);
         }
-      )
-      .add(() => {});
+      );
   }
 }

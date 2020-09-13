@@ -12,7 +12,6 @@ namespace SkillListBackEnd.Controllers
     /// <summary>
     /// Controls the requests for authentication and user data
     /// </summary>
-    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : SkillListControllerBase
@@ -26,6 +25,7 @@ namespace SkillListBackEnd.Controllers
             _config = config;
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegister)
         {
@@ -33,6 +33,7 @@ namespace SkillListBackEnd.Controllers
             return Created("no-url", createdUser);
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto login)
         {
@@ -45,6 +46,15 @@ namespace SkillListBackEnd.Controllers
 
             string token = TokenHelper.GenerateJwtForUser(userFromRepo, _config.GetSection("AppSettings:Token").Value);
             return Ok(new { token });
+        }
+
+        [Authorize]
+        [HttpGet("user-info")]
+        public async Task<IActionResult> GetUserInfo()
+        {
+            int userId = GetUserIdFromToken();
+            User user = await _authRepo.GetUserInfo(userId);
+            return Ok(user);
         }
     }
 }

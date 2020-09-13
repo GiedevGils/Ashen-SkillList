@@ -39,5 +39,11 @@ namespace SkillListBackEnd.Repositories.Implementations
             await _context.SaveChangesAsync();
             return newUser;
         }
+
+        public async Task<User> GetUserInfo(int userId)
+        {
+            User userToReturn = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            return userToReturn;
+        }
     }
 }

@@ -1,8 +1,18 @@
 <mat-toolbar>
 	<span>Ashen Chapter - Skill List</span>
+
 	<span class="spacer"></span>
-	<div>
-		<!-- *ngIf="!isLoggedIn" -->
+
+		<button *ngIf="isLoggedIn" mat-button [matMenuTriggerFor]="userMenu">{{userInfo?.name}}
+			<mat-icon >arrow_drop_down</mat-icon>
+		</button>
+
+	<mat-menu #userMenu="matMenu">
+		<button mat-menu-item (click)="logout()">Log out</button>
+	</mat-menu>
+
+
+	<div *ngIf="!isLoggedIn">
 		<button mat-icon-button aria-label="Login button" (click)="displayLoginPopup()" title="Login">
 			<mat-icon>login</mat-icon>
 		</button>
@@ -10,6 +20,7 @@
 			<mat-icon>person_add</mat-icon>
 		</button>
 	</div>
+
 	<button mat-icon-button aria-label="Info button" (click)="displayInfoPopup()" title="Application info">
 		<mat-icon>info</mat-icon>
 	</button>

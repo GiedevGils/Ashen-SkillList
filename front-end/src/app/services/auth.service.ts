@@ -4,13 +4,15 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { Config } from '../../config';
 import { User } from '../models/user.model';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private baseUrl = `${Config.url}:${Config.port}/api/auth`;
-  tokenCookieKey = 'token';
+  private tokenCookieKey = 'token';
+  private userCookieKey = 'userInfo';
 
   constructor(private http: HttpClient, private cookies: CookieService) {}
 
@@ -22,7 +24,25 @@ export class AuthService {
     return this.http.post<{ token: string }>(`${this.baseUrl}/login`, {
       username,
       code,
-    });
+    }).pipe(
+      tap((res) => {
+        this.saveToken(res.token);
+        this.getUserInfo().subscribe();
+      })
+    );
+  }
+
+  logout(){
+    this.cookies.set(this.userCookieKey, null);
+    this.cookies.set(this.tokenCookieKey, null);
+  }
+
+  getUserInfo(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/user-info`).pipe(
+      tap((userInfo) => {
+        this.saveUserInfo(userInfo);
+      })
+    );
   }
 
   saveToken(token: string) {
@@ -31,5 +51,13 @@ export class AuthService {
 
   getToken() {
     return this.cookies.get(this.tokenCookieKey);
+  }
+
+  saveUserInfo(userInfo: User) {
+    this.cookies.set(this.userCookieKey, JSON.stringify(userInfo), 30);
+  }
+
+  getUserInfoCookie(): User {
+    return JSON.parse(this.cookies.get(this.userCookieKey));
   }
 }
