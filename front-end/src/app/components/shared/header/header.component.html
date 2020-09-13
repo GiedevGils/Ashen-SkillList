@@ -3,21 +3,33 @@
 
 	<span class="spacer"></span>
 
-		<button *ngIf="isLoggedIn" mat-stroked-button [matMenuTriggerFor]="userMenu">{{userInfo?.name}}
-			<mat-icon >arrow_drop_down</mat-icon>
+	<div *ngIf="userInfo?.isAdmin">
+		<button mat-stroked-button aria-label="Overview of all characters" title="Overview of all characters" routerLink="/character-overview">
+			List characters <mat-icon>group</mat-icon>
 		</button>
+		<button mat-stroked-button aria-label="Overview of all characters" title="Overview of all characters">
+			Manage characters <mat-icon>groups</mat-icon>
+		</button>
+		<button mat-stroked-button aria-label="Overview of all questions" title="Overview of all questions" routerLink="/question-overview">
+			Overview questions <mat-icon>question_answer</mat-icon>
+		</button>
+	</div>
 
-	<mat-menu #userMenu="matMenu">
-		<button mat-menu-item (click)="logout()">Log out</button>
+	<button *ngIf="isLoggedIn" mat-stroked-button [matMenuTriggerFor]="userMenu" title="User information">
+		{{userInfo?.name}} <mat-icon>arrow_drop_down</mat-icon>
+	</button>
+
+	<mat-menu #userMenu="matMenu" class="user-menu">
+		<button mat-menu-item (click)="logout()" >Log out</button>
 	</mat-menu>
 
 
 	<div *ngIf="!isLoggedIn">
-		<button mat-icon-button aria-label="Login button" (click)="displayLoginPopup()" title="Login">
-			<mat-icon>login</mat-icon>
+		<button mat-button aria-label="Login button" (click)="displayLoginPopup()" title="Login">
+			Log in <mat-icon>login</mat-icon>
 		</button>
-		<button mat-icon-button aria-label="Register button" (click)="displayRegisterPopup()" title="Register">
-			<mat-icon>person_add</mat-icon>
+		<button mat-button aria-label="Register button" (click)="displayRegisterPopup()" title="Register">
+			Register <mat-icon>person_add</mat-icon>
 		</button>
 	</div>
 

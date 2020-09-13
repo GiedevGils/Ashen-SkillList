@@ -29,14 +29,17 @@ export class CharacterOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.breakpoint = window.innerWidth <= 400 ? 1 : 3;
 
-    this.getCharacters();
     this.authService.userInfoChange.subscribe((userInfo) => {
       this.userInfo = userInfo;
     });
 
+    this.authService.getUserInfo().subscribe();
+
     this.authService.loginChange.subscribe((_) => {
       this.getCharacters();
     });
+
+    this.getCharacters();
   }
 
   getCharacters() {

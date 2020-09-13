@@ -20,9 +20,9 @@ export class AddCharacterComponent implements OnInit {
     'Elementalist',
     'Necromancer',
     'Mesmer',
-  ];
+  ].sort();
 
-  squads = ['Lance', 'Blade'];
+  squads = ['Lance', 'Blade'].sort();
 
   characterName = new FormControl('', [Validators.required]);
   squad = new FormControl('', [Validators.required]);
