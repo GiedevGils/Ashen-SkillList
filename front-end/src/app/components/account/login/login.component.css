@@ -1,5 +1,4 @@
 .form {
-  min-width: 500px;
   max-width: 750px;
   width: 100%;
 }
@@ -7,10 +6,6 @@
 .full-width {
 	width: 100%;
 }
-
-
-
-
 
 /* I shouldn't use ng-deep, but I couldn't find another way to do it. */
 ::ng-deep .login-code-tooltip{

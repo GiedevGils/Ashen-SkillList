@@ -75,7 +75,7 @@ import { SingleQuestionComponent } from './components/admin/single-question/sing
     MatExpansionModule,
     MatTreeModule,
     MatDividerModule,
-    MatTableModule
+    MatTableModule,
   ],
   providers: [
     {

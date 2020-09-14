@@ -13,6 +13,14 @@ export class QuestionService {
   constructor(private http: HttpClient) {}
 
   getAllQuestions(): Observable<QuestionCategory[]> {
-    return this.http.get<QuestionCategory[]>(`${this.baseUrl}/get-all-questions`);
+    return this.http.get<QuestionCategory[]>(
+      `${this.baseUrl}/get-all-questions`
+    );
+  }
+
+  deleteCategory(id: number) {
+    return this.http.request('delete', `${this.baseUrl}/delete-category`, {
+      body: { id },
+    });
   }
 }

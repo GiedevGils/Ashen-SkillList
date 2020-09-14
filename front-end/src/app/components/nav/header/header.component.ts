@@ -60,9 +60,6 @@ export class HeaderComponent implements OnInit {
 
   displayLoginPopup() {
     const dialog = this.dialog.open(LoginComponent);
-    dialog.afterClosed().subscribe(() => {
-      this.authService.isLoggedIn = true;
-    });
   }
 
   setMenuHidden(event, width?: number) {
