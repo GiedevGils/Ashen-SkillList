@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { InfoComponent } from '../info/info.component';
+import { InfoComponent } from '../../shared/info/info.component';
 import { MatDialog } from '@angular/material/dialog';
 import { RegisterComponent } from '../../account/register/register.component';
 import { LoginComponent } from '../../account/login/login.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user.model';
 import { ToastService } from 'src/app/services/toast.service';
+import { MenuItem, MenuService } from 'src/app/services/menu.service';
 
 @Component({
   selector: 'app-header',
@@ -16,11 +17,14 @@ export class HeaderComponent implements OnInit {
   displayInfo: boolean;
   isLoggedIn: boolean;
   userInfo: User;
+  menuItems: MenuItem[];
+  shouldMenuBeSmaller: boolean;
 
   constructor(
     public dialog: MatDialog,
     protected authService: AuthService,
-    private toast: ToastService
+    private toast: ToastService,
+    private menu: MenuService
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +40,8 @@ export class HeaderComponent implements OnInit {
       this.userInfo = userInfo;
     });
     this.authService.getUserInfo();
+    this.menuItems = this.menu.getMenu();
+    this.setMenuHidden(null, window.innerWidth);
   }
 
   logout() {
@@ -57,5 +63,23 @@ export class HeaderComponent implements OnInit {
     dialog.afterClosed().subscribe(() => {
       this.authService.isLoggedIn = true;
     });
+  }
+
+  setMenuHidden(event, width?: number) {
+    let windowWidth: number;
+
+    if (width && !event) {
+      windowWidth = width;
+    } else if (event && !width) {
+      windowWidth = event.target.innerWidth || 800;
+    } else {
+      return;
+    }
+
+    if (windowWidth <= 1200) {
+      this.shouldMenuBeSmaller = true;
+    } else {
+      this.shouldMenuBeSmaller = false;
+    }
   }
 }

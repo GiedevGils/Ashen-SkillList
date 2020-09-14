@@ -10,3 +10,15 @@
 button {
   margin-left: 5px;
 }
+
+.banner-img-container {
+  height: 100%;  
+}
+
+.banner-img {
+  height: 100%;
+}
+
+div {
+  display: inherit
+}

@@ -12,9 +12,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/shared/header/header.component';
+import { HeaderComponent } from './components/nav/header/header.component';
 import { CharacterOverviewComponent } from './components/characters/character-overview/character-overview.component';
 import { QuestionOverviewComponent } from './components/admin/question-overview/question-overview.component';
 import { LoginComponent } from './components/account/login/login.component';
@@ -29,6 +35,7 @@ import { GenericTextPopupComponent } from './components/shared/generic-text-popu
 import { ToastrModule } from 'ngx-toastr';
 import { AddCharacterComponent } from './components/characters/add-character/add-character.component';
 import { WarningPopupComponent } from './components/shared/warning-popup/warning-popup.component';
+import { SingleQuestionComponent } from './components/admin/single-question/single-question.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +49,7 @@ import { WarningPopupComponent } from './components/shared/warning-popup/warning
     GenericTextPopupComponent,
     AddCharacterComponent,
     WarningPopupComponent,
+    SingleQuestionComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +69,13 @@ import { WarningPopupComponent } from './components/shared/warning-popup/warning
     MatMenuModule,
     MatGridListModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSidenavModule,
+    MatListModule,
+    MatExpansionModule,
+    MatTreeModule,
+    MatDividerModule,
+    MatTableModule
   ],
   providers: [
     {

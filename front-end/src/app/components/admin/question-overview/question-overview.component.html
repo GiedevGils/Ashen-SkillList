@@ -1,1 +1,28 @@
-<p>question-overview works!</p>
+<h1>Manage questions</h1>
+
+<mat-expansion-panel *ngFor="let cat of questionCategories">
+
+	<mat-expansion-panel-header>
+		<mat-panel-title>
+			{{cat.description}}
+		</mat-panel-title>
+	</mat-expansion-panel-header>
+
+	<mat-panel-description>
+		<p>Change the questions for {{cat.description}}:</p>
+		<app-single-question [questionCategory]="cat"></app-single-question>
+	</mat-panel-description>
+
+	<mat-action-row>
+		<button mat-stroked-button>
+			Add question to category <mat-icon>add</mat-icon>
+		</button>
+		<button mat-stroked-button>
+			Edit category <mat-icon>edit</mat-icon>
+		</button>
+		<button mat-stroked-button title="" color="error">
+			Delete category <mat-icon>delete</mat-icon>
+		</button>
+	</mat-action-row>
+
+</mat-expansion-panel>

@@ -1,0 +1,11 @@
+.question-panel :nth-child(even) {
+	background-color: red;
+}
+
+table {
+	width: 100%;
+}
+
+.question-card:nth-child(odd) {
+	background: red;
+}

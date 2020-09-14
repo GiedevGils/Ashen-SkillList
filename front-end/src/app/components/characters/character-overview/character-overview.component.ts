@@ -17,7 +17,7 @@ export class CharacterOverviewComponent implements OnInit {
   userInfo: User;
   characters: Character[];
   isLoggedIn: boolean;
-  breakpoint = 3;
+  amountOfColumns = 3;
 
   constructor(
     private authService: AuthService,
@@ -27,7 +27,7 @@ export class CharacterOverviewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.breakpoint = window.innerWidth <= 400 ? 1 : 3;
+    this.setGridColumnNumber(null, window.innerWidth);
 
     this.authService.userInfoChange.subscribe((userInfo) => {
       this.userInfo = userInfo;
@@ -56,8 +56,25 @@ export class CharacterOverviewComponent implements OnInit {
   }
 
   // Used for proper scaling of the grid list
-  onResize(event) {
-    this.breakpoint = event.target.innerWidth <= 400 ? 1 : 3;
+  setGridColumnNumber(event, width?: number) {
+    let windowWidth: number;
+
+    if (width && !event) {
+      windowWidth = width;
+    } else if (event && !width) {
+      windowWidth = event.target.innerWidth || 800;
+    }
+    else {
+      return;
+    }
+
+    if (windowWidth <= 800) {
+      this.amountOfColumns = 1;
+    } else if (windowWidth <= 1200) {
+      this.amountOfColumns = 2;
+    } else {
+      this.amountOfColumns = 3;
+    }
   }
 
   deleteCharacter(charId: number) {

@@ -28,7 +28,7 @@ export class AdminGuard implements CanActivate {
 
     if (!loggedIn) {
       this.toast.toastError(
-        `Only administratos have access to view this page.`
+        `The application is unsure whether or not you are an administrator. Please try to navigate to this page again, then it should work.`
       );
     }
     return loggedIn && isAdmin;

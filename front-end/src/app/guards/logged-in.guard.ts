@@ -9,6 +9,7 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { ToastService } from '../services/toast.service';
+import { first, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -24,11 +25,11 @@ export class LoggedInGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const loggedIn = this.authService.isLoggedIn;
 
-    if (!loggedIn) {
-      this.toast.toastError(`You are currently not logged in. You do not have access to view this page.`)
+    if (this.authService.getToken()) {
+      return true;
     }
-    return loggedIn;
+
+    return false;
   }
 }

@@ -3,3 +3,9 @@
 	margin-right: 10%;
 	margin-top: 10px;
 }
+
+mat-sidenav-content {
+	height: 100vh;
+	background-color: white;
+	color: #2d2d2d;
+}

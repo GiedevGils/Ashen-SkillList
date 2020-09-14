@@ -12,7 +12,7 @@ export class QuestionService {
 
   constructor(private http: HttpClient) {}
 
-  getAllQuestions(): Observable<QuestionCategory> {
-    return this.http.get<QuestionCategory>(`${this.baseUrl}/get-all-questions`);
+  getAllQuestions(): Observable<QuestionCategory[]> {
+    return this.http.get<QuestionCategory[]>(`${this.baseUrl}/get-all-questions`);
   }
 }

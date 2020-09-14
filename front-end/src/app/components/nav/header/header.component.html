@@ -1,0 +1,77 @@
+<mat-toolbar (window:resize)="setMenuHidden($event)">
+	<div class="banner-img-container">
+		<img src="https://wiki.guildwars2.com/images/4/4b/Vigil_banner.png" class="banner-img">
+	</div>
+	<span>Ashen Chapter - Skill List</span>
+
+	<span class="spacer"></span>
+
+	<!-- Regular menu -->
+	<div *ngIf="!shouldMenuBeSmaller">
+		<!-- Loop through items in menu service -->
+		<div *ngFor="let menuItem of menuItems">
+			<button mat-stroked-button *ngIf="userInfo?.isAdmin == menuItem.isAdminLink || !menuItem.isAdminLink"
+				[routerLink]="menuItem.link">
+				<mat-icon> {{menuItem.icon}}</mat-icon> {{menuItem.text}}
+			</button>
+		</div>
+
+		<!-- If logged in, add user info menu -->
+		<button *ngIf="isLoggedIn" mat-stroked-button [matMenuTriggerFor]="userMenu" title="User information">
+			<mat-icon>person</mat-icon> {{userInfo?.name}} <mat-icon>arrow_drop_down</mat-icon>
+		</button>
+
+		<!-- If not logged in, display register and login button -->
+		<div *ngIf="!isLoggedIn">
+			<button mat-stroked-button aria-label="Login button" (click)="displayLoginPopup()" title="Login">
+				<mat-icon>login</mat-icon> Log in
+			</button>
+			<button mat-stroked-button aria-label="Register button" (click)="displayRegisterPopup()" title="Register">
+				<mat-icon>person_add</mat-icon> Register
+			</button>
+		</div>
+
+		<!-- Info button -->
+		<button mat-icon-button aria-label="Info button" (click)="displayInfoPopup()" title="Application info">
+			<mat-icon>info</mat-icon>
+		</button>
+	</div>
+
+	<!-- Responsive menu -->
+	<div *ngIf="shouldMenuBeSmaller">
+		<button mat-icon-button [matMenuTriggerFor]="overviewMenu">
+			<mat-icon>menu</mat-icon>
+		</button>
+		<mat-menu #overviewMenu="matMenu">
+			<div *ngFor="let menuItem of menuItems">
+				<button mat-menu-item *ngIf="userInfo?.isAdmin == menuItem.isAdminLink || !menuItem.isAdminLink"
+					[routerLink]="menuItem.link">
+					<mat-icon> {{menuItem.icon}}</mat-icon> {{menuItem.text}}
+				</button>
+			</div>
+			<div *ngIf="!isLoggedIn">
+				<button mat-menu-item aria-label="Login button" (click)="displayLoginPopup()" title="Login">
+					<mat-icon>login</mat-icon> Log in
+				</button>
+				<button mat-menu-item aria-label="Register button" (click)="displayRegisterPopup()" title="Register">
+					<mat-icon>person_add</mat-icon> Register
+				</button>
+			</div>
+
+			<button *ngIf="isLoggedIn" mat-menu-item [matMenuTriggerFor]="userMenu" title="User information">
+				<mat-icon>person</mat-icon> {{userInfo?.name}}
+			</button>
+
+			<button mat-menu-item aria-label="Info button" (click)="displayInfoPopup()" title="Application info">
+				<mat-icon>info</mat-icon> Info
+			</button>
+		</mat-menu>
+	</div>
+
+</mat-toolbar>
+
+
+
+<mat-menu #userMenu="matMenu">
+	<button mat-menu-item (click)="logout()">Log out</button>
+</mat-menu>
