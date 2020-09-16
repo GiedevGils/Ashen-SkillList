@@ -3,7 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuestionCategory } from 'src/app/models/question-category.model';
 import { QuestionService } from 'src/app/services/question.service';
+import { ResponsiveService } from 'src/app/services/responsive.service';
+import { ToastService } from 'src/app/services/toast.service';
 import { WarningPopupComponent } from '../../shared/warning-popup/warning-popup.component';
+import { AddEditCategoryComponent } from '../add-edit-category/add-edit-category.component';
 
 @Component({
   selector: 'app-question-overview',
@@ -15,20 +18,24 @@ export class QuestionOverviewComponent implements OnInit {
   questionCategories: QuestionCategory[];
   displayedColumns = ['description', 'numberOfQuestions', 'adminButtons'];
   expandedElement: QuestionCategory | null;
+  shouldViewBeCompact: boolean;
 
   constructor(
     private questionService: QuestionService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toast: ToastService,
+    private responsive: ResponsiveService
   ) {}
 
   ngOnInit(): void {
-    this.questionService.getAllQuestions().subscribe((res) => {
-      this.questionCategories = res;
-      this.readyForTable = true;
+    this.getQuestions();
+    this.responsive.viewChange.subscribe((shouldBeCompact) => {
+      this.shouldViewBeCompact = shouldBeCompact;
     });
+    this.shouldViewBeCompact = this.responsive.shouldViewBeCompact;
   }
 
-  deleteCharacter(catId: number) {
+  deleteCategory(catId: number) {
     const dialogRef = this.dialog.open(WarningPopupComponent, {
       data: {
         title: 'Are you sure?',
@@ -39,7 +46,48 @@ export class QuestionOverviewComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        this.questionService.deleteCategory(catId).subscribe(
+          (_) => {
+            this.toast.toastSuccess('The category has been deleted');
+            const catToRemove = this.questionCategories.find(
+              (x) => x.id === catId
+            );
+            const indexOfItemToRemove = this.questionCategories.indexOf(
+              catToRemove
+            );
+            this.questionCategories.splice(
+              indexOfItemToRemove,
+              1
+            );
+          },
+          (err) => {
+            this.toast.toastError(
+              `${err.status} - Something went wrong! Please let Ilthy know!`
+            );
+          }
+        );
       }
+    });
+  }
+
+  addCategory() {
+    const dialogRef = this.dialog.open(AddEditCategoryComponent);
+    dialogRef.afterClosed().subscribe((newCat) => {
+      if (!newCat) { return; } // If newCat is empty, don't push
+      this.questionCategories.push(newCat);
+    });
+  }
+
+  editCategory(cat: QuestionCategory) {
+    this.dialog.open(AddEditCategoryComponent, {
+      data: { category: cat },
+    });
+  }
+
+  getQuestions() {
+    this.questionService.getAllQuestions().subscribe((res) => {
+      this.questionCategories = res;
+      this.readyForTable = true;
     });
   }
 }

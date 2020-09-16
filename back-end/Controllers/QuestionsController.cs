@@ -1,14 +1,12 @@
-﻿using System.Security.Authentication;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Razor.TagHelpers;
 using SkillListBackEnd.DTOs.Categories;
 using SkillListBackEnd.DTOs.Questions;
 using SkillListBackEnd.Helpers;
 using SkillListBackEnd.Models;
 using SkillListBackEnd.Repositories.Interfaces;
+using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Controllers
 {
@@ -30,7 +28,7 @@ namespace SkillListBackEnd.Controllers
             this._mapper = mapper;
             this._questionRepository = _questionRepository;
         }
-        
+
         [HttpPost("create-category")]
         public async Task<IActionResult> CreateCategory(CategoryForCreateDto body)
         {

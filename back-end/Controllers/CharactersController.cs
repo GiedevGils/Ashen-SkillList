@@ -63,7 +63,7 @@ namespace SkillListBackEnd.Controllers
             int userId = GetUserIdFromToken();
             Character characterToUpdate = _mapper.Map<Character>(character);
             Character updatedCharacter = await _charRepo.UpdateCharacter(userId, characterToUpdate.Id, characterToUpdate);
-            if(updatedCharacter == null)
+            if (updatedCharacter == null)
             {
                 return Unauthorized();
             }

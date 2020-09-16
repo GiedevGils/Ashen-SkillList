@@ -1,10 +1,8 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using SkillListBackEnd.Data;
 using SkillListBackEnd.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace SkillListBackEnd.Helpers

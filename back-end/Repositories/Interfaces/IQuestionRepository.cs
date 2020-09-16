@@ -1,7 +1,5 @@
 ﻿using SkillListBackEnd.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Repositories.Interfaces
@@ -30,7 +28,7 @@ namespace SkillListBackEnd.Repositories.Interfaces
         /// <param name="cat">The category with updated values</param>
         /// <returns>The updated category</returns>
         Task<QuestionCategory> UpdateQuestionCategory(int questionCategory, QuestionCategory cat);
-        
+
         /// <summary>
         /// 
         /// </summary>

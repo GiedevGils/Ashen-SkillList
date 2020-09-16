@@ -5,3 +5,15 @@ mat-expansion-panel {
 mat-panel-description {
   display: inherit;
 }
+
+.fab-container {
+  position: relative;
+  margin-bottom: 2vh;;
+}
+
+.add-cat-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 2vh;;
+}

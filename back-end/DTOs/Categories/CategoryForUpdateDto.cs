@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using SkillListBackEnd.Enums;
 
 namespace SkillListBackEnd.DTOs.Categories
 {
@@ -12,5 +9,7 @@ namespace SkillListBackEnd.DTOs.Categories
     {
         public int Id { get; set; }
         public string Description { get; set; }
+        public CategoryType Type { get; set; }
+
     }
 }

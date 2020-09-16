@@ -54,7 +54,7 @@ export class AddCharacterComponent implements OnInit {
       },
       (err) => {
         this.toast.toastError(
-          `Something went wrong creating your character! Please let Ilthy know!`
+          `${err.status} - Something went wrong creating your character! Please let Ilthy know!`
         );
         console.error(err);
       }

@@ -1,4 +1,12 @@
-<h1>Manage questions</h1>
+<h1 class="mat-h1">Manage questions</h1>
+
+<div class="fab-container">
+	<button mat-flat-button class="add-cat-btn" (click)="addCategory()">
+		Add category <mat-icon>add</mat-icon>
+	</button>
+</div>
+
+<hr>
 
 <mat-expansion-panel *ngFor="let cat of questionCategories">
 
@@ -10,18 +18,29 @@
 
 	<mat-panel-description>
 		<p>Change the questions for {{cat.description}}:</p>
-		<app-single-question [questionCategory]="cat"></app-single-question>
+		<app-single-question [questionCategory]="cat" (questionsChange)="getQuestions()"></app-single-question>
 	</mat-panel-description>
 
-	<mat-action-row>
+	<mat-action-row *ngIf="!shouldViewBeCompact">
 		<button mat-stroked-button>
 			Add question to category <mat-icon>add</mat-icon>
 		</button>
-		<button mat-stroked-button>
+		<button mat-stroked-button (click)="editCategory(cat)">
 			Edit category <mat-icon>edit</mat-icon>
 		</button>
-		<button mat-stroked-button title="" color="error">
+		<button mat-stroked-button color="error" (click)="deleteCategory(cat.id)">
 			Delete category <mat-icon>delete</mat-icon>
+		</button>
+	</mat-action-row>
+	<mat-action-row *ngIf="shouldViewBeCompact">
+		<button mat-icon-button>
+			<mat-icon>add</mat-icon>
+		</button>
+		<button mat-icon-button>
+			<mat-icon>edit</mat-icon>
+		</button>
+		<button mat-icon-button color="error" (click)="deleteCategory(cat.id)">
+			<mat-icon>delete</mat-icon>
 		</button>
 	</mat-action-row>
 

@@ -39,10 +39,10 @@ namespace SkillListBackEnd.Repositories.Implementations
             try
             {
                 await _context.SaveChangesAsync();
-            } 
-            catch(DbUpdateException ex)
+            }
+            catch (DbUpdateException ex)
             {
-                if(ex.InnerException.Message.Contains("duplicate key"))
+                if (ex.InnerException.Message.Contains("duplicate key"))
                 {
                     return null;
                 }

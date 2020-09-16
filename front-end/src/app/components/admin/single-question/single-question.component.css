@@ -2,6 +2,16 @@ table {
 	width: 100%;
 }
 
-.mat-column-adminButtons {
+.w-80 {
 	width: 80px;
+}
+
+.w-40 {
+	width: 40px;
+}
+
+::ng-deep .admin-menu-dropdown {
+	min-width: fit-content;
+	max-width: fit-content;
+	max-height: fit-content;
 }

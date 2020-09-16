@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SkillListBackEnd.DTOs.Categories
+﻿namespace SkillListBackEnd.DTOs.Categories
 {
     /// <summary>
     /// Data Transfer Object for deleting categories

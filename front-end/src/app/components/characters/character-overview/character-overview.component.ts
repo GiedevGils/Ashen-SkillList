@@ -95,7 +95,7 @@ export class CharacterOverviewComponent implements OnInit {
           },
           (err) => {
             this.toast.toastError(
-              'The delete was not successful. Please let Ilthy know!'
+              `${err.status} - Something went wrong. Please let Ilthy know!`
             );
             console.error(err);
           }

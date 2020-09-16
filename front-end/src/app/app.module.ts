@@ -36,6 +36,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { AddCharacterComponent } from './components/characters/add-character/add-character.component';
 import { WarningPopupComponent } from './components/shared/warning-popup/warning-popup.component';
 import { SingleQuestionComponent } from './components/admin/single-question/single-question.component';
+import { AddEditQuestionComponent } from './components/admin/add-edit-question/add-edit-question.component';
+import { AddEditCategoryComponent } from './components/admin/add-edit-category/add-edit-category.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { SingleQuestionComponent } from './components/admin/single-question/sing
     AddCharacterComponent,
     WarningPopupComponent,
     SingleQuestionComponent,
+    AddEditQuestionComponent,
+    AddEditCategoryComponent,
   ],
   imports: [
     BrowserModule,

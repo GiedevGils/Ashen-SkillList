@@ -32,23 +32,21 @@ export class LoginComponent implements OnInit {
 
     let message = '';
 
-    this.authService
-      .login(username, code)
-      .subscribe(
-        _ => {
-          message = 'You are now logged in!';
-          this.toast.toastSuccess(message);
-          this.dialogRef.close();
-        },
-        (err) => {
-          if (err.status === 401) {
-            message = 'These login credentials were not correct';
-          } else {
-            message = 'There was an error, please let Ilthy know!';
-          }
-          this.toast.toastError(message);
-          console.log(err);
+    this.authService.login(username, code).subscribe(
+      (_) => {
+        message = 'You are now logged in!';
+        this.toast.toastSuccess(message);
+        this.dialogRef.close();
+      },
+      (err) => {
+        if (err.status === 401) {
+          message = 'These login credentials were not correct';
+        } else {
+          message = `${err.status} - Something went wrong! Please let Ilthy know!`;
         }
-      );
+        this.toast.toastError(message);
+        console.log(err);
+      }
+    );
   }
 }

@@ -49,7 +49,7 @@ namespace SkillListBackEnd.Repositories.Implementations
                 User userToGetCharactersFrom = await _context.Users.Include(x => x.Characters).FirstOrDefaultAsync(x => x.Id == userId);
                 IEnumerable<Character> characters = userToGetCharactersFrom.Characters;
                 return characters;
-            }            
+            }
         }
 
         public async Task<Character> UpdateCharacter(int userId, int characterId, Character updatedCharacter)

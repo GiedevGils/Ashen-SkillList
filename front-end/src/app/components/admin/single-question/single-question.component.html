@@ -12,13 +12,28 @@
 
 	<ng-container matColumnDef="adminButtons">
 		<th mat-header-cell *matHeaderCellDef></th>
-		<td mat-cell *matCellDef="let element" align="end">
-			<button mat-icon-button title="Edit question">
-				<mat-icon>edit</mat-icon>
-			</button>
-			<button mat-icon-button title="Delete question">
-				<mat-icon color="error">delete</mat-icon>
-			</button>
+		<td mat-cell *matCellDef="let element" align="end" [class.w-80]="!shouldViewBeCompact" [class.w-40]="shouldViewBeCompact">
+			<div *ngIf="!shouldViewBeCompact">
+				<button mat-icon-button title="Edit question">
+					<mat-icon>edit</mat-icon>
+				</button>
+				<button mat-icon-button title="Delete question" (click)="deleteQuestion(element.id)">
+					<mat-icon color="error">delete</mat-icon>
+				</button>
+			</div>
+			<div *ngIf="shouldViewBeCompact">
+				<button mat-icon-button [matMenuTriggerFor]="adminMenu">
+					<mat-icon>more_vert</mat-icon>
+				</button>
+				<mat-menu #adminMenu="matMenu" class="admin-menu-dropdown">
+					<button mat-flat-button title="Edit question">
+						<mat-icon>edit</mat-icon> Edit
+					</button>
+					<button mat-flat-button title="Delete question" (click)="deleteQuestion(element.id)" color="error">
+						<mat-icon>delete</mat-icon> Delete
+					</button>
+				</mat-menu>
+			</div>
 		</td>
 	</ng-container>
 

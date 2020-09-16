@@ -1,0 +1,37 @@
+<h2 *ngIf="isUpdate" mat-dialog-title>Edit the category: {{categoryToEdit.description}}</h2>
+<h2 *ngIf="!isUpdate" mat-dialog-title>Create a new category</h2>
+
+<mat-dialog-content class="mat-typography">
+	<form class="form" [formGroup]="catForm">
+		<mat-form-field class="full-width">
+			<mat-label>Category name</mat-label>
+
+			<input matInput #catNameInput maxlength="50" placeholder="Category name" formControlName="catName">
+
+			<mat-hint align="end">{{catNameInput.value.length}} / 50</mat-hint>
+
+			<mat-error *ngIf="catName.hasError('required')">
+				Category name is required.
+			</mat-error>
+		</mat-form-field>
+		<mat-form-field class="full-width">
+			<mat-label>Category type</mat-label>
+
+			<mat-select matInput placeholder="Category type" formControlName="catType">
+				<mat-option *ngFor="let type of catTypes" [value]="type.typeId">{{type.text}}</mat-option>
+			</mat-select>
+
+
+			<mat-error *ngIf="catType.hasError('required')">
+				Category type is required.
+			</mat-error>
+		</mat-form-field>
+	</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+	<button mat-button mat-dialog-close>Close</button>
+	<button *ngIf="isUpdate" mat-button color="primary" [disabled]="catName.hasError('required') || catType.hasError('required')"
+		(click)="update()">Edit</button>
+	<button *ngIf="!isUpdate" mat-button color="primary" [disabled]="catName.hasError('required') || catType.hasError('required')"
+		(click)="create()">Create</button>
+</mat-dialog-actions>

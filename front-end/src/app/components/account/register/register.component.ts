@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
         this.toast.toastSuccess(message);
       },
       (err) => {
-        message = 'Something went wrong. Please let Ilthy know!';
+        message = `${err.status} - Something went wrong! Please let Ilthy know!`;
         this.toast.toastError(message);
       }
     );

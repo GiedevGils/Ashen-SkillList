@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user.model';
 import { ToastService } from 'src/app/services/toast.service';
 import { MenuItem, MenuService } from 'src/app/services/menu.service';
+import { ResponsiveService } from 'src/app/services/responsive.service';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,8 @@ export class HeaderComponent implements OnInit {
     public dialog: MatDialog,
     protected authService: AuthService,
     private toast: ToastService,
-    private menu: MenuService
+    private menu: MenuService,
+    private responsive: ResponsiveService
   ) {}
 
   ngOnInit(): void {
@@ -39,9 +41,13 @@ export class HeaderComponent implements OnInit {
     this.authService.userInfoChange.subscribe((userInfo) => {
       this.userInfo = userInfo;
     });
+
+    this.responsive.viewChange.subscribe((shouldBe) => {
+      this.shouldMenuBeSmaller = shouldBe;
+    });
     this.authService.getUserInfo();
     this.menuItems = this.menu.getMenu();
-    this.setMenuHidden(null, window.innerWidth);
+    this.shouldMenuBeSmaller = this.responsive.shouldViewBeCompact;
   }
 
   logout() {

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SkillListBackEnd.DTOs.Answers;
 using SkillListBackEnd.Helpers;
 using SkillListBackEnd.Models;
 using SkillListBackEnd.Repositories.Interfaces;
+using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Controllers
 {

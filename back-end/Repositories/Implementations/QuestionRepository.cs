@@ -1,12 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SkillListBackEnd.Controllers;
 using SkillListBackEnd.Data;
 using SkillListBackEnd.Models;
 using SkillListBackEnd.Repositories.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Repositories.Implementations
@@ -41,7 +38,10 @@ namespace SkillListBackEnd.Repositories.Implementations
             _context.Categories.Remove(category);
 
             // Delete the questions in the category
-            _context.Questions.RemoveRange(category.Questions);
+            if (category.Questions != null)
+            {
+                _context.Questions.RemoveRange(category.Questions);
+            }
 
             await _context.SaveChangesAsync();
             return true;
@@ -82,7 +82,12 @@ namespace SkillListBackEnd.Repositories.Implementations
         {
             Question questionToDelete = await _context.Questions.FirstOrDefaultAsync(x => x.Id == questionId);
             _context.Questions.Remove(questionToDelete);
-            _context.Answers.RemoveRange(questionToDelete.Answers);
+
+            if (questionToDelete.Answers != null)
+            {
+                _context.Answers.RemoveRange(questionToDelete.Answers);
+            }
+
             await _context.SaveChangesAsync();
             return true;
         }

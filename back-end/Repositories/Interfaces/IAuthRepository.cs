@@ -19,7 +19,7 @@ namespace SkillListBackEnd.Repositories.Interfaces
         /// <param name="code"></param>
         /// <returns></returns>
         Task<User> Login(string name, string code);
-        
+
         /// <summary>
         /// Get hte information for a specified user
         /// </summary>

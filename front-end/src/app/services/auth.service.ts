@@ -5,7 +5,6 @@ import { Observable, of, Subject } from 'rxjs';
 import { Config } from '../../config';
 import { User } from '../models/user.model';
 import { catchError, tap } from 'rxjs/operators';
-import { EventEmitter } from 'protractor';
 
 @Injectable({
   providedIn: 'root',
