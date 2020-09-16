@@ -1,5 +1,5 @@
 export class Answer {
-  id: number;
+  id?: number;
   rating: number;
   description: string;
 }

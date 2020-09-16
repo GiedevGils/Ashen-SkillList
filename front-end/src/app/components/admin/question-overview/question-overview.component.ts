@@ -55,10 +55,7 @@ export class QuestionOverviewComponent implements OnInit {
             const indexOfItemToRemove = this.questionCategories.indexOf(
               catToRemove
             );
-            this.questionCategories.splice(
-              indexOfItemToRemove,
-              1
-            );
+            this.questionCategories.splice(indexOfItemToRemove, 1);
           },
           (err) => {
             this.toast.toastError(
@@ -73,7 +70,12 @@ export class QuestionOverviewComponent implements OnInit {
   addCategory() {
     const dialogRef = this.dialog.open(AddEditCategoryComponent);
     dialogRef.afterClosed().subscribe((newCat) => {
-      if (!newCat) { return; } // If newCat is empty, don't push
+      if (!newCat) {
+        return;
+      } // If newCat is empty, don't push
+      if (!this.questionCategories) {
+        this.questionCategories = [];
+      }
       this.questionCategories.push(newCat);
     });
   }

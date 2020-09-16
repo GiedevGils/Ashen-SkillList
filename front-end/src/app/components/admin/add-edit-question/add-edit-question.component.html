@@ -1,0 +1,24 @@
+<h2 *ngIf="isUpdate" mat-dialog-title>Edit the question: {{categoryToEdit.description}}</h2>
+<h2 *ngIf="!isUpdate" mat-dialog-title>Create a new question</h2>
+
+<mat-dialog-content class="mat-typography">
+	<form class="form" [formGroup]="qForm">
+		<mat-form-field class="full-width">
+			<mat-label>Category name</mat-label>
+
+			<input matInput #qNameInput maxlength="50" placeholder="Questoin description" formControlName="qName">
+
+			<mat-error *ngIf="qName.hasError('required')">
+				Category name is required.
+			</mat-error>
+		</mat-form-field>
+		
+	</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+	<button mat-button mat-dialog-close>Close</button>
+	<button *ngIf="isUpdate" mat-button color="primary"
+		[disabled]="qName.hasError('required')" (click)="update()">Edit</button>
+	<button *ngIf="!isUpdate" mat-button color="primary"
+		[disabled]="qName.hasError('required')" (click)="create()">Create</button>
+</mat-dialog-actions>
