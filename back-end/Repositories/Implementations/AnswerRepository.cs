@@ -33,7 +33,25 @@ namespace SkillListBackEnd.Repositories.Implementations
             questionToAddAnswerTo.Answers.Add(answer);
             await _context.SaveChangesAsync();
             return answer;
+        }
 
+        public async Task<IEnumerable<Answer>> CreateAnswersBulk(int questionId, IEnumerable<Answer> answers)
+        {
+            Question questionToAddAnswersTo = await _context.Questions.FirstOrDefaultAsync(x => x.Id == questionId);
+
+            _context.Entry(questionToAddAnswersTo).State = EntityState.Modified;
+
+            if (questionToAddAnswersTo.Answers == null)
+            {
+                questionToAddAnswersTo.Answers = new List<Answer>();
+            }
+
+            foreach (Answer answer in answers)
+            {
+                questionToAddAnswersTo.Answers.Add(answer);
+            }
+            await _context.SaveChangesAsync();
+            return questionToAddAnswersTo.Answers;
         }
 
         public async Task<Answer> UpdateAnswer(int answerId, Answer answer)

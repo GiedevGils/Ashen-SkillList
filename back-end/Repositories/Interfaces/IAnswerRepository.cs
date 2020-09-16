@@ -1,4 +1,5 @@
 ﻿using SkillListBackEnd.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Repositories.Interfaces
@@ -15,6 +16,14 @@ namespace SkillListBackEnd.Repositories.Interfaces
         /// <param name="questionId"></param>
         /// <returns>The created answer</returns>
         Task<Answer> CreateAnswer(int questionId, Answer anwer);
+
+        /// <summary>
+        /// Create a lot of answers linked to a certain question in one go.
+        /// </summary>
+        /// <param name="questionId">The ID of the question to link them to</param>
+        /// <param name="answers">The answers to link</param>
+        /// <returns>The created answers</returns>
+        Task<IEnumerable<Answer>> CreateAnswersBulk(int questionId, IEnumerable<Answer> answers);
 
         /// <summary>
         /// Update an answer

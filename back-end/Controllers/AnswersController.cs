@@ -41,6 +41,18 @@ namespace SkillListBackEnd.Controllers
             return Created("no-url", result);
         }
 
+        [HttpPost("create-answers-bulk")]
+        public async Task<IActionResult> CreateAnsweresBulk(ManyAnswersForCreateDto body)
+        {
+            int userId = GetUserIdFromToken();
+
+            if (!_adminHelper.IsUserAdmin(userId))
+                return Unauthorized();
+
+            var result = await _answerRepository.CreateAnswersBulk(body.QuestionId, body.Answers);
+            return Created("no-url", result);
+        }
+
         [HttpPut("update-answer")]
         public async Task<IActionResult> UpdateAnswer(AnswerForUpdateDto body)
         {
