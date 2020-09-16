@@ -66,6 +66,18 @@ namespace SkillListBackEnd.Controllers
             return Ok(updatedAnswer);
         }
 
+        [HttpPut("update-answers-bulk")]
+        public async Task<IActionResult> UpdateAnswersBulk(ManyAnswerForUpdateDto body)
+        {
+            int userId = GetUserIdFromToken();
+
+            if (!_adminHelper.IsUserAdmin(userId))
+                return Unauthorized();
+
+            var result = await _answerRepository.UpdateAnswersBulk(body.Answers);
+            return Ok(result);
+        }
+
         [HttpDelete("delete-answer")]
         public async Task<IActionResult> DeleteAnswer(AnswerForDeleteDto body)
         {

@@ -28,6 +28,7 @@ namespace SkillListBackEnd.Repositories.Implementations
         {
             QuestionCategory category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == categoryId);
             category.Description = cat.Description;
+            category.Type = cat.Type;
             await _context.SaveChangesAsync();
             return category;
         }

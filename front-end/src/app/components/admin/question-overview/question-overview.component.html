@@ -22,7 +22,7 @@
 	</mat-panel-description>
 
 	<mat-action-row *ngIf="!shouldViewBeCompact">
-		<button mat-stroked-button>
+		<button mat-stroked-button (click)="addQuestion()">
 			Add question to category <mat-icon>add</mat-icon>
 		</button>
 		<button mat-stroked-button (click)="editCategory(cat)">
@@ -33,10 +33,10 @@
 		</button>
 	</mat-action-row>
 	<mat-action-row *ngIf="shouldViewBeCompact">
-		<button mat-icon-button>
+		<button mat-icon-button (click)="addQuestion()">
 			<mat-icon>add</mat-icon>
 		</button>
-		<button mat-icon-button>
+		<button mat-icon-button (click)="editCategory(cat)">
 			<mat-icon>edit</mat-icon>
 		</button>
 		<button mat-icon-button color="error" (click)="deleteCategory(cat.id)">

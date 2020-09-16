@@ -1,3 +1,21 @@
 .full-width {
-	width: 100%;
+  width: 100%;
+}
+
+.rating-number {
+  width: 20%;
+  margin-right: 2%;
+}
+
+.rating-description {
+  width: 72%;
+}
+
+.rating-remove-btn {
+  width: 5%;
+  display: inline-block;
+}
+
+.broad {
+  width: 50vw;
 }

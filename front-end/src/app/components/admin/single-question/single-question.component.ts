@@ -2,10 +2,12 @@ import { EventEmitter } from '@angular/core';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { QuestionCategory } from 'src/app/models/question-category.model';
+import { Question } from 'src/app/models/question.model';
 import { QuestionService } from 'src/app/services/question.service';
 import { ResponsiveService } from 'src/app/services/responsive.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { WarningPopupComponent } from '../../shared/warning-popup/warning-popup.component';
+import { AddEditQuestionComponent } from '../add-edit-question/add-edit-question.component';
 
 @Component({
   selector: 'app-single-question',
@@ -31,6 +33,14 @@ export class SingleQuestionComponent implements OnInit {
       this.shouldViewBeCompact = shouldBeCompact;
     });
     this.shouldViewBeCompact = this.responsive.shouldViewBeCompact;
+  }
+
+  
+
+  editQuestion(q: Question) {
+    const dialogRef = this.dialog.open(AddEditQuestionComponent, {
+      data: { question: q },
+    });
   }
 
   deleteQuestion(qId: number) {

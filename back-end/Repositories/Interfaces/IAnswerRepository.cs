@@ -34,6 +34,14 @@ namespace SkillListBackEnd.Repositories.Interfaces
         Task<Answer> UpdateAnswer(int answerId, Answer answer);
 
         /// <summary>
+        /// Update answers in bulk
+        /// </summary>
+        /// <param name="answerId">The ID of the answer to be updated</param>
+        /// <param name="answer">The answer with updated values</param>
+        /// <returns>The updated answer</returns>
+        Task<IEnumerable<Answer>> UpdateAnswersBulk(IEnumerable<Answer> answers);
+
+        /// <summary>
         /// Delete an answer
         /// </summary>
         /// <param name="answerId">The ID of the answer to be deleted</param>

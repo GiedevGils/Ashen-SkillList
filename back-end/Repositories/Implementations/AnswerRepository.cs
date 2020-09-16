@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SkillListBackEnd.Controllers;
 using SkillListBackEnd.Data;
 using SkillListBackEnd.Models;
 using SkillListBackEnd.Repositories.Interfaces;
@@ -41,6 +42,7 @@ namespace SkillListBackEnd.Repositories.Implementations
 
             _context.Entry(questionToAddAnswersTo).State = EntityState.Modified;
 
+
             if (questionToAddAnswersTo.Answers == null)
             {
                 questionToAddAnswersTo.Answers = new List<Answer>();
@@ -61,6 +63,21 @@ namespace SkillListBackEnd.Repositories.Implementations
             answerToUpdate.Description = answer.Description;
             await _context.SaveChangesAsync();
             return answerToUpdate;
+        }
+
+        public async Task<IEnumerable<Answer>> UpdateAnswersBulk(IEnumerable<Answer> answers)
+        {
+            ICollection<Answer> updatedAnswers = new List<Answer>();
+            foreach(Answer a in answers)
+            {
+                Answer answerToEdit = _context.Answers.FirstOrDefault(x => x.Id == a.Id);
+                answerToEdit.Description = a.Description;
+                answerToEdit.Rating = a.Rating;
+                updatedAnswers.Add(answerToEdit);
+            }
+
+            await _context.SaveChangesAsync();
+            return updatedAnswers;
         }
 
         public async Task<bool> DeleteAnswer(int answerId)
@@ -98,5 +115,6 @@ namespace SkillListBackEnd.Repositories.Implementations
             await _context.SaveChangesAsync();
             return charAnswer;
         }
+
     }
 }

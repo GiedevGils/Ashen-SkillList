@@ -29,9 +29,9 @@
 	</form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-	<button mat-button mat-dialog-close>Close</button>
-	<button *ngIf="isUpdate" mat-button color="primary" [disabled]="catName.hasError('required') || catType.hasError('required')"
+	<button mat-stroked-button mat-dialog-close>Close</button>
+	<button *ngIf="isUpdate" mat-stroked-button color="primary" [disabled]="catName.hasError('required') || catType.hasError('required')"
 		(click)="update()">Edit</button>
-	<button *ngIf="!isUpdate" mat-button color="primary" [disabled]="catName.hasError('required') || catType.hasError('required')"
+	<button *ngIf="!isUpdate" mat-stroked-button color="primary" [disabled]="catName.hasError('required') || catType.hasError('required')"
 		(click)="create()">Create</button>
 </mat-dialog-actions>

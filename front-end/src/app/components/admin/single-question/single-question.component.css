@@ -15,3 +15,7 @@ table {
 	max-width: fit-content;
 	max-height: fit-content;
 }
+
+.error {
+	color: red;
+}

@@ -7,6 +7,7 @@ import { ResponsiveService } from 'src/app/services/responsive.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { WarningPopupComponent } from '../../shared/warning-popup/warning-popup.component';
 import { AddEditCategoryComponent } from '../add-edit-category/add-edit-category.component';
+import { AddEditQuestionComponent } from '../add-edit-question/add-edit-question.component';
 
 @Component({
   selector: 'app-question-overview',
@@ -78,6 +79,10 @@ export class QuestionOverviewComponent implements OnInit {
       }
       this.questionCategories.push(newCat);
     });
+  }
+
+  addQuestion() {
+    const dialogRef = this.dialog.open(AddEditQuestionComponent);
   }
 
   editCategory(cat: QuestionCategory) {

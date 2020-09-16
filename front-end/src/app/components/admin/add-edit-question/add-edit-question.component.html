@@ -1,24 +1,44 @@
-<h2 *ngIf="isUpdate" mat-dialog-title>Edit the question: {{categoryToEdit.description}}</h2>
+<h2 *ngIf="isUpdate" mat-dialog-title>Edit the question: {{questionToEdit.description}}</h2>
 <h2 *ngIf="!isUpdate" mat-dialog-title>Create a new question</h2>
 
-<mat-dialog-content class="mat-typography">
+<mat-dialog-content class="mat-typography broad">
 	<form class="form" [formGroup]="qForm">
 		<mat-form-field class="full-width">
-			<mat-label>Category name</mat-label>
+			<mat-label>Question name</mat-label>
 
-			<input matInput #qNameInput maxlength="50" placeholder="Questoin description" formControlName="qName">
+			<input matInput #qNameInput placeholder="Question description" formControlName="qName">
 
 			<mat-error *ngIf="qName.hasError('required')">
 				Category name is required.
 			</mat-error>
 		</mat-form-field>
-		
+
+		<div *ngFor="let 'answer' of answers">
+			<mat-form-field class="rating-number">
+				<mat-label>Answer {{answers.indexOf(answer) + 1}} - number</mat-label>
+
+				<input matInput placeholder="Rating number" type="number" [value]="answer.rating" />
+
+			</mat-form-field>
+
+			<mat-form-field class="rating-description">
+				<mat-label>Answer {{answers.indexOf(answer) + 1}} - description</mat-label>
+
+				<input matInput placeholder="Rating description" type="text" [value]="answer.description"/>
+
+			</mat-form-field>
+			<button mat-icon-button class="rating-remove-btn" color="error" (click)="removeRow(answer)">
+				<mat-icon>delete</mat-icon>
+			</button>
+		</div>
+
 	</form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-	<button mat-button mat-dialog-close>Close</button>
-	<button *ngIf="isUpdate" mat-button color="primary"
-		[disabled]="qName.hasError('required')" (click)="update()">Edit</button>
-	<button *ngIf="!isUpdate" mat-button color="primary"
-		[disabled]="qName.hasError('required')" (click)="create()">Create</button>
+	<button mat-stroked-button mat-dialog-close>Close</button>
+	<button mat-stroked-button (click)="addRow()">Add answer <mat-icon>add</mat-icon></button>
+	<button *ngIf="isUpdate" mat-stroked-button color="primary" [disabled]="qName.hasError('required')"
+		(click)="update()">Edit</button>
+	<button *ngIf="!isUpdate" mat-stroked-button color="primary" [disabled]="qName.hasError('required')"
+		(click)="create()">Create</button>
 </mat-dialog-actions>
