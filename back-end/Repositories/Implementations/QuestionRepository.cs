@@ -74,6 +74,12 @@ namespace SkillListBackEnd.Repositories.Implementations
             return questions;
         }
 
+        public async Task<Question> GetSingleQuestion(int questionId)
+        {
+            Question q = await _context.Questions.Include(x => x.Answers).FirstOrDefaultAsync(x => x.Id == questionId);
+            return q;
+        }
+
         public async Task<Question> UpdateQuestion(int questionId, Question updatedQuestion)
         {
             Question questionToUpdate = await _context.Questions.FirstOrDefaultAsync(x => x.Id == questionId);
@@ -101,5 +107,7 @@ namespace SkillListBackEnd.Repositories.Implementations
             await _context.SaveChangesAsync();
             return true;
         }
+
+        
     }
 }

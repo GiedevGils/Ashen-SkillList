@@ -21,6 +21,10 @@ export class QuestionService {
     );
   }
 
+  getSingleQuestion(id: number): Observable<Question> {
+    return this.http.get<Question>(`${this.baseUrl}/get-single-question/${id}`)
+  }
+
   /** POST a new category */
   createQuestionCategory(
     description: string,

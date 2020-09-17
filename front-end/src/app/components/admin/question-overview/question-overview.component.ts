@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CategoryType, CategoryTypeHelper } from 'src/app/enums/cat-type.enum';
 import { QuestionCategory } from 'src/app/models/question-category.model';
 import { QuestionService } from 'src/app/services/question.service';
 import { ResponsiveService } from 'src/app/services/responsive.service';
@@ -20,6 +21,7 @@ export class QuestionOverviewComponent implements OnInit {
   displayedColumns = ['description', 'numberOfQuestions', 'adminButtons'];
   expandedElement: QuestionCategory | null;
   shouldViewBeCompact: boolean;
+  catTypes: { typeId: number; text: string }[];
 
   constructor(
     private questionService: QuestionService,
@@ -34,6 +36,7 @@ export class QuestionOverviewComponent implements OnInit {
       this.shouldViewBeCompact = shouldBeCompact;
     });
     this.shouldViewBeCompact = this.responsive.shouldViewBeCompact;
+    this.catTypes = CategoryTypeHelper.getArrayOfTypes();
   }
 
   deleteCategory(catId: number) {
@@ -89,6 +92,7 @@ export class QuestionOverviewComponent implements OnInit {
     dialogRef.afterClosed().subscribe((createdQuestion) => {
       c.questions.push(createdQuestion);
       // for reasons unknown, this is needed to reload the data
+      // https://stackoverflow.com/a/50654218
       c.questions = [...c.questions];
     });
   }
@@ -104,5 +108,9 @@ export class QuestionOverviewComponent implements OnInit {
       this.questionCategories = res;
       this.readyForTable = true;
     });
+  }
+
+  filterQuestionsIntoArraysForDisplay(type: CategoryType) {
+    return this.questionCategories.filter((x) => x.type === type);
   }
 }

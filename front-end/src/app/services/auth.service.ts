@@ -26,7 +26,6 @@ export class AuthService {
     this.userInfoChange.next(userInfo);
   }
 
-
   // tslint:disable-next-line: variable-name
   private _isLoggedIn: boolean;
   public loginChange: Subject<boolean> = new Subject<boolean>();
@@ -90,6 +89,10 @@ export class AuthService {
         throw err;
       })
     );
+  }
+
+  getUserInfoBulk(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/user-info-bulk`);
   }
 
   /** Save the token in the cookies */

@@ -64,6 +64,7 @@ export class SingleQuestionComponent implements OnInit {
             this.questionCategory.questions.splice(indexOfQuestionToRemove, 1);
 
             // For reasons unknown, this is needed to reload the data proper
+            // https://stackoverflow.com/a/50654218
             this.questionCategory.questions = [
               ...this.questionCategory.questions,
             ];

@@ -7,41 +7,50 @@
 </div>
 
 <hr>
+<div *ngFor="let catType of catTypes">
+	<h2 class="mat-h2">{{catType.text}} - {{filterQuestionsIntoArraysForDisplay(catType.typeId).length}} categories</h2>
 
-<mat-expansion-panel *ngFor="let cat of questionCategories">
+	<div class="fab-container">
+		<mat-slide-toggle color="primary" checked="true" #displayType class="add-cat-btn">Display category</mat-slide-toggle>
+	</div>
 
-	<mat-expansion-panel-header>
-		<mat-panel-title>
-			{{cat.description}}
-		</mat-panel-title>
-	</mat-expansion-panel-header>
+	<div *ngIf="displayType.checked">
+		<mat-expansion-panel *ngFor="let cat of filterQuestionsIntoArraysForDisplay(catType.typeId)">
 
-	<mat-panel-description>
-		<p>Change the questions for {{cat.description}}:</p>
-		<app-single-question [questionCategory]="cat" (questionsChange)="getQuestions()"></app-single-question>
-	</mat-panel-description>
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					{{cat.description}}
+				</mat-panel-title>
+			</mat-expansion-panel-header>
 
-	<mat-action-row *ngIf="!shouldViewBeCompact">
-		<button mat-stroked-button (click)="addQuestion(cat)">
-			Add question to category <mat-icon>add</mat-icon>
-		</button>
-		<button mat-stroked-button (click)="editCategory(cat)">
-			Edit category <mat-icon>edit</mat-icon>
-		</button>
-		<button mat-stroked-button color="error" (click)="deleteCategory(cat.id)">
-			Delete category <mat-icon>delete</mat-icon>
-		</button>
-	</mat-action-row>
-	<mat-action-row *ngIf="shouldViewBeCompact">
-		<button mat-icon-button (click)="addQuestion(cat)">
-			<mat-icon>add</mat-icon>
-		</button>
-		<button mat-icon-button (click)="editCategory(cat)">
-			<mat-icon>edit</mat-icon>
-		</button>
-		<button mat-icon-button color="error" (click)="deleteCategory(cat.id)">
-			<mat-icon>delete</mat-icon>
-		</button>
-	</mat-action-row>
+			<mat-panel-description>
+				<p>Change the questions for {{cat.description}}:</p>
+				<app-single-question [questionCategory]="cat" (questionsChange)="getQuestions()"></app-single-question>
+			</mat-panel-description>
 
-</mat-expansion-panel>
+			<mat-action-row *ngIf="!shouldViewBeCompact">
+				<button mat-stroked-button (click)="addQuestion(cat)">
+					Add question to category <mat-icon>add</mat-icon>
+				</button>
+				<button mat-stroked-button (click)="editCategory(cat)">
+					Edit category <mat-icon>edit</mat-icon>
+				</button>
+				<button mat-stroked-button color="error" (click)="deleteCategory(cat.id)">
+					Delete category <mat-icon>delete</mat-icon>
+				</button>
+			</mat-action-row>
+			<mat-action-row *ngIf="shouldViewBeCompact">
+				<button mat-icon-button (click)="addQuestion(cat)">
+					<mat-icon>add</mat-icon>
+				</button>
+				<button mat-icon-button (click)="editCategory(cat)">
+					<mat-icon>edit</mat-icon>
+				</button>
+				<button mat-icon-button color="error" (click)="deleteCategory(cat.id)">
+					<mat-icon>delete</mat-icon>
+				</button>
+			</mat-action-row>
+
+		</mat-expansion-panel>
+	</div>
+</div>

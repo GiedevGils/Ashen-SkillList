@@ -17,3 +17,7 @@ mat-panel-description {
   right: 0;
   margin-bottom: 2vh;;
 }
+
+::ng-deep .mat-slide-toggle-bar {
+  background-color: lightgrey
+}

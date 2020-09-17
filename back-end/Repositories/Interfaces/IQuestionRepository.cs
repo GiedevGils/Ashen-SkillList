@@ -43,6 +43,14 @@ namespace SkillListBackEnd.Repositories.Interfaces
         /// <param name="questionToCreate">The question to create</param>
         /// <returns>The created question</returns>
         Task<Question> CreateQuestion(int categoryId, Question questionToCreate);
+        
+        /// <summary>
+        /// Get a single question by its id
+        /// </summary>
+        /// <param name="questionId">The ID of the question to get</param>
+        /// <returns>The question</returns>
+        Task<Question> GetSingleQuestion(int questionId);
+
 
         /// <summary>
         /// Update a question

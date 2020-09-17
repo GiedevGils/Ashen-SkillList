@@ -18,6 +18,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/nav/header/header.component';
@@ -38,6 +39,7 @@ import { WarningPopupComponent } from './components/shared/warning-popup/warning
 import { SingleQuestionComponent } from './components/admin/single-question/single-question.component';
 import { AddEditQuestionComponent } from './components/admin/add-edit-question/add-edit-question.component';
 import { AddEditCategoryComponent } from './components/admin/add-edit-category/add-edit-category.component';
+import { UserOverviewComponent } from './components/admin/user-overview/user-overview.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { AddEditCategoryComponent } from './components/admin/add-edit-category/a
     SingleQuestionComponent,
     AddEditQuestionComponent,
     AddEditCategoryComponent,
+    UserOverviewComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +83,7 @@ import { AddEditCategoryComponent } from './components/admin/add-edit-category/a
     MatTreeModule,
     MatDividerModule,
     MatTableModule,
+    MatSlideToggleModule
   ],
   providers: [
     {

@@ -2,7 +2,7 @@
 <h2 *ngIf="!isUpdate" mat-dialog-title>Create a new question</h2>
 
 <mat-dialog-content class="mat-typography broad">
-	<form class="form" [formGroup]="qForm">
+	<form class="form" [formGroup]="qForm" (keydown.enter)="$event.preventDefault()">
 		<mat-form-field class="full-width">
 			<mat-label>Question name</mat-label>
 
@@ -16,15 +16,15 @@
 		<div *ngFor="let 'answer' of answers">
 			<mat-form-field class="rating-number">
 				<mat-label>Answer {{answers.indexOf(answer) + 1}} - number</mat-label>
-
-				<input matInput placeholder="Rating number" type="number" [value]="answer.rating" />
+				<!-- The plus sign on the (input)="answer.rating = +$event.target.value" makes sure that the rating stays a number -->
+				<input matInput placeholder="Rating number" type="number" [value]="answer.rating" (input)="answer.rating = +$event.target.value" (change)="sortAnswers()" />
 
 			</mat-form-field>
 
 			<mat-form-field class="rating-description">
 				<mat-label>Answer {{answers.indexOf(answer) + 1}} - description</mat-label>
 
-				<input matInput placeholder="Rating description" type="text" [value]="answer.description"/>
+				<input matInput placeholder="Rating description" type="text" [value]="answer.description" (input)="answer.description = $event.target.value"/>
 
 			</mat-form-field>
 			<button mat-icon-button class="rating-remove-btn" color="error" (click)="removeRow(answer)">

@@ -25,6 +25,12 @@ export class MenuService {
       isAdminLink: true,
       icon: 'groups',
     },
+    {
+      text: 'Manage users',
+      link: '/user-overview',
+      isAdminLink: true,
+      icon: 'people',
+    },
   ];
 
   getMenu() {

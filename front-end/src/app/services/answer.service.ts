@@ -23,10 +23,9 @@ export class AnswerService {
   }
 
   updateAnswersBulk(answers: Answer[]): Observable<Answer[]> {
-    return this.http.put<Answer[]>(
-      `${this.baseUrl}/update-answers-bulk`,
-      answers
-    );
+    return this.http.put<Answer[]>(`${this.baseUrl}/update-answers-bulk`, {
+      answers,
+    });
   }
 
   deleteAnswersBulk(answers: number[]) {

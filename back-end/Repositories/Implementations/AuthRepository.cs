@@ -3,6 +3,7 @@ using SkillListBackEnd.Data;
 using SkillListBackEnd.Helpers;
 using SkillListBackEnd.Models;
 using SkillListBackEnd.Repositories.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -54,6 +55,12 @@ namespace SkillListBackEnd.Repositories.Implementations
         {
             User userToReturn = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
             return userToReturn;
+        }
+
+        public async Task<IEnumerable<User>> GetUserInfoBulk()
+        {
+            IEnumerable<User> users = _context.Users.AsEnumerable();
+            return users;
         }
     }
 }

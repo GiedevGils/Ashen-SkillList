@@ -6,6 +6,7 @@ using SkillListBackEnd.DTOs.Questions;
 using SkillListBackEnd.Helpers;
 using SkillListBackEnd.Models;
 using SkillListBackEnd.Repositories.Interfaces;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Controllers
@@ -83,7 +84,7 @@ namespace SkillListBackEnd.Controllers
         }
 
         [HttpPost("create-question")]
-        public async Task<IActionResult> CreateCategory(QuestionForCreateDto body)
+        public async Task<IActionResult> CreateQuesiton(QuestionForCreateDto body)
         {
             int userId = GetUserIdFromToken();
 
@@ -94,6 +95,13 @@ namespace SkillListBackEnd.Controllers
 
             Question result = await _questionRepository.CreateQuestion(body.CategoryId, question);
             return Created("no-url", result);
+        }
+
+        [HttpGet("get-single-question/{id}")]
+        public async Task<IActionResult> GetSingleQuestion(int id)
+        {
+            Question q = await _questionRepository.GetSingleQuestion(id);
+            return Ok(q);
         }
 
         [HttpPut("update-question")]

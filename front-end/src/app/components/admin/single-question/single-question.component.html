@@ -27,7 +27,7 @@
 					<mat-icon>more_vert</mat-icon>
 				</button>
 				<mat-menu #adminMenu="matMenu" class="admin-menu-dropdown">
-					<button mat-flat-button title="Edit question">
+					<button mat-flat-button title="Edit question"  (click)="editQuestion(element)">
 						<mat-icon>edit</mat-icon> Edit
 					</button>
 					<button mat-flat-button title="Delete question" (click)="deleteQuestion(element.id)" color="error">

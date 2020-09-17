@@ -1,12 +1,19 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { concatMap } from 'rxjs/operators';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { EventEmitter } from 'protractor';
+import { forkJoin, Subject } from 'rxjs';
+import { concatMap, tap } from 'rxjs/operators';
 import { Answer } from 'src/app/models/answer.model';
 import { Question } from 'src/app/models/question.model';
 import { AnswerService } from 'src/app/services/answer.service';
 import { QuestionService } from 'src/app/services/question.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { WarningPopupComponent } from '../../shared/warning-popup/warning-popup.component';
 import { AddEditCategoryComponent } from '../add-edit-category/add-edit-category.component';
 
 @Component({
@@ -39,7 +46,6 @@ export class AddEditQuestionComponent implements OnInit {
   ];
 
   private newAnswers: Answer[] = [];
-  private updatedAnswers: Answer[] = [];
   private deletedAnswers: Answer[] = [];
 
   constructor(
@@ -48,19 +54,18 @@ export class AddEditQuestionComponent implements OnInit {
     private questionService: QuestionService,
     private answerService: AnswerService,
     private dialogRef: MatDialogRef<AddEditCategoryComponent>,
-    private toast: ToastService
+    private toast: ToastService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     if (this.data.question) {
       this.questionToEdit = this.data.question;
       this.isUpdate = true;
-      this.answers = this.questionToEdit.answers;
+      this.answers = JSON.parse(JSON.stringify(this.questionToEdit.answers)); // Fastest, but far from the best way to do a value copy
     } else {
       this.isUpdate = false;
     }
-
-    this.answers.sort((x: Answer, y: Answer) => x.rating - y.rating);
 
     this.initForm();
   }
@@ -90,9 +95,11 @@ export class AddEditQuestionComponent implements OnInit {
   removeRow(a: Answer) {
     this.answers.splice(this.answers.indexOf(a), 1);
 
-    if (this.newAnswers.indexOf(a)) {
+    // If the answer is a new one, remove it from the new one
+    if (this.newAnswers.includes(a)) {
       this.newAnswers.splice(this.newAnswers.indexOf(a), 1);
     } else {
+      // If the answer is not new, add it to the deleted answers
       this.deletedAnswers.push(a);
     }
   }
@@ -132,5 +139,79 @@ export class AddEditQuestionComponent implements OnInit {
       );
   }
 
-  update() {}
+  update() {
+    // New answers don't need to be updated, they need to be created
+    const answersToUpdate = this.answers.filter(
+      (x) => !this.newAnswers.includes(x)
+    );
+
+    const canContinue = new Subject();
+
+    // Once the below confirmation popup has been accepted, send out the requests
+    canContinue.subscribe((res) => {
+      // It should only receive true, but just to be sure we do a check here
+      if (!res) {
+        return;
+      }
+
+      forkJoin({
+        newAnswers: this.answerService.createAnswersBulk(
+          this.questionToEdit.id,
+          this.newAnswers
+        ),
+        updatedAnswers: this.answerService.updateAnswersBulk(answersToUpdate),
+        deletedAnswers: this.answerService.deleteAnswersBulk(
+          this.deletedAnswers.map((x) => x.id)
+        ),
+      })
+        .pipe(
+          concatMap((r) => {
+            return this.questionService.getSingleQuestion(
+              this.questionToEdit.id
+            );
+          })
+        )
+        .subscribe(
+          (res2) => {
+            this.questionToEdit.answers = res2.answers.sort(
+              (x, y) => x.rating - y.rating
+            );
+            this.toast.toastSuccess(`The question has been edited.`);
+            this.dialogRef.close();
+          },
+          (err) => {
+            console.warn(err);
+            this.toast.toastError(
+              `${err.status} - Something went wrong. Please let Ilthy know.`
+            );
+          }
+        );
+    });
+
+    // If any answers have been deleted, explain to the user that they will be removed from characters
+    if (this.deletedAnswers.length > 0) {
+      const dialogRef = this.dialog.open(WarningPopupComponent, {
+        data: {
+          title: 'Delete answers to this question?',
+          text:
+            'You have deleted answers to this question. This means that the characters that have selected this answer will no longer have an answer selected for this question.<br/><b>This is not reversible</b>',
+        },
+      });
+      dialogRef.afterClosed().subscribe((res) => {
+        // If the user pressed "I understand", the requests can be sent
+        if (res) {
+          canContinue.next(true);
+        } else {
+          return;
+        }
+      });
+    } else {
+      // If there is nothing in the deleted array, the request can be sent
+      canContinue.next(true);
+    }
+  }
+
+  sortAnswers() {
+    this.answers.sort((x: Answer, y: Answer) => x.rating - y.rating);
+  }
 }

@@ -1,4 +1,6 @@
 ﻿using SkillListBackEnd.Models;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Repositories.Interfaces
@@ -26,5 +28,11 @@ namespace SkillListBackEnd.Repositories.Interfaces
         /// <param name="userId">The ID of the user to get the info from</param>
         /// <returns>tThe user object with the info</returns>
         Task<User> GetUserInfo(int userId);
+
+        /// <summary>
+        /// Get information on all users. Only usable by admins, and only used to view the different registered users
+        /// </summary>
+        /// <returns>A list of all users</returns>
+        Task<IEnumerable<User>> GetUserInfoBulk();
     }
 }

@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using SkillListBackEnd.DTOs.Users;
 using SkillListBackEnd.Helpers;
 using SkillListBackEnd.Models;
 using SkillListBackEnd.Repositories.Interfaces;
+using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Controllers
@@ -18,11 +21,13 @@ namespace SkillListBackEnd.Controllers
     {
         private readonly IAuthRepository _authRepo;
         private readonly IConfiguration _config;
+        private readonly IAdminHelper _adminHelper;
 
-        public AuthController(IAuthRepository authRepo, IConfiguration config)
+        public AuthController(IAuthRepository authRepo, IConfiguration config, IAdminHelper adminHelper)
         {
             _authRepo = authRepo;
             _config = config;
+            this._adminHelper = adminHelper;
         }
 
         [AllowAnonymous]
@@ -59,6 +64,21 @@ namespace SkillListBackEnd.Controllers
             int userId = GetUserIdFromToken();
             User user = await _authRepo.GetUserInfo(userId);
             return Ok(user);
+        }
+        
+        [Authorize]
+        [HttpGet("user-info-bulk")]
+        public async Task<IActionResult> GetUserInfoBulk()
+        {
+            int userId = GetUserIdFromToken();
+
+            if (!_adminHelper.IsUserAdmin(userId))
+            {
+                return Unauthorized();
+            }
+
+            IEnumerable<User> userInfo = await _authRepo.GetUserInfoBulk();
+            return Ok(userInfo);
         }
     }
 }
