@@ -21,10 +21,25 @@ export class QuestionService {
     );
   }
 
-  createQuestionCategory(description: string, type: CategoryType): Observable<QuestionCategory> {
+  /** POST a new category */
+  createQuestionCategory(
+    description: string,
+    type: CategoryType
+  ): Observable<QuestionCategory> {
     return this.http.post<QuestionCategory>(`${this.baseUrl}/create-category`, {
       description,
-      type
+      type,
+    });
+  }
+
+  /** POST a new question */
+  createQuestion(
+    categoryId: number,
+    description: string
+  ): Observable<Question> {
+    return this.http.post<Question>(`${this.baseUrl}/create-question`, {
+      categoryId,
+      description,
     });
   }
 
@@ -33,7 +48,7 @@ export class QuestionService {
     return this.http.put<QuestionCategory>(`${this.baseUrl}/update-category`, {
       id: cat.id,
       description: cat.description,
-      type: cat.type
+      type: cat.type,
     });
   }
 

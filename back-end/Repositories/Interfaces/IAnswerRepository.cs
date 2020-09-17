@@ -1,5 +1,6 @@
 ﻿using SkillListBackEnd.Models;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Repositories.Interfaces
@@ -47,6 +48,13 @@ namespace SkillListBackEnd.Repositories.Interfaces
         /// <param name="answerId">The ID of the answer to be deleted</param>
         /// <returns>Bool of success</returns>
         Task<bool> DeleteAnswer(int answerId);
+
+        /// <summary>
+        /// Delete many answers
+        /// </summary>
+        /// <param name="answerIds"></param>
+        /// <returns></returns>
+        Task<bool> DeleteAnswersBulk(IEnumerable<int> answerIds);
 
         /// <summary>
         /// Give an answer to a question for a certian character

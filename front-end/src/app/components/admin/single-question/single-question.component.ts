@@ -35,11 +35,9 @@ export class SingleQuestionComponent implements OnInit {
     this.shouldViewBeCompact = this.responsive.shouldViewBeCompact;
   }
 
-  
-
   editQuestion(q: Question) {
     const dialogRef = this.dialog.open(AddEditQuestionComponent, {
-      data: { question: q },
+      data: { question: q, categoryId: this.questionCategory.id },
     });
   }
 
@@ -63,10 +61,12 @@ export class SingleQuestionComponent implements OnInit {
             const indexOfQuestionToRemove = this.questionCategory.questions.indexOf(
               questionToRemove
             );
-            this.questionCategory.questions = this.questionCategory.questions.splice(
-              indexOfQuestionToRemove - 1,
-              1
-            );
+            this.questionCategory.questions.splice(indexOfQuestionToRemove, 1);
+
+            // For reasons unknown, this is needed to reload the data proper
+            this.questionCategory.questions = [
+              ...this.questionCategory.questions,
+            ];
           },
           (err) => {
             this.toast.toastError(

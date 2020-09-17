@@ -6,6 +6,7 @@ using SkillListBackEnd.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Repositories.Implementations
@@ -82,8 +83,25 @@ namespace SkillListBackEnd.Repositories.Implementations
 
         public async Task<bool> DeleteAnswer(int answerId)
         {
+            IEnumerable<CharacterAnswer> answersToDelete = _context.CharacterAnswers.Where(x => x.Answer.Id == answerId);
+            _context.CharacterAnswers.RemoveRange(answersToDelete);
+
             Answer answerToDelete = await _context.Answers.FirstOrDefaultAsync(x => x.Id == answerId);
             _context.Answers.Remove(answerToDelete);
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeleteAnswersBulk(IEnumerable<int> answerIds)
+        {
+
+            IEnumerable<CharacterAnswer> answersToDeleteFromCharacters = _context.CharacterAnswers.Where(x => answerIds.Contains(x.Answer.Id));
+            _context.CharacterAnswers.RemoveRange(answersToDeleteFromCharacters);
+
+            IEnumerable<Answer> answersToDelete = _context.Answers.Where(x => answerIds.Contains(x.Id));
+            _context.Answers.RemoveRange(answersToDelete);
+
             await _context.SaveChangesAsync();
             return true;
         }
@@ -116,5 +134,6 @@ namespace SkillListBackEnd.Repositories.Implementations
             return charAnswer;
         }
 
+        
     }
 }

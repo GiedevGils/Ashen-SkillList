@@ -4,6 +4,7 @@ using SkillListBackEnd.Models;
 using SkillListBackEnd.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Repositories.Implementations
@@ -11,10 +12,12 @@ namespace SkillListBackEnd.Repositories.Implementations
     public class QuestionRepository : IQuestionRepository
     {
         private readonly DataContext _context;
+        private readonly IAnswerRepository _answerRepository;
 
-        public QuestionRepository(DataContext context)
+        public QuestionRepository(DataContext context, IAnswerRepository answerRepository)
         {
             this._context = context;
+            this._answerRepository = answerRepository;
         }
 
         public async Task<QuestionCategory> CreateCategory(QuestionCategory cat)
@@ -39,9 +42,9 @@ namespace SkillListBackEnd.Repositories.Implementations
             _context.Categories.Remove(category);
 
             // Delete the questions in the category
-            if (category.Questions != null)
+            foreach(Question q in category.Questions)
             {
-                _context.Questions.RemoveRange(category.Questions);
+                await this.DeleteQuestion(q.Id);
             }
 
             await _context.SaveChangesAsync();
@@ -81,13 +84,19 @@ namespace SkillListBackEnd.Repositories.Implementations
 
         public async Task<bool> DeleteQuestion(int questionId)
         {
-            Question questionToDelete = await _context.Questions.FirstOrDefaultAsync(x => x.Id == questionId);
-            _context.Questions.Remove(questionToDelete);
+            Question questionToDelete = await _context.Questions.Include(x => x.Answers).FirstOrDefaultAsync(x => x.Id == questionId);
 
             if (questionToDelete.Answers != null)
             {
-                _context.Answers.RemoveRange(questionToDelete.Answers);
+                ICollection<int> idsOfAnswersToDelete = new List<int>();
+                foreach(Answer a in questionToDelete.Answers)
+                {
+                    idsOfAnswersToDelete.Add(a.Id);
+                }
+                await _answerRepository.DeleteAnswersBulk(idsOfAnswersToDelete);
             }
+
+            _context.Questions.Remove(questionToDelete);
 
             await _context.SaveChangesAsync();
             return true;

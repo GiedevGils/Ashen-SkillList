@@ -42,7 +42,7 @@ namespace SkillListBackEnd.Controllers
         }
 
         [HttpPost("create-answers-bulk")]
-        public async Task<IActionResult> CreateAnsweresBulk(ManyAnswersForCreateDto body)
+        public async Task<IActionResult> CreateAnswersBulk(ManyAnswersForCreateDto body)
         {
             int userId = GetUserIdFromToken();
 
@@ -87,6 +87,18 @@ namespace SkillListBackEnd.Controllers
                 return Unauthorized();
 
             var result = await _answerRepository.DeleteAnswer(body.Id);
+            return Ok(result);
+        }
+
+        [HttpDelete("delete-answers-bulk")]
+        public async Task<IActionResult> DeleteAnswersBulk(ManyAnswersForDeleteDto body)
+        {
+            int userId = GetUserIdFromToken();
+
+            if (!_adminHelper.IsUserAdmin(userId))
+                return Unauthorized();
+
+            var result = await _answerRepository.DeleteAnswersBulk(body.Answers);
             return Ok(result);
         }
 

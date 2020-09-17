@@ -81,8 +81,16 @@ export class QuestionOverviewComponent implements OnInit {
     });
   }
 
-  addQuestion() {
-    const dialogRef = this.dialog.open(AddEditQuestionComponent);
+  addQuestion(c: QuestionCategory) {
+    const dialogRef = this.dialog.open(AddEditQuestionComponent, {
+      data: { categoryId: c.id },
+    });
+
+    dialogRef.afterClosed().subscribe((createdQuestion) => {
+      c.questions.push(createdQuestion);
+      // for reasons unknown, this is needed to reload the data
+      c.questions = [...c.questions];
+    });
   }
 
   editCategory(cat: QuestionCategory) {
