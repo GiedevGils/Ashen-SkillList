@@ -15,23 +15,18 @@
 			</mat-error>
 		</mat-form-field>
 		<mat-form-field class="full-width">
-			<mat-label>Category type</mat-label>
-
-			<mat-select matInput placeholder="Category type" formControlName="catType">
-				<mat-option *ngFor="let type of catTypes" [value]="type.typeId">{{type.text}}</mat-option>
-			</mat-select>
-
-
-			<mat-error *ngIf="catType.hasError('required')">
-				Category type is required.
-			</mat-error>
+			<mat-slide-toggle color="primary" (change)="isProfession = $event.source.checked">
+				Is the category a profession category?
+			</mat-slide-toggle>
+			<!-- A hidden textarea to give the mat-form-field an actual form field. Slide toggle doesn't count -->
+			<textarea matInput hidden></textarea>
 		</mat-form-field>
 	</form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
 	<button mat-stroked-button mat-dialog-close>Close</button>
-	<button *ngIf="isUpdate" mat-stroked-button color="primary" [disabled]="catName.hasError('required') || catType.hasError('required')"
+	<button *ngIf="isUpdate" mat-stroked-button color="primary" [disabled]="catName.hasError('required')"
 		(click)="update()">Edit</button>
-	<button *ngIf="!isUpdate" mat-stroked-button color="primary" [disabled]="catName.hasError('required') || catType.hasError('required')"
+	<button *ngIf="!isUpdate" mat-stroked-button color="primary" [disabled]="catName.hasError('required')"
 		(click)="create()">Create</button>
 </mat-dialog-actions>

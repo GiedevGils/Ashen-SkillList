@@ -15,9 +15,10 @@ import { ToastService } from 'src/app/services/toast.service';
 export class AddEditCategoryComponent implements OnInit {
   categoryToEdit: QuestionCategory;
   isUpdate: boolean;
+  isProfession: boolean;
 
   catName: FormControl;
-  catType: FormControl;
+  catProfession: FormControl;
   catForm: FormGroup;
 
   catTypes: { typeId: number; text: string }[];
@@ -34,10 +35,12 @@ export class AddEditCategoryComponent implements OnInit {
       // If a category is sent with, then it is an edit
       this.categoryToEdit = this.data.category;
       this.isUpdate = true;
+      this.isProfession = this.data.category.isProfessionCategory;
     } else {
       // If no data is sent with, it is a create
       this.categoryToEdit = null;
       this.isUpdate = false;
+      this.isProfession = false;
     }
 
     this.initForm(this.categoryToEdit);
@@ -47,23 +50,21 @@ export class AddEditCategoryComponent implements OnInit {
 
   initForm(data: QuestionCategory) {
     if (data) {
-      this.catType = new FormControl(data.type, Validators.required);
       this.catName = new FormControl(data.description, Validators.required);
     } else {
-      this.catType = new FormControl(null, Validators.required);
       this.catName = new FormControl('', Validators.required);
     }
     this.catForm = new FormGroup({
       catName: this.catName,
-      catType: this.catType,
     });
   }
 
   update() {
     const newDescription = this.catForm.get('catName').value;
-    const newType = this.catForm.get('catType').value;
+
     this.categoryToEdit.description = newDescription;
-    this.categoryToEdit.type = newType;
+    this.categoryToEdit.isProfessionCategory = this.isProfession;
+
     this.questionService.updateCategory(this.categoryToEdit).subscribe(
       (res) => {
         this.toast.toastSuccess(`Category updated: ${res.description}`);
@@ -79,19 +80,21 @@ export class AddEditCategoryComponent implements OnInit {
 
   create() {
     const description = this.catForm.get('catName').value;
-    const type = this.catForm.get('catType').value;
-    this.questionService.createQuestionCategory(description, type).subscribe(
-      (res) => {
-        this.toast.toastSuccess(
-          `The category ${res.description} has been created!`
-        );
-        this.dialogRef.close(res);
-      },
-      (err) => {
-        this.toast.toastError(
-          `${err.status} - Something went wrong! Please let Ilthy know!`
-        );
-      }
-    );
+
+    this.questionService
+      .createQuestionCategory(description, this.isProfession)
+      .subscribe(
+        (res) => {
+          this.toast.toastSuccess(
+            `The category ${res.description} has been created!`
+          );
+          this.dialogRef.close(res);
+        },
+        (err) => {
+          this.toast.toastError(
+            `${err.status} - Something went wrong! Please let Ilthy know!`
+          );
+        }
+      );
   }
 }

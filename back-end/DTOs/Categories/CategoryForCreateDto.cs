@@ -1,6 +1,4 @@
-﻿using SkillListBackEnd.Enums;
-
-namespace SkillListBackEnd.DTOs.Categories
+﻿namespace SkillListBackEnd.DTOs.Categories
 {
     /// <summary>
     /// Data Transfer Object for creating categories
@@ -8,7 +6,7 @@ namespace SkillListBackEnd.DTOs.Categories
     public class CategoryForCreateDto
     {
         public string Description { get; set; }
-        public CategoryType Type { get; set; }
+        public bool IsProfessionCategory { get; set; }
 
     }
 }

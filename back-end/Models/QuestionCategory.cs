@@ -1,5 +1,4 @@
-﻿using SkillListBackEnd.Enums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SkillListBackEnd.Models
@@ -14,10 +13,11 @@ namespace SkillListBackEnd.Models
         /// </summary>
         [MaxLength(50)]
         public string Description { get; set; }
+
         /// <summary>
-        /// The type of category it is.
+        /// Whether or not the category is one for professions or not. Later used in for filtering in the front end
         /// </summary>
-        public CategoryType Type { get; set; }
+        public bool IsProfessionCategory { get; set; }
         public ICollection<Question> Questions { get; set; }
     }
 }

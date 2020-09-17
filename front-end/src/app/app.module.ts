@@ -28,7 +28,7 @@ import { LoginComponent } from './components/account/login/login.component';
 import { RegisterComponent } from './components/account/register/register.component';
 import { AppRoutingModule } from './routes/app-routing.module';
 import { InfoComponent } from './components/shared/info/info.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpHeadersInterceptor } from './interceptors/http-headers.interceptor';
 import { CookieService } from 'ngx-cookie-service';
@@ -63,6 +63,7 @@ import { UserOverviewComponent } from './components/admin/user-overview/user-ove
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
 

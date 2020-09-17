@@ -8,7 +8,7 @@ export class MenuService {
 
   private menuItems: MenuItem[] = [
     {
-      text: 'List charcters',
+      text: 'List characters',
       link: '/character-overview',
       isAdminLink: false,
       icon: 'group',

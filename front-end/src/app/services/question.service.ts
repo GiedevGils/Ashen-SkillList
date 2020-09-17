@@ -22,17 +22,17 @@ export class QuestionService {
   }
 
   getSingleQuestion(id: number): Observable<Question> {
-    return this.http.get<Question>(`${this.baseUrl}/get-single-question/${id}`)
+    return this.http.get<Question>(`${this.baseUrl}/get-single-question/${id}`);
   }
 
   /** POST a new category */
   createQuestionCategory(
     description: string,
-    type: CategoryType
+    isProfessionCategory: boolean
   ): Observable<QuestionCategory> {
     return this.http.post<QuestionCategory>(`${this.baseUrl}/create-category`, {
       description,
-      type,
+      isProfessionCategory,
     });
   }
 
@@ -52,7 +52,7 @@ export class QuestionService {
     return this.http.put<QuestionCategory>(`${this.baseUrl}/update-category`, {
       id: cat.id,
       description: cat.description,
-      type: cat.type,
+      isProfessionCategory: cat.isProfessionCategory,
     });
   }
 

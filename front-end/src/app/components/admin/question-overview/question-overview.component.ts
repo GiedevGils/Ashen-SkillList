@@ -21,7 +21,6 @@ export class QuestionOverviewComponent implements OnInit {
   displayedColumns = ['description', 'numberOfQuestions', 'adminButtons'];
   expandedElement: QuestionCategory | null;
   shouldViewBeCompact: boolean;
-  catTypes: { typeId: number; text: string }[];
 
   constructor(
     private questionService: QuestionService,
@@ -36,7 +35,6 @@ export class QuestionOverviewComponent implements OnInit {
       this.shouldViewBeCompact = shouldBeCompact;
     });
     this.shouldViewBeCompact = this.responsive.shouldViewBeCompact;
-    this.catTypes = CategoryTypeHelper.getArrayOfTypes();
   }
 
   deleteCategory(catId: number) {
@@ -106,11 +104,23 @@ export class QuestionOverviewComponent implements OnInit {
   getQuestions() {
     this.questionService.getAllQuestions().subscribe((res) => {
       this.questionCategories = res;
+
+      // https://stackoverflow.com/a/17387454
+      this.questionCategories.sort((x, y) => {
+        return x.isProfessionCategory === y.isProfessionCategory ? 0 : x.isProfessionCategory ? -1 : 1;
+      });
+
       this.readyForTable = true;
     });
   }
 
-  filterQuestionsIntoArraysForDisplay(type: CategoryType) {
-    return this.questionCategories.filter((x) => x.type === type);
+  filterQuestionsIntoProfs() {
+    if (this.questionCategories) {
+      return this.questionCategories.filter(
+        (x) => x.isProfessionCategory === true
+      );
+    } else {
+      return [];
+    }
   }
 }

@@ -31,7 +31,7 @@ namespace SkillListBackEnd.Repositories.Implementations
         {
             QuestionCategory category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == categoryId);
             category.Description = cat.Description;
-            category.Type = cat.Type;
+            category.IsProfessionCategory = cat.IsProfessionCategory;
             await _context.SaveChangesAsync();
             return category;
         }
@@ -42,10 +42,13 @@ namespace SkillListBackEnd.Repositories.Implementations
             _context.Categories.Remove(category);
 
             // Delete the questions in the category
-            foreach(Question q in category.Questions)
-            {
-                await this.DeleteQuestion(q.Id);
-            }
+           if(category.Questions != null)
+           {
+                foreach (Question q in category.Questions)
+                {
+                    await this.DeleteQuestion(q.Id);
+                }
+           }
 
             await _context.SaveChangesAsync();
             return true;
