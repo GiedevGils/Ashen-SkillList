@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>Create a new character</h2>
+<h2 mat-dialog-title *ngIf="!isEdit">Create a new character</h2>
+<h2 mat-dialog-title *ngIf="isEdit">Edit character</h2>
 
 <mat-dialog-content class="mat-typography">
 	<form class="form" [formGroup]="characterForm">
@@ -41,7 +42,10 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
 	<button mat-stroked-button mat-dialog-close>Close</button>
-	<button mat-stroked-button color="primary"
+	<button mat-stroked-button *ngIf="!isEdit" color="primary"
 		[disabled]="characterName.hasError('required') || squad.hasError('required') || profession.hasError('required')"
 		(click)="addCharacter()">Add character</button>
+	<button mat-stroked-button *ngIf="isEdit" color="primary"
+		[disabled]="characterName.hasError('required') || squad.hasError('required') || profession.hasError('required')"
+		(click)="editCharacter()">Edit character</button>
 </mat-dialog-actions>

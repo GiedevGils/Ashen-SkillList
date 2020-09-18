@@ -40,6 +40,7 @@ import { SingleQuestionComponent } from './components/admin/single-question/sing
 import { AddEditQuestionComponent } from './components/admin/add-edit-question/add-edit-question.component';
 import { AddEditCategoryComponent } from './components/admin/add-edit-category/add-edit-category.component';
 import { UserOverviewComponent } from './components/admin/user-overview/user-overview.component';
+import { AddAnswersComponent } from './components/characters/add-answers/add-answers.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { UserOverviewComponent } from './components/admin/user-overview/user-ove
     AddEditQuestionComponent,
     AddEditCategoryComponent,
     UserOverviewComponent,
+    AddAnswersComponent,
   ],
   imports: [
     BrowserModule,

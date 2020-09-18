@@ -5,15 +5,16 @@ import { QuestionOverviewComponent } from '../components/admin/question-overview
 import { LoggedInGuard } from '../guards/logged-in.guard';
 import { AdminGuard } from '../guards/admin.guard';
 import { UserOverviewComponent } from '../components/admin/user-overview/user-overview.component';
+import { AddAnswersComponent } from '../components/characters/add-answers/add-answers.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'character-overview', pathMatch: 'full'},
   { path: 'character-overview', component: CharacterOverviewComponent },
+  { path: 'answers/:charId', component: AddAnswersComponent },
   { path: 'question-overview', component: QuestionOverviewComponent, canActivate: [LoggedInGuard] },
   { path: 'user-overview', component: UserOverviewComponent, canActivate: [AdminGuard] },
-]; // sets up routes constant where you define your routes
+];
 
-// configures NgModule imports and exports
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],

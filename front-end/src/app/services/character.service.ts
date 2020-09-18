@@ -30,6 +30,15 @@ export class CharacterService {
     });
   }
 
+  editCharacter(char: Character): Observable<Character> {
+    return this.http.put<Character>(`${this.baseUrl}/update-character`, {
+      id: char.id,
+      characterName: char.characterName,
+      squad: char.squad,
+      profession: char.profession
+    })
+  }
+
   /** Delete a character by its ID
    * This had to be done by http.request('delete', `url`, `options`) because normal delete requests don't like a body
    * https://stackoverflow.com/questions/54017088

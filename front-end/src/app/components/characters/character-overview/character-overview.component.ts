@@ -63,8 +63,7 @@ export class CharacterOverviewComponent implements OnInit {
       windowWidth = width;
     } else if (event && !width) {
       windowWidth = event.target.innerWidth || 800;
-    }
-    else {
+    } else {
       return;
     }
 
@@ -75,6 +74,17 @@ export class CharacterOverviewComponent implements OnInit {
     } else {
       this.amountOfColumns = 3;
     }
+  }
+
+  openEdit(character: Character) {
+    const dialogRef = this.dialog.open(AddCharacterComponent, {
+      data: { character },
+    });
+
+    dialogRef.afterClosed().subscribe((char: Character) => {
+      const index = this.characters.indexOf(character);
+      this.characters[index] = char;
+    });
   }
 
   deleteCharacter(charId: number) {

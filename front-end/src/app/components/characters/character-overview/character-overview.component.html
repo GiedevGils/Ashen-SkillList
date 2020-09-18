@@ -16,6 +16,9 @@
 				<mat-card-actions align="end">
 					<button *ngIf="!userInfo.isAdmin" mat-stroked-button>Anwer questions for this character</button>
 					<button *ngIf="userInfo.isAdmin" mat-stroked-button>View character</button>
+					<button mat-icon-button label="Edit character" (click)="openEdit(char)">
+						<mat-icon>edit</mat-icon>
+					</button>
 					<button mat-icon-button color="error" (click)="deleteCharacter(char.id)">
 						<mat-icon>delete</mat-icon>
 					</button>
