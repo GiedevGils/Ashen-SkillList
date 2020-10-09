@@ -10,4 +10,11 @@
 
 .rad-group-item {
   padding: 2px;
+  margin-bottom: 1vh;
+}
+
+.rad-item-text {
+  word-break: normal;
+  max-width: 100%;
+  white-space: normal;
 }

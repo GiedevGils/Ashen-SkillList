@@ -2,15 +2,17 @@
 	<div class="mat-card-content">
 		<h1 class="mat-h1">Add answers for {{character?.characterName}}</h1>
 		<p class="subtle">Progress is automatically saved when an answer is selected.</p>
-		<p class="subtle" *ngIf="!displayEnd">Currently answering question {{this.selectedQuestionIndex + 1}} of {{questionsToAnswer.length}} </p>
+		<p class="subtle" *ngIf="!displayEnd">Currently answering question {{this.selectedQuestionIndex + 1}} of
+			{{questionsToAnswer.length}} </p>
 		<p class="subtle" *ngIf="displayEnd">You have answered all {{questionsToAnswer.length}} questions</p>
 
 		<mat-progress-bar mode="determinate" color="primary" [value]="progress"></mat-progress-bar>
 
 		<div class="question-manage-buttons">
-			<button mat-stroked-button color="warn" (click)="previousQuestion()"
-				[disabled]="!canGoToPreviousQuestion">Previous question</button>
-			<button mat-stroked-button color="primary" (click)="nextQuestion()" [disabled]="!canGoToNextQuestion">Next
+			<button mat-stroked-button color="warn" (click)="previousQuestion()" [disabled]="!canGoToPreviousQuestion"
+				class="q-progress-btn">Previous question</button>
+			<button mat-stroked-button color="primary" (click)="nextQuestion()" [disabled]="!canGoToNextQuestion"
+				class="q-progress-btn">Next
 				question</button>
 		</div>
 

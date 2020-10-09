@@ -19,3 +19,8 @@
 	font-size: 125%;
 	text-align: center;
 }
+
+.q-progress-btn {
+	width: 100%;
+	margin-bottom: 1vh;
+}

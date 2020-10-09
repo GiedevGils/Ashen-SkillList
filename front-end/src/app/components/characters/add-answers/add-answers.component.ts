@@ -94,6 +94,7 @@ export class AddAnswersComponent implements OnInit {
     this.answerService.submitAnswer(body).subscribe(
       (res) => {
         this.toast.toastSuccess('The answer was saved');
+        this.nextQuestion();
       },
       (err) => {
         this.toast.toastError(
