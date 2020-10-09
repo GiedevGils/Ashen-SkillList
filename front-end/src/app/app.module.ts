@@ -19,6 +19,8 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/nav/header/header.component';
@@ -41,6 +43,8 @@ import { AddEditQuestionComponent } from './components/admin/add-edit-question/a
 import { AddEditCategoryComponent } from './components/admin/add-edit-category/add-edit-category.component';
 import { UserOverviewComponent } from './components/admin/user-overview/user-overview.component';
 import { AddAnswersComponent } from './components/characters/add-answers/add-answers.component';
+import { SubmitAnswerComponent } from './components/characters/submit-answer/submit-answer.component';
+import { LandingComponent } from './components/nav/landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +63,8 @@ import { AddAnswersComponent } from './components/characters/add-answers/add-ans
     AddEditCategoryComponent,
     UserOverviewComponent,
     AddAnswersComponent,
+    SubmitAnswerComponent,
+    LandingComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +92,9 @@ import { AddAnswersComponent } from './components/characters/add-answers/add-ans
     MatTreeModule,
     MatDividerModule,
     MatTableModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatProgressBarModule,
+    MatRadioModule,
   ],
   providers: [
     {

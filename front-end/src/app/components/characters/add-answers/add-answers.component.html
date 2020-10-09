@@ -1,1 +1,26 @@
-<p>add-answers works!</p>
+<mat-card>
+	<div class="mat-card-content">
+		<h1 class="mat-h1">Add answers for {{character?.characterName}}</h1>
+		<p class="subtle">Progress is automatically saved when an answer is selected.</p>
+		<p class="subtle" *ngIf="!displayEnd">Currently answering question {{this.selectedQuestionIndex + 1}} of {{questionsToAnswer.length}} </p>
+		<p class="subtle" *ngIf="displayEnd">You have answered all {{questionsToAnswer.length}} questions</p>
+
+		<mat-progress-bar mode="determinate" color="primary" [value]="progress"></mat-progress-bar>
+
+		<div class="question-manage-buttons">
+			<button mat-stroked-button color="warn" (click)="previousQuestion()"
+				[disabled]="!canGoToPreviousQuestion">Previous question</button>
+			<button mat-stroked-button color="primary" (click)="nextQuestion()" [disabled]="!canGoToNextQuestion">Next
+				question</button>
+		</div>
+
+		<div *ngIf="!displayEnd">
+			<app-submit-answer [holder]="currentlySelectedQuestion" (questionAnswered)="saveAnswer($event)">
+			</app-submit-answer>
+		</div>
+		<div *ngIf="displayEnd">
+			<p class="success-text">All of the questions have been filled in. Thank you for taking the time to do it! In
+				the future, you can come back to change your answers (this feature is stil in development).</p>
+		</div>
+	</div>
+</mat-card>

@@ -1,0 +1,21 @@
+.subtle {
+	color: lightgrey;
+	font-style: italic;
+
+}
+
+.question-manage-buttons {
+	padding-top: 10px;
+	float:right;
+}
+
+.question-manage-buttons :first-child {
+	margin-right: 10px;
+}
+
+.success-text {
+	color: lightgreen;
+	padding-top: 6vh;
+	font-size: 125%;
+	text-align: center;
+}

@@ -1,0 +1,9 @@
+<div class="container">
+		<p>The currently selected skill:</p>
+		<h2 class="mat-h2">{{holder?.category.description}} - {{holder?.question.description}}</h2>
+
+		<mat-radio-group class="rad-group" [(ngModel)]="selectedAnswerId" (change)="onAnswerSelected()">
+			<mat-radio-button color="primary" class="rad-group-item" *ngFor="let a of holder?.answers" [value]="a.id">
+				{{a.rating}} - {{a.description}}</mat-radio-button>
+		</mat-radio-group>
+</div>

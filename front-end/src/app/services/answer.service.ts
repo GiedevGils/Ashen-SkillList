@@ -33,4 +33,12 @@ export class AnswerService {
       body: { answers },
     });
   }
+
+  submitAnswer(body: {
+    questionId: number;
+    answerId: number;
+    characterId: number;
+  }) {
+    return this.http.post(`${this.baseUrl}/vote`, body);
+  }
 }

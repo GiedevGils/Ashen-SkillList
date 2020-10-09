@@ -47,7 +47,7 @@ export class AddCharacterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.data.character) {
+    if (this.data?.character) {
       this.characterName = new FormControl(this.data.character.characterName, [
         Validators.required,
       ]);

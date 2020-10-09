@@ -82,6 +82,9 @@ export class CharacterOverviewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((char: Character) => {
+      if (!char) {
+        return;
+      }
       const index = this.characters.indexOf(character);
       this.characters[index] = char;
     });

@@ -30,6 +30,7 @@ export class CharacterService {
     });
   }
 
+  /** PUT a character to update it on the API */
   editCharacter(char: Character): Observable<Character> {
     return this.http.put<Character>(`${this.baseUrl}/update-character`, {
       id: char.id,
