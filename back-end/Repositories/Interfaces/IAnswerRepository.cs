@@ -64,5 +64,12 @@ namespace SkillListBackEnd.Repositories.Interfaces
         /// <param name="answerId">The answer for a question. Answer is linked to question</param>
         /// <returns>The created answer</returns>
         Task<CharacterAnswer> GiveAnswerForCharacter(int characterId, int questionId, int answerId);
+
+        /// <summary>
+        /// Get all answers for al characters.
+        /// Used for admins to filter in the front-end
+        /// </summary>
+        /// <returns>An IEnumerable with all answers</returns>
+        Task<IEnumerable<CharacterAnswer>> GetAnsersForAllCharacters();
     }
 }

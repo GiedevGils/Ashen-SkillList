@@ -4,7 +4,6 @@ using SkillListBackEnd.Models;
 using SkillListBackEnd.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Repositories.Implementations

@@ -5,6 +5,8 @@ using SkillListBackEnd.DTOs.Answers;
 using SkillListBackEnd.Helpers;
 using SkillListBackEnd.Models;
 using SkillListBackEnd.Repositories.Interfaces;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Controllers
@@ -112,6 +114,17 @@ namespace SkillListBackEnd.Controllers
 
             CharacterAnswer result = await _answerRepository.GiveAnswerForCharacter(body.CharacterId, body.QuestionId, body.AnswerId);
             return Created("no-url", result);
+        }
+
+        [HttpGet("get-answers-for-all-characters")]
+        public async Task<IActionResult> GetAnswersForAllCharacters()
+        {
+            int userId = GetUserIdFromToken();
+            if (!_adminHelper.IsUserAdmin(userId))
+                return Unauthorized();
+
+            IEnumerable<CharacterAnswer> answers = await _answerRepository.GetAnsersForAllCharacters();
+            return Ok(answers);
         }
     }
 }

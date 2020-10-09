@@ -1,12 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SkillListBackEnd.Controllers;
 using SkillListBackEnd.Data;
 using SkillListBackEnd.Models;
 using SkillListBackEnd.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Repositories.Implementations
@@ -25,7 +23,7 @@ namespace SkillListBackEnd.Repositories.Implementations
             Question questionToAddAnswerTo = await _context.Questions.FirstOrDefaultAsync(x => x.Id == questionId);
 
             // To make sure the category and question get linked, we need to let EF know that the category also needs to be re-saved
-            _context.Entry(questionToAddAnswerTo).State = EntityState.Modified;
+            _context.Entry(questionToAddAnswerTo).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
             if (questionToAddAnswerTo.Answers == null)
             {
@@ -41,7 +39,7 @@ namespace SkillListBackEnd.Repositories.Implementations
         {
             Question questionToAddAnswersTo = await _context.Questions.FirstOrDefaultAsync(x => x.Id == questionId);
 
-            _context.Entry(questionToAddAnswersTo).State = EntityState.Modified;
+            _context.Entry(questionToAddAnswersTo).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
 
             if (questionToAddAnswersTo.Answers == null)
@@ -134,6 +132,10 @@ namespace SkillListBackEnd.Repositories.Implementations
             return charAnswer;
         }
 
-        
+        public async Task<IEnumerable<CharacterAnswer>> GetAnsersForAllCharacters()
+        {
+            IEnumerable<CharacterAnswer> answers = _context.CharacterAnswers.Include(x => x.Answer).Include(x => x.Character).Include(x => x.Question);
+            return answers;
+        }
     }
 }
