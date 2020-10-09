@@ -12,13 +12,27 @@ button {
 }
 
 .banner-img-container {
-  height: 100%;  
-}
-
-.banner-img {
   height: 100%;
 }
 
+.banner-img {
+  height: 7vh;
+}
+
 div {
-  display: inherit
+  display: inherit;
+}
+
+.header-link {
+  cursor: pointer;
+}
+
+.header-title {
+  margin-top: 2vh;
+}
+
+@media only screen and (max-width: 1200px) {
+  .header-title {
+    margin-top: 1.5vh;
+  }
 }

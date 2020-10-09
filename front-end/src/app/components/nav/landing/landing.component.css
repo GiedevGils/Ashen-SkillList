@@ -1,0 +1,9 @@
+.container {
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
+.link {
+	text-decoration: underline;
+	cursor: pointer;
+}

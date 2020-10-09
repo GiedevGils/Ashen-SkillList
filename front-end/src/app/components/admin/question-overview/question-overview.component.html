@@ -1,5 +1,5 @@
 <h1 class="mat-h1">Manage questions</h1>
-
+<br *ngIf="shouldViewBeCompact" />
 <div class="fab-container">
 	<button mat-flat-button class="add-cat-btn" (click)="addCategory()">
 		Add category <mat-icon>add</mat-icon>
@@ -8,8 +8,8 @@
 
 <hr>
 
-<h2 class="mat-h2">Professions - {{filterQuestionsIntoProfs().length}} categories</h2>
-
+<h2 class="mat-h2">{{filterQuestionsIntoProfs().length}} professions are <span *ngIf="!displayProfs.checked">not</span> displayed</h2>
+<br *ngIf="shouldViewBeCompact" />
 <div class="fab-container">
 	<mat-slide-toggle color="primary" checked="false" #displayProfs class="add-cat-btn">Display professions
 	</mat-slide-toggle>

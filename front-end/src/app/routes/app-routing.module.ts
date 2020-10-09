@@ -6,9 +6,10 @@ import { LoggedInGuard } from '../guards/logged-in.guard';
 import { AdminGuard } from '../guards/admin.guard';
 import { UserOverviewComponent } from '../components/admin/user-overview/user-overview.component';
 import { AddAnswersComponent } from '../components/characters/add-answers/add-answers.component';
+import { LandingComponent } from '../components/nav/landing/landing.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'character-overview', pathMatch: 'full'},
+  { path: '', component: LandingComponent},
   { path: 'character-overview', component: CharacterOverviewComponent },
   { path: 'answers/:charId', component: AddAnswersComponent },
   { path: 'question-overview', component: QuestionOverviewComponent, canActivate: [LoggedInGuard] },

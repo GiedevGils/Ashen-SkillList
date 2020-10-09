@@ -1,5 +1,6 @@
 .form {
-  max-width: 750px;
+  max-width: 90vw;
+  min-width: 20vw;
   width: 100%;
 }
 
