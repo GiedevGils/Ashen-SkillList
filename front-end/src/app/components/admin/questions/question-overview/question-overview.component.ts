@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CategoryType, CategoryTypeHelper } from 'src/app/enums/cat-type.enum';
 import { QuestionCategory } from 'src/app/models/question-category.model';
 import { QuestionService } from 'src/app/services/question.service';
 import { ResponsiveService } from 'src/app/services/responsive.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { WarningPopupComponent } from '../../shared/warning-popup/warning-popup.component';
+import { WarningPopupComponent } from '../../../shared/warning-popup/warning-popup.component';
 import { AddEditCategoryComponent } from '../add-edit-category/add-edit-category.component';
 import { AddEditQuestionComponent } from '../add-edit-question/add-edit-question.component';
 
@@ -88,6 +86,9 @@ export class QuestionOverviewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((createdQuestion) => {
+      if (!createdQuestion) {
+        return;
+      }
       c.questions.push(createdQuestion);
       // for reasons unknown, this is needed to reload the data
       // https://stackoverflow.com/a/50654218

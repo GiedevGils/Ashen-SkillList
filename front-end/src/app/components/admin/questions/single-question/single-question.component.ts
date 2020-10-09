@@ -6,7 +6,7 @@ import { Question } from 'src/app/models/question.model';
 import { QuestionService } from 'src/app/services/question.service';
 import { ResponsiveService } from 'src/app/services/responsive.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { WarningPopupComponent } from '../../shared/warning-popup/warning-popup.component';
+import { WarningPopupComponent } from '../../../shared/warning-popup/warning-popup.component';
 import { AddEditQuestionComponent } from '../add-edit-question/add-edit-question.component';
 
 @Component({

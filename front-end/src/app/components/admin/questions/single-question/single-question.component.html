@@ -7,7 +7,7 @@
 
 	<ng-container matColumnDef="answerCount">
 		<th mat-header-cell *matHeaderCellDef> Number of answers </th>
-		<td mat-cell *matCellDef="let element"> {{element.answers.length}} </td>
+		<td mat-cell *matCellDef="let element"> {{element.answers?.length}} </td>
 	</ng-container>
 
 	<ng-container matColumnDef="adminButtons">

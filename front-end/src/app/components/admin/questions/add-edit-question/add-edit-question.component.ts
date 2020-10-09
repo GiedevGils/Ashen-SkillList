@@ -13,7 +13,7 @@ import { Question } from 'src/app/models/question.model';
 import { AnswerService } from 'src/app/services/answer.service';
 import { QuestionService } from 'src/app/services/question.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { WarningPopupComponent } from '../../shared/warning-popup/warning-popup.component';
+import { WarningPopupComponent } from '../../../shared/warning-popup/warning-popup.component';
 import { AddEditCategoryComponent } from '../add-edit-category/add-edit-category.component';
 
 @Component({

@@ -21,7 +21,7 @@ export class MenuService {
     },
     {
       text: 'Manage characters',
-      link: '',
+      link: '/admin-character-overview',
       isAdminLink: true,
       icon: 'groups',
     },
