@@ -42,16 +42,7 @@ export class AddAnswersComponent implements OnInit {
 
     this.questionService.getAllQuestions().subscribe((res) => {
       this.allQuestions = res;
-      res.forEach((cat) => {
-        cat.questions.forEach((ques) => {
-          const qh: QuestionHolder = {
-            category: cat,
-            question: ques,
-            answers: ques.answers,
-          };
-          this.questionsToAnswer.push(qh);
-        });
-      });
+      this.questionsToAnswer = this.questionService.formatToQuestionHolder(res);
       this.currentlySelectedQuestion = this.questionsToAnswer[
         this.selectedQuestionIndex
       ];

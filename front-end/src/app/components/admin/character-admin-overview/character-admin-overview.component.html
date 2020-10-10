@@ -1,7 +1,20 @@
-<p>character-admin-overview works!</p>
-<div class="filters">
-		<input type="text" matInput [matAutocomplete]="auto">
-		<mat-autocomplete #auto="matAutocomplete">
-			<mat-option *ngFor="let pf of allProfiles" [value]="pf">{{pf}}</mat-option>
-		</mat-autocomplete>
-</div>
+<mat-card>
+	<mat-card-content>
+		<p>character-admin-overview works!</p>
+		<div class="filters">
+			<mat-form-field class="filter-input">
+				<input matInput #inputField type="text" [formControl]="filterInput" [matAutocomplete]="auto"
+					placeholder="Find a category" />
+				<mat-autocomplete #auto="matAutocomplete" (optionSelected)="itemSelected($event)">
+					<mat-optgroup *ngFor="let cat of filteredOptions | async" [label]="cat.description">
+						<mat-option *ngFor="let question of cat.questions" [value]="question.description">
+							{{question.description}} </mat-option>
+					</mat-optgroup>
+				</mat-autocomplete>
+				<button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="inputField.value=''">
+					<mat-icon>close</mat-icon>
+				</button>
+			</mat-form-field>
+		</div>
+	</mat-card-content>
+</mat-card>

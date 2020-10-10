@@ -21,9 +21,20 @@ export class QuestionService {
       `${this.baseUrl}/get-all-questions`
     );
   }
-  
-  formatToQuestionHolder(input: QuestionCategory[]): QuestionHolder[] {
 
+  formatToQuestionHolder(input: QuestionCategory[]): QuestionHolder[] {
+    const holder = [];
+    input.forEach((cat) => {
+      cat.questions.forEach((ques) => {
+        const qh: QuestionHolder = {
+          category: cat,
+          question: ques,
+          answers: ques.answers,
+        };
+        holder.push(qh);
+      });
+    });
+    return holder;
   }
 
   getSingleQuestion(id: number): Observable<Question> {
