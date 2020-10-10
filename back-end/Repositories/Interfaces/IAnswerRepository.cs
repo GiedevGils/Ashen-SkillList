@@ -71,5 +71,11 @@ namespace SkillListBackEnd.Repositories.Interfaces
         /// </summary>
         /// <returns>An IEnumerable with all answers</returns>
         Task<IEnumerable<CharacterAnswer>> GetAnsersForAllCharacters();
+
+        /// <summary>
+        /// Get all answers for a specific question
+        /// </summary>
+        /// <returns>IEnumerable of anwers for that question</returns>
+        Task<IEnumerable<CharacterAnswer>> GetAnswersForQuestion(int questionId);
     }
 }

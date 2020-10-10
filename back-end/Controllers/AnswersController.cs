@@ -104,7 +104,7 @@ namespace SkillListBackEnd.Controllers
             return Ok(result);
         }
 
-        [HttpPost("vote")]
+        [HttpPost("answer")]
         public async Task<IActionResult> SelectAnswerForCharacter(CharacterAnswerForCreateDto body)
         {
             int userId = GetUserIdFromToken();
@@ -124,6 +124,17 @@ namespace SkillListBackEnd.Controllers
                 return Unauthorized();
 
             IEnumerable<CharacterAnswer> answers = await _answerRepository.GetAnsersForAllCharacters();
+            return Ok(answers);
+        }
+
+        [HttpGet("get-answers-for-question/{questionId}")]
+        public async Task<IActionResult> GetAnswersForQuestion(int questionId)
+        {
+            int userId = GetUserIdFromToken();
+            if (!_adminHelper.IsUserAdmin(userId))
+                return Unauthorized();
+
+            IEnumerable<CharacterAnswer> answers = await _answerRepository.GetAnswersForQuestion(questionId);
             return Ok(answers);
         }
     }

@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/nav/header/header.component';
@@ -97,6 +98,7 @@ import { CharacterAdminOverviewComponent } from './components/admin/character-ad
     MatSlideToggleModule,
     MatProgressBarModule,
     MatRadioModule,
+    MatAutocompleteModule
   ],
   providers: [
     {

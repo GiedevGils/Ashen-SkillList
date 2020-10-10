@@ -39,6 +39,10 @@ export class AnswerService {
     answerId: number;
     characterId: number;
   }) {
-    return this.http.post(`${this.baseUrl}/vote`, body);
+    return this.http.post(`${this.baseUrl}/answer`, body);
+  }
+
+  getAnswerForQuestion(questionId: number) {
+    return this.http.get(`${this.baseUrl}/answer/get-answers-for-question/${questionId}`);
   }
 }

@@ -5,6 +5,7 @@ using SkillListBackEnd.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace SkillListBackEnd.Repositories.Implementations
@@ -135,6 +136,12 @@ namespace SkillListBackEnd.Repositories.Implementations
         public async Task<IEnumerable<CharacterAnswer>> GetAnsersForAllCharacters()
         {
             IEnumerable<CharacterAnswer> answers = _context.CharacterAnswers.Include(x => x.Answer).Include(x => x.Character).Include(x => x.Question);
+            return answers;
+        }
+
+        public async Task<IEnumerable<CharacterAnswer>> GetAnswersForQuestion(int questionId)
+        {
+            IEnumerable<CharacterAnswer> answers = _context.CharacterAnswers.Where(x => x.Question.Id == questionId).Include(x => x.Answer).Include(x => x.Character).Include(x => x.Question);
             return answers;
         }
     }

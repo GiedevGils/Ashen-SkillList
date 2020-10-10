@@ -1,8 +1,8 @@
 <div *ngIf="!userInfo">You have to be logged in to view your characters.</div>
 
 <div *ngIf="userInfo">
-	<h1 *ngIf="userInfo.isAdmin">All characters</h1>
-	<h1 *ngIf="!userInfo.isAdmin">Your characters</h1>
+	<h1 *ngIf="userInfo.isAdmin" class="mat-h1">All characters</h1>
+	<h1 *ngIf="!userInfo.isAdmin" class="mat-h1">Your characters</h1>
 	<mat-grid-list [cols]="amountOfColumns" (window:resize)="setGridColumnNumber($event)" rowHeight="8em" gutterSize="25px">
 		<mat-grid-tile *ngFor='let char of characters'>
 			<mat-card class="character-card">
