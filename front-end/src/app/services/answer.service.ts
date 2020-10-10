@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Config } from 'src/config';
 import { Answer } from '../models/answer.model';
+import { CharacterAnswer } from '../models/character-answer.model';
 
 @Injectable({
   providedIn: 'root',
@@ -42,7 +43,9 @@ export class AnswerService {
     return this.http.post(`${this.baseUrl}/answer`, body);
   }
 
-  getAnswerForQuestion(questionId: number) {
-    return this.http.get(`${this.baseUrl}/answer/get-answers-for-question/${questionId}`);
+  getAnswersForQuestion(questionId: number): Observable<CharacterAnswer[]> {
+    return this.http.get<CharacterAnswer[]>(
+      `${this.baseUrl}/get-answers-for-question/${questionId}`
+    );
   }
 }
