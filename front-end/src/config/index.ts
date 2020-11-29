@@ -1,4 +1,4 @@
 export class Config {
   // Add port in URL if necessary
-  static url = 'http://localhost:53557';
+  static url = 'https://skilllist.azurewebsites.net';
 }
