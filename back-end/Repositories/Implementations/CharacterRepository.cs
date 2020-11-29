@@ -54,7 +54,7 @@ namespace SkillListBackEnd.Repositories.Implementations
 
         public async Task<Character> UpdateCharacter(int userId, int characterId, Character updatedCharacter)
         {
-            if (!_adminHelper.CanOperationContinue(userId, characterId))
+            if (!_adminHelper.DoesUserOwnCharacterOrIsAdmin(userId, characterId))
                 return null;
 
             Character characterToUpdate = _context.Characters.FirstOrDefault(x => x.Id == characterId);
@@ -67,7 +67,7 @@ namespace SkillListBackEnd.Repositories.Implementations
 
         public async Task<bool> DeleteCharacter(int userId, int characterId)
         {
-            if (!_adminHelper.CanOperationContinue(userId, characterId))
+            if (!_adminHelper.DoesUserOwnCharacterOrIsAdmin(userId, characterId))
                 return false;
 
             Character charToDelete = await _context.Characters.FirstOrDefaultAsync(x => x.Id == characterId);

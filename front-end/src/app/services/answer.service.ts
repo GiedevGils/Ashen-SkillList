@@ -9,7 +9,7 @@ import { CharacterAnswer } from '../models/character-answer.model';
   providedIn: 'root',
 })
 export class AnswerService {
-  private baseUrl = `${Config.url}:${Config.port}/api/answers`;
+  private baseUrl = `${Config.url}/api/answers`;
 
   constructor(private http: HttpClient) {}
 
@@ -46,6 +46,12 @@ export class AnswerService {
   getAnswersForQuestion(questionId: number): Observable<CharacterAnswer[]> {
     return this.http.get<CharacterAnswer[]>(
       `${this.baseUrl}/get-answers-for-question/${questionId}`
+    );
+  }
+
+  getAnswersForCharacter(characterId: number): Observable<CharacterAnswer[]> {
+    return this.http.get<CharacterAnswer[]>(
+      `${this.baseUrl}/get-answers-for-character/${characterId}`
     );
   }
 }

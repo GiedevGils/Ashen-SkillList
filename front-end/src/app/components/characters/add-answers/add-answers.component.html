@@ -1,9 +1,10 @@
 <mat-card>
 	<div class="mat-card-content">
 		<h1 class="mat-h1">Add answers for {{character?.characterName}}</h1>
+		<p>You don't need to fill all the question for professions. You can leave the answer empty for the professions you don't need to fill in.</p>
 		<p class="subtle">Progress is automatically saved when an answer is selected.</p>
 		<p class="subtle" *ngIf="!displayEnd">Currently answering question {{this.selectedQuestionIndex + 1}} of
-			{{questionsToAnswer.length}} </p>
+			{{questionsToAnswer.length}}. </p>
 		<p class="subtle" *ngIf="displayEnd">You have answered all {{questionsToAnswer.length}} questions</p>
 
 		<mat-progress-bar mode="determinate" color="primary" [value]="progress"></mat-progress-bar>
@@ -17,12 +18,12 @@
 		</div>
 
 		<div *ngIf="!displayEnd">
-			<app-submit-answer [holder]="currentlySelectedQuestion" (questionAnswered)="saveAnswer($event)">
+			<app-submit-answer [holder]="currentlySelectedQuestion" (questionAnswered)="saveAnswer($event)" [selectedAnswerId]="answerForQuestion?.id">
 			</app-submit-answer>
 		</div>
 		<div *ngIf="displayEnd">
 			<p class="success-text">All of the questions have been filled in. Thank you for taking the time to do it! In
-				the future, you can come back to change your answers (this feature is stil in development).</p>
+				the future, you can come back to change your answers.</p>
 		</div>
 	</div>
 </mat-card>

@@ -144,5 +144,11 @@ namespace SkillListBackEnd.Repositories.Implementations
             IEnumerable<CharacterAnswer> answers = _context.CharacterAnswers.Where(x => x.Question.Id == questionId).Include(x => x.Answer).Include(x => x.Character).Include(x => x.Question);
             return answers;
         }
+
+        public async Task<IEnumerable<CharacterAnswer>> GetAnswersForSingleCharacter(int characterId)
+        {
+            IEnumerable<CharacterAnswer> answers = _context.CharacterAnswers.Include(x => x.Question).Include(x => x.Answer).Where(x => x.Character.Id == characterId);
+            return answers;
+        }
     }
 }

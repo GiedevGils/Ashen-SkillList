@@ -10,7 +10,7 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = `${Config.url}:${Config.port}/api/auth`;
+  private baseUrl = `${Config.url}/api/auth`;
   private tokenCookieKey = 'token';
   private userCookieKey = 'userInfo';
 

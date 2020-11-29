@@ -11,7 +11,7 @@ import { Question } from '../models/question.model';
   providedIn: 'root',
 })
 export class QuestionService {
-  private baseUrl = `${Config.url}:${Config.port}/api/questions`;
+  private baseUrl = `${Config.url}/api/questions`;
 
   constructor(private http: HttpClient) {}
 

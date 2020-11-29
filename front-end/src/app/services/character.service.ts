@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CharacterService {
-  private baseUrl = `${Config.url}:${Config.port}/api/characters`;
+  private baseUrl = `${Config.url}/api/characters`;
 
   constructor(private http: HttpClient) {}
 

@@ -109,7 +109,7 @@ namespace SkillListBackEnd.Controllers
         {
             int userId = GetUserIdFromToken();
 
-            if (!_adminHelper.CanOperationContinue(userId, body.CharacterId))
+            if (!_adminHelper.DoesUserOwnCharacterOrIsAdmin(userId, body.CharacterId))
                 return Unauthorized();
 
             CharacterAnswer result = await _answerRepository.GiveAnswerForCharacter(body.CharacterId, body.QuestionId, body.AnswerId);
@@ -135,6 +135,17 @@ namespace SkillListBackEnd.Controllers
                 return Unauthorized();
 
             IEnumerable<CharacterAnswer> answers = await _answerRepository.GetAnswersForQuestion(questionId);
+            return Ok(answers);
+        }
+
+        [HttpGet("get-answers-for-character/{characterId}")]
+        public async Task<IActionResult> GetAnswersForCharacter(int characterId)
+        {
+            int userId = GetUserIdFromToken();
+            if (!_adminHelper.DoesUserOwnCharacterOrIsAdmin(userId, characterId))
+                return Unauthorized();
+
+            IEnumerable<CharacterAnswer> answers = await _answerRepository.GetAnswersForSingleCharacter(characterId);
             return Ok(answers);
         }
     }

@@ -10,7 +10,7 @@ import { QuestionHolder } from 'src/app/models/question-holder.model';
 export class SubmitAnswerComponent implements OnInit {
   @Input() holder: QuestionHolder;
   @Output() questionAnswered = new EventEmitter();
-  selectedAnswerId: number;
+  @Input() selectedAnswerId: number;
 
   constructor() {}
 

@@ -77,5 +77,13 @@ namespace SkillListBackEnd.Repositories.Interfaces
         /// </summary>
         /// <returns>IEnumerable of anwers for that question</returns>
         Task<IEnumerable<CharacterAnswer>> GetAnswersForQuestion(int questionId);
+
+        /// <summary>
+        /// Get all answers for a character. Can be used for editing answers
+        /// </summary>
+        /// <param name="characterId"></param>
+        /// <returns>An IEnumerable with existing answers</returns>
+        Task<IEnumerable<CharacterAnswer>> GetAnswersForSingleCharacter(int characterId);
+
     }
 }

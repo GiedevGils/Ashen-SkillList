@@ -8,8 +8,20 @@ namespace SkillListBackEnd.Helpers
 
     public interface IAdminHelper
     {
+        /// <summary>
+        /// Check if a user is admin
+        /// </summary>
+        /// <param name="userId">The ID of the user</param>
+        /// <returns>If the user is admin or nto</returns>
         bool IsUserAdmin(int userId);
-        bool CanOperationContinue(int userId, int characterId);
+
+        /// <summary>
+        /// Check if a user owns the character or is an admin, and thus would be able to perform the operation.
+        /// </summary>
+        /// <param name="userId">The ID of the user </param>
+        /// <param name="characterId">The ID of the character which the operation will take place on</param>
+        /// <returns>A boolean with the yes or no answer</returns>
+        bool DoesUserOwnCharacterOrIsAdmin(int userId, int characterId);
     }
 
     public class AdminHelper : IAdminHelper
@@ -21,11 +33,7 @@ namespace SkillListBackEnd.Helpers
             _context = context;
         }
 
-        /// <summary>
-        /// Check if a user is admin
-        /// </summary>
-        /// <param name="userId">The ID of the user</param>
-        /// <returns>If the user is admin or nto</returns>
+        
         public bool IsUserAdmin(int userId)
         {
             User user = _context.Users.FirstOrDefault(x => x.Id == userId);
@@ -34,13 +42,8 @@ namespace SkillListBackEnd.Helpers
             return false;
         }
 
-        /// <summary>
-        /// Check if a user can perform the operation.
-        /// </summary>
-        /// <param name="userId">The ID of the user </param>
-        /// <param name="characterId">The ID of the character which the operation will take place on</param>
-        /// <returns>A boolean with the yes or no answer</returns>
-        public bool CanOperationContinue(int userId, int characterId)
+        
+        public bool DoesUserOwnCharacterOrIsAdmin(int userId, int characterId)
         {
             User user = _context.Users.Include(x => x.Characters).FirstOrDefault(x => x.Id == userId);
 

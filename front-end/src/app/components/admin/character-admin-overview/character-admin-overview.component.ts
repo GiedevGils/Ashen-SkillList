@@ -64,8 +64,14 @@ export class CharacterAdminOverviewComponent implements OnInit {
 
     this.answerService.getAnswersForQuestion(chosenQuestion.id).subscribe(
       (res) => {
-        this.filledInAnswersForQuestion = res;
-        this.dataSource.data = res;
+        this.filledInAnswersForQuestion = res.filter((x) => {
+          if (chosenCategory.isProfessionCategory) {
+            return x.answer.rating > 0;
+          } else {
+            return true;
+          }
+        });
+        this.dataSource.data = this.filledInAnswersForQuestion;
         this.dataSource.sort = this.sort;
       },
       (err) => {

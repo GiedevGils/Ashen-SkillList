@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { User } from 'src/app/models/user.model';
@@ -35,9 +35,9 @@ export class CharacterOverviewComponent implements OnInit {
 
     this.authService.getUserInfo().subscribe();
 
-    this.authService.loginChange.subscribe((_) => {
-      this.getCharacters();
-    });
+    // this.authService.loginChange.subscribe((_) => {
+    //   this.getCharacters();
+    // });
 
     this.getCharacters();
   }
