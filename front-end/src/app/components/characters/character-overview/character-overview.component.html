@@ -25,7 +25,7 @@
 				</mat-card-actions>
 			</mat-card>
 		</mat-grid-tile>
-		<mat-grid-tile>
+		<mat-grid-tile *ngIf="!userInfo.isAdmin">
 			<mat-card class="character-card">
 				<mat-card-header>
 					<mat-card-title>New character</mat-card-title>
@@ -36,6 +36,14 @@
 						<mat-icon>add</mat-icon> Add
 					</button>
 				</mat-card-actions>
+			</mat-card>
+		</mat-grid-tile>
+		<mat-grid-tile *ngIf="userInfo.isAdmin">
+			<mat-card class="character-card">
+				<mat-card-header>
+					<mat-card-title></mat-card-title>
+					<mat-card-subtitle>While logged in on the officer account, you cannot create new characters.</mat-card-subtitle>
+				</mat-card-header>
 			</mat-card>
 		</mat-grid-tile>
 	</mat-grid-list>
