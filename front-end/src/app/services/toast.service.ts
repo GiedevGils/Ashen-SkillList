@@ -8,7 +8,7 @@ export class ToastService {
   constructor(private toasterService: ToastrService) {}
 
   private toasterOptions = {
-    timeout: 5000,
+    timeout: 3000,
     progressBar: true,
     closeButton: true,
   };

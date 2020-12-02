@@ -73,7 +73,11 @@ import { CharacterAdminOverviewComponent } from './components/admin/character-ad
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+      countDuplicates: true,
+      resetTimeoutOnDuplicate: true,
+    }),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -100,7 +104,7 @@ import { CharacterAdminOverviewComponent } from './components/admin/character-ad
     MatProgressBarModule,
     MatRadioModule,
     MatAutocompleteModule,
-    MatSortModule
+    MatSortModule,
   ],
   providers: [
     {

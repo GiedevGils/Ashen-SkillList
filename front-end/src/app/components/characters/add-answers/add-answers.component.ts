@@ -144,7 +144,20 @@ export class AddAnswersComponent implements OnInit {
   /** Save the answer */
   saveAnswer(answer: Answer): void {
     // Update the answer in the list so that it can correctly be displayed when the user navigates through the questions
-    this.previouslyGivenAnswers.find((x) => x.question.id === this.currentlySelectedQuestion.question.id).answer = answer;
+    const previouslyAnsweredQuestion = this.previouslyGivenAnswers.find(
+      (x) => x.question.id === this.currentlySelectedQuestion.question.id
+    );
+
+    if (previouslyAnsweredQuestion) {
+      previouslyAnsweredQuestion.answer = answer;
+    } else {
+      this.previouslyGivenAnswers.push({
+        answer,
+        character: this.character,
+        question: this.currentlySelectedQuestion.question,
+      });
+    }
+
     const body = {
       questionId: this.currentlySelectedQuestion.question.id,
       answerId: answer.id,
