@@ -12,7 +12,7 @@ import { AddEditQuestionComponent } from '../add-edit-question/add-edit-question
 @Component({
   selector: 'app-single-question',
   templateUrl: './single-question.component.html',
-  styleUrls: ['./single-question.component.css'],
+  styleUrls: ['./single-question.component.css']
 })
 export class SingleQuestionComponent implements OnInit {
   @Input() questionCategory: QuestionCategory;
@@ -37,7 +37,14 @@ export class SingleQuestionComponent implements OnInit {
 
   editQuestion(q: Question) {
     const dialogRef = this.dialog.open(AddEditQuestionComponent, {
-      data: { question: q, categoryId: this.questionCategory.id },
+      data: { question: q, categoryId: this.questionCategory.id }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (result) {
+        this.questionCategory.questions = [...this.questionCategory.questions];
+      }
     });
   }
 
@@ -46,8 +53,8 @@ export class SingleQuestionComponent implements OnInit {
       data: {
         title: 'Are you sure?',
         text:
-          'This will delete the question, and the answers to the questions.<br/><b>This is not reversible.</b>',
-      },
+          'This will delete the question, and the answers to the questions.<br/><b>This is not reversible.</b>'
+      }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -66,7 +73,7 @@ export class SingleQuestionComponent implements OnInit {
             // For reasons unknown, this is needed to reload the data proper
             // https://stackoverflow.com/a/50654218
             this.questionCategory.questions = [
-              ...this.questionCategory.questions,
+              ...this.questionCategory.questions
             ];
           },
           (err) => {

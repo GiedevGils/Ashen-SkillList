@@ -104,8 +104,6 @@ export class AddEditQuestionComponent implements OnInit {
     }
   }
 
-  editRow(a: Answer) {}
-
   create() {
     const description = this.qForm.get('qDescription').value;
     let createdQuestion: Question;
@@ -127,7 +125,7 @@ export class AddEditQuestionComponent implements OnInit {
         (res) => {
           createdQuestion.answers = res;
           this.toast.toastSuccess(
-            `${res.length} answers were created to the question ${description}`
+            `${res.length} answers were added to the question ${description}`
           );
           this.dialogRef.close(createdQuestion);
         },
@@ -147,6 +145,7 @@ export class AddEditQuestionComponent implements OnInit {
 
     const canContinue = new Subject();
     const description = this.qForm.get('qDescription').value;
+    this.questionToEdit.description = description;
 
     // Once the below confirmation popup has been accepted, send out the requests
     canContinue.subscribe((res) => {
@@ -182,7 +181,7 @@ export class AddEditQuestionComponent implements OnInit {
               (x, y) => x.rating - y.rating
             );
             this.toast.toastSuccess(`The question has been edited.`);
-            this.dialogRef.close();
+            this.dialogRef.close(this.questionToEdit);
           },
           (err) => {
             console.warn(err);
