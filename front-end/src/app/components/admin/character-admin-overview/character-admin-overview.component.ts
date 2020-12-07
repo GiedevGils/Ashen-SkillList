@@ -16,7 +16,7 @@ import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-character-admin-overview',
   templateUrl: './character-admin-overview.component.html',
-  styleUrls: ['./character-admin-overview.component.css'],
+  styleUrls: ['./character-admin-overview.component.css']
 })
 export class CharacterAdminOverviewComponent implements OnInit {
   allQuestions: QuestionCategory[];
@@ -59,18 +59,12 @@ export class CharacterAdminOverviewComponent implements OnInit {
     this.selectedQuestion = {
       answers: chosenQuestion.answers,
       category: chosenCategory,
-      question: chosenQuestion,
+      question: chosenQuestion
     };
 
     this.answerService.getAnswersForQuestion(chosenQuestion.id).subscribe(
       (res) => {
-        this.filledInAnswersForQuestion = res.filter((x) => {
-          if (chosenCategory.isProfessionCategory) {
-            return x.answer.rating > 0;
-          } else {
-            return true;
-          }
-        });
+        this.filledInAnswersForQuestion = res;
         this.dataSource.data = this.filledInAnswersForQuestion;
         this.dataSource.sort = this.sort;
       },
@@ -109,7 +103,7 @@ export class CharacterAdminOverviewComponent implements OnInit {
             id: group.id,
             description: group.description,
             questions: this._filter(group.questions, value),
-            isProfessionCategory: group.isProfessionCategory,
+            isProfessionCategory: group.isProfessionCategory
           }))
           // If teh new item made in the map above does not have any questions, hide it
           .filter((group) => group.questions.length > 0)
