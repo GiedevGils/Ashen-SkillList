@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA,
+  MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 import { EventEmitter } from 'protractor';
 import { forkJoin, Subject } from 'rxjs';
@@ -19,14 +19,14 @@ import { AddEditCategoryComponent } from '../add-edit-category/add-edit-category
 @Component({
   selector: 'app-add-edit-question',
   templateUrl: './add-edit-question.component.html',
-  styleUrls: ['./add-edit-question.component.css'],
+  styleUrls: ['./add-edit-question.component.css']
 })
 export class AddEditQuestionComponent implements OnInit {
   questionToEdit: Question;
 
   isUpdate: boolean;
 
-  qName: FormControl;
+  qDescription: FormControl;
   qRating: FormControl;
   qForm: FormGroup;
 
@@ -35,14 +35,14 @@ export class AddEditQuestionComponent implements OnInit {
     { rating: 1, description: 'Has basic theoretical knowledge' },
     {
       rating: 2,
-      description: 'Knows how to apply the advanced theoretical knowledge',
+      description: 'Knows how to apply the advanced theoretical knowledge'
     },
     { rating: 3, description: 'Has advanced theoretical knowledge' },
     {
       rating: 4,
-      description: 'Knows how to apply the advanced theoretical knowledge',
+      description: 'Knows how to apply the advanced theoretical knowledge'
     },
-    { rating: 5, description: 'Has achieved mastery in this skill' },
+    { rating: 5, description: 'Has achieved mastery in this skill' }
   ];
 
   private newAnswers: Answer[] = [];
@@ -72,16 +72,16 @@ export class AddEditQuestionComponent implements OnInit {
 
   initForm() {
     if (this.questionToEdit) {
-      this.qName = new FormControl(
+      this.qDescription = new FormControl(
         this.questionToEdit.description,
         Validators.required
       );
     } else {
-      this.qName = new FormControl('', Validators.required);
+      this.qDescription = new FormControl('', Validators.required);
     }
 
     this.qForm = new FormGroup({
-      qName: this.qName,
+      qDescription: this.qDescription
     });
   }
 
@@ -107,7 +107,7 @@ export class AddEditQuestionComponent implements OnInit {
   editRow(a: Answer) {}
 
   create() {
-    const description = this.qForm.get('qName').value;
+    const description = this.qForm.get('qDescription').value;
     let createdQuestion: Question;
     // Create the question
     this.questionService
@@ -146,6 +146,7 @@ export class AddEditQuestionComponent implements OnInit {
     );
 
     const canContinue = new Subject();
+    const description = this.qForm.get('qDescription').value;
 
     // Once the below confirmation popup has been accepted, send out the requests
     canContinue.subscribe((res) => {
@@ -155,6 +156,10 @@ export class AddEditQuestionComponent implements OnInit {
       }
 
       forkJoin({
+        updateQuestion: this.questionService.updateQuestion(
+          this.questionToEdit.id,
+          description
+        ),
         newAnswers: this.answerService.createAnswersBulk(
           this.questionToEdit.id,
           this.newAnswers
@@ -162,7 +167,7 @@ export class AddEditQuestionComponent implements OnInit {
         updatedAnswers: this.answerService.updateAnswersBulk(answersToUpdate),
         deletedAnswers: this.answerService.deleteAnswersBulk(
           this.deletedAnswers.map((x) => x.id)
-        ),
+        )
       })
         .pipe(
           concatMap((r) => {
@@ -194,8 +199,8 @@ export class AddEditQuestionComponent implements OnInit {
         data: {
           title: 'Delete answers to this question?',
           text:
-            'You have deleted answers to this question. This means that the characters that have selected this answer will no longer have an answer selected for this question.<br/><b>This is not reversible</b>',
-        },
+            'You have deleted answers to this question. This means that the characters that have selected this answer will no longer have an answer selected for this question.<br/><b>This is not reversible</b>'
+        }
       });
       dialogRef.afterClosed().subscribe((res) => {
         // If the user pressed "I understand", the requests can be sent

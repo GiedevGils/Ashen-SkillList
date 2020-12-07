@@ -1,14 +1,14 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Config } from 'src/config';
-import { CategoryType } from '../enums/cat-type.enum';
-import { QuestionCategory } from '../models/question-category.model';
-import { QuestionHolder } from '../models/question-holder.model';
-import { Question } from '../models/question.model';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { Config } from "src/config";
+import { CategoryType } from "../enums/cat-type.enum";
+import { QuestionCategory } from "../models/question-category.model";
+import { QuestionHolder } from "../models/question-holder.model";
+import { Question } from "../models/question.model";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class QuestionService {
   private baseUrl = `${Config.url}/api/questions`;
@@ -72,16 +72,24 @@ export class QuestionService {
     });
   }
 
+  /** PUT a deszcription to an existing question */
+  updateQuestion(id, description) {
+    return this.http.put<Question>(`${this.baseUrl}/update-question`, {
+      id,
+      description,
+    });
+  }
+
   /** DELETE a category */
   deleteCategory(id: number) {
-    return this.http.request('delete', `${this.baseUrl}/delete-category`, {
+    return this.http.request("delete", `${this.baseUrl}/delete-category`, {
       body: { id },
     });
   }
 
   /** DELETE a question */
   deleteQuestion(id: number) {
-    return this.http.request('delete', `${this.baseUrl}/delete-question`, {
+    return this.http.request("delete", `${this.baseUrl}/delete-question`, {
       body: { id },
     });
   }
