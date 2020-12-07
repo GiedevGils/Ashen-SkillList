@@ -20,7 +20,7 @@ export class MenuService {
       icon: 'question_answer',
     },
     {
-      text: 'Manage characters',
+      text: 'View all characters',
       link: '/admin-character-overview',
       isAdminLink: true,
       icon: 'groups',

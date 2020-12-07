@@ -8,13 +8,18 @@
 }
 
 .lance {
-  background-image: url('https://s3.amazonaws.com/files.enjin.com/275477/site_user_tag_awards/large/2105150.png');
+  background-image: url("https://s3.amazonaws.com/files.enjin.com/275477/site_user_tag_awards/large/2105150.png");
 }
 
 .blade {
-  background-image: url('https://s3.amazonaws.com/files.enjin.com/275477/site_user_tag_awards/large/2105153.png');
+  background-image: url("https://s3.amazonaws.com/files.enjin.com/275477/site_user_tag_awards/large/2105153.png");
 }
 
 mat-grid-tile {
   border-radius: 5px;
+}
+
+.link {
+  text-decoration: underline;
+  cursor: pointer;
 }

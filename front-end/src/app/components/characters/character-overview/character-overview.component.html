@@ -3,7 +3,8 @@
 <div *ngIf="userInfo">
 	<h1 *ngIf="userInfo.isAdmin" class="mat-h1">All characters</h1>
 	<h1 *ngIf="!userInfo.isAdmin" class="mat-h1">Your characters</h1>
-	<mat-grid-list [cols]="amountOfColumns" (window:resize)="setGridColumnNumber($event)" rowHeight="8em" gutterSize="25px">
+	<mat-grid-list [cols]="amountOfColumns" (window:resize)="setGridColumnNumber($event)" rowHeight="8em"
+		gutterSize="25px">
 		<mat-grid-tile *ngFor='let char of characters'>
 			<mat-card class="character-card">
 				<mat-card-header>
@@ -14,8 +15,10 @@
 					<mat-card-subtitle>{{char.squad}} - {{char.profession}}</mat-card-subtitle>
 				</mat-card-header>
 				<mat-card-actions align="end">
-					<button *ngIf="!userInfo.isAdmin" mat-stroked-button [routerLink]="['/answers', char.id]">Anwer questions for this character</button>
-					<button *ngIf="userInfo.isAdmin" mat-stroked-button [routerLink]="['/answers', char.id]" >View character</button>
+					<button *ngIf="!userInfo.isAdmin" mat-stroked-button [routerLink]="['/answers', char.id]">Anwer
+						questions for this character</button>
+					<button *ngIf="userInfo.isAdmin" mat-stroked-button [routerLink]="['/answers', char.id]">View
+						character</button>
 					<button mat-icon-button label="Edit character" (click)="openEdit(char)">
 						<mat-icon>edit</mat-icon>
 					</button>
@@ -42,7 +45,9 @@
 			<mat-card class="character-card">
 				<mat-card-header>
 					<mat-card-title></mat-card-title>
-					<mat-card-subtitle>While logged in on the officer account, you cannot create new characters.</mat-card-subtitle>
+					<mat-card-subtitle>While logged in on the officer account, you cannot create new characters. Did you
+						mean to navigate to <span class="link" [routerLink]="['/admin-character-overview']">the overview of all
+							characters and their skills?</span></mat-card-subtitle>
 				</mat-card-header>
 			</mat-card>
 		</mat-grid-tile>
