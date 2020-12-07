@@ -5,7 +5,6 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA
 } from '@angular/material/dialog';
-import { EventEmitter } from 'protractor';
 import { forkJoin, Subject } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
 import { Answer } from 'src/app/models/answer.model';

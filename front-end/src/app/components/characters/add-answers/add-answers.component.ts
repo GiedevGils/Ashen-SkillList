@@ -5,6 +5,7 @@ import { CharacterAnswer } from 'src/app/models/character-answer.model';
 import { Character } from 'src/app/models/character.model';
 import { QuestionCategory } from 'src/app/models/question-category.model';
 import { QuestionHolder } from 'src/app/models/question-holder.model';
+import { Question } from 'src/app/models/question.model';
 import { AnswerService } from 'src/app/services/answer.service';
 import { CharacterService } from 'src/app/services/character.service';
 import { QuestionService } from 'src/app/services/question.service';
@@ -138,12 +139,6 @@ export class AddAnswersComponent implements OnInit {
 
   /** Go to the next question */
   nextQuestion() {
-    this.canGoToPreviousQuestion = true;
-    // If the new index will be the same length as the amount of questions, the user cannot go to a next question anymore
-    if (this.selectedQuestionIndex + 1 === this.questionsToAnswer.length) {
-      this.canGoToNextQuestion = false;
-    }
-
     // Increase the index
     this.selectedQuestionIndex++;
 
@@ -155,8 +150,6 @@ export class AddAnswersComponent implements OnInit {
     // set the progress bar
     this.setProgress();
 
-    this.checkIfAbleToGoToNextCategory();
-
     // Find the answers for the newly selected question
     this.findAnswerInPreviouslyGivenAnswersForQuestion(
       this.currentlySelectedQuestion?.question.id
@@ -165,14 +158,6 @@ export class AddAnswersComponent implements OnInit {
 
   /** Go to previous question */
   previousQuestion() {
-    // If the question goes one back, it can always go one ahead
-    this.canGoToNextQuestion = true;
-
-    // If the index is now at zero, it won't be able to go back anymore
-    if (this.selectedQuestionIndex - 1 === 0) {
-      this.canGoToPreviousQuestion = false;
-    }
-
     // Go one index back
     this.selectedQuestionIndex--;
 
@@ -180,8 +165,6 @@ export class AddAnswersComponent implements OnInit {
     this.currentlySelectedQuestion = this.questionsToAnswer[
       this.selectedQuestionIndex
     ];
-
-    this.checkIfAbleToGoToNextCategory();
 
     // Set the progress bar
     this.setProgress();
@@ -204,9 +187,21 @@ export class AddAnswersComponent implements OnInit {
   }
 
   /** Check if the buttons for next or previous category can be clicked */
-  checkIfAbleToGoToNextCategory() {
+  rerenderButtons() {
     this.canGoToPreviousCategory = true;
     this.canGoToNextCategory = true;
+
+    this.canGoToPreviousQuestion = true;
+    this.canGoToNextQuestion = true;
+
+    // If the index is now at zero, it won't be able to go back anymore
+    if (this.selectedQuestionIndex - 1 === 0) {
+      this.canGoToPreviousQuestion = false;
+    }
+
+    if (this.selectedQuestionIndex + 1 === this.questionsToAnswer.length) {
+      this.canGoToNextQuestion = false;
+    }
 
     if (this.displayEnd) {
       this.canGoToNextCategory = false;
@@ -268,6 +263,16 @@ export class AddAnswersComponent implements OnInit {
     );
   }
 
+  onReceiveAnswer(receivedQuestion: QuestionHolder) {
+    this.currentlySelectedQuestion = this.questionsToAnswer.find(
+      (x) => x.question.id === receivedQuestion.question.id
+    );
+    this.selectedQuestionIndex = this.questionsToAnswer.indexOf(
+      this.currentlySelectedQuestion
+    );
+    this.setProgress();
+  }
+
   /** Set the progress bar at the top of the page. If the end has been reached, display end page */
   setProgress() {
     // 100 / the amount of questions gives a single percentage
@@ -279,5 +284,7 @@ export class AddAnswersComponent implements OnInit {
     } else {
       this.displayEnd = false;
     }
+
+    this.rerenderButtons();
   }
 }

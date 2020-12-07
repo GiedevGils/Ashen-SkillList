@@ -23,6 +23,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSortModule } from '@angular/material/sort';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/nav/header/header.component';
@@ -48,6 +49,7 @@ import { LandingComponent } from './components/nav/landing/landing.component';
 import { LoginComponent } from './components/account/login/login.component';
 import { RegisterComponent } from './components/account/register/register.component';
 import { CharacterAdminOverviewComponent } from './components/admin/character-admin-overview/character-admin-overview.component';
+import { QuestionSelectDropdownComponent } from './components/characters/question-select-dropdown/question-select-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import { CharacterAdminOverviewComponent } from './components/admin/character-ad
     SubmitAnswerComponent,
     LandingComponent,
     CharacterAdminOverviewComponent,
+    QuestionSelectDropdownComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +79,7 @@ import { CharacterAdminOverviewComponent } from './components/admin/character-ad
     ToastrModule.forRoot({
       preventDuplicates: true,
       countDuplicates: true,
-      resetTimeoutOnDuplicate: true,
+      resetTimeoutOnDuplicate: true
     }),
     AppRoutingModule,
     FormsModule,
@@ -105,15 +108,16 @@ import { CharacterAdminOverviewComponent } from './components/admin/character-ad
     MatRadioModule,
     MatAutocompleteModule,
     MatSortModule,
+    MatStepperModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpHeadersInterceptor,
-      multi: true,
+      multi: true
     },
-    CookieService,
+    CookieService
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -27,3 +27,7 @@
 mat-card {
   min-height: 50vh;
 }
+
+app-question-select-dropdown {
+  width: 100%
+}

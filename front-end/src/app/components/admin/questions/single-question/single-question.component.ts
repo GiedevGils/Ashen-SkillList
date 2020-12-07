@@ -1,4 +1,3 @@
-import { EventEmitter } from '@angular/core';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { QuestionCategory } from 'src/app/models/question-category.model';
@@ -18,8 +17,6 @@ export class SingleQuestionComponent implements OnInit {
   @Input() questionCategory: QuestionCategory;
   displayedColumns = ['questionName', 'answerCount', 'adminButtons'];
   shouldViewBeCompact: boolean;
-
-  @Output() questionsChange = new EventEmitter();
 
   constructor(
     private toast: ToastService,

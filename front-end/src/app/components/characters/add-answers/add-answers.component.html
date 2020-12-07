@@ -6,6 +6,7 @@
 		<p>When you have filled in an answer, it will automatically go to the next question.</p>
 		<p>The first item is the category, the second item is the question. For example, 'Shadowmages' is the category,
 			'cantips' is the question.</p>
+			<p>To quickly find a question, use the field labelled <i>"Find a question"</i>. Start typing the question you're looking for, and select it when it comes up.</p>
 		<p class="subtle">Progress is automatically saved when an answer is selected.</p>
 		<p class="subtle" *ngIf="!displayEnd">Currently answering question {{this.selectedQuestionIndex + 1}} of
 			{{questionsToAnswer.length}}. </p>
@@ -24,6 +25,8 @@
 			<button mat-stroked-button color="primary" (click)="nextCategory()" [disabled]="!canGoToNextCategory"
 				class="q-progress-btn">Next
 				category</button>
+			<app-question-select-dropdown [listOfQuestions]="allQuestions" (questionSelect)="onReceiveAnswer($event)"></app-question-select-dropdown>
+
 		</div>
 
 		<div *ngIf="!displayEnd">
