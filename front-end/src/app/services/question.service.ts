@@ -1,14 +1,14 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { Config } from "src/config";
-import { CategoryType } from "../enums/cat-type.enum";
-import { QuestionCategory } from "../models/question-category.model";
-import { QuestionHolder } from "../models/question-holder.model";
-import { Question } from "../models/question.model";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Config } from 'src/config';
+import { CategoryType } from '../enums/cat-type.enum';
+import { QuestionCategory } from '../models/question-category.model';
+import { QuestionHolder } from '../models/question-holder.model';
+import { Question } from '../models/question.model';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root'
 })
 export class QuestionService {
   private baseUrl = `${Config.url}/api/questions`;
@@ -29,7 +29,7 @@ export class QuestionService {
         const qh: QuestionHolder = {
           category: cat,
           question: ques,
-          answers: ques.answers,
+          answers: ques.answers
         };
         holder.push(qh);
       });
@@ -48,7 +48,7 @@ export class QuestionService {
   ): Observable<QuestionCategory> {
     return this.http.post<QuestionCategory>(`${this.baseUrl}/create-category`, {
       description,
-      isProfessionCategory,
+      isProfessionCategory
     });
   }
 
@@ -59,7 +59,7 @@ export class QuestionService {
   ): Observable<Question> {
     return this.http.post<Question>(`${this.baseUrl}/create-question`, {
       categoryId,
-      description,
+      description
     });
   }
 
@@ -68,7 +68,7 @@ export class QuestionService {
     return this.http.put<QuestionCategory>(`${this.baseUrl}/update-category`, {
       id: cat.id,
       description: cat.description,
-      isProfessionCategory: cat.isProfessionCategory,
+      isProfessionCategory: cat.isProfessionCategory
     });
   }
 
@@ -76,21 +76,21 @@ export class QuestionService {
   updateQuestion(id, description) {
     return this.http.put<Question>(`${this.baseUrl}/update-question`, {
       id,
-      description,
+      description
     });
   }
 
   /** DELETE a category */
   deleteCategory(id: number) {
-    return this.http.request("delete", `${this.baseUrl}/delete-category`, {
-      body: { id },
+    return this.http.request('delete', `${this.baseUrl}/delete-category`, {
+      body: { id }
     });
   }
 
   /** DELETE a question */
   deleteQuestion(id: number) {
-    return this.http.request("delete", `${this.baseUrl}/delete-question`, {
-      body: { id },
+    return this.http.request('delete', `${this.baseUrl}/delete-question`, {
+      body: { id }
     });
   }
 }
