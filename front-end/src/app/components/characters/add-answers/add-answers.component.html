@@ -1,7 +1,8 @@
 <mat-card>
 	<div class="mat-card-content">
 		<h1 class="mat-h1">Add answers for {{character?.characterName}}</h1>
-		<p>You don't need to fill all the question for professions. You can leave the answer empty for the professions you don't need to fill in.</p>
+		<p>You don't need to fill all the question for professions. You can leave the answer empty for the professions you don't need to fill in.<br/>
+		When you have filled in an answer, it will automatically go to the next question.</p>
 		<p class="subtle">Progress is automatically saved when an answer is selected.</p>
 		<p class="subtle" *ngIf="!displayEnd">Currently answering question {{this.selectedQuestionIndex + 1}} of
 			{{questionsToAnswer.length}}. </p>
