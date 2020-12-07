@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Config } from 'src/config';
-import { CategoryType } from '../enums/cat-type.enum';
 import { QuestionCategory } from '../models/question-category.model';
 import { QuestionHolder } from '../models/question-holder.model';
 import { Question } from '../models/question.model';

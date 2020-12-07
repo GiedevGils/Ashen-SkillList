@@ -39,13 +39,6 @@ export class SingleQuestionComponent implements OnInit {
     const dialogRef = this.dialog.open(AddEditQuestionComponent, {
       data: { question: q, categoryId: this.questionCategory.id }
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-      if (result) {
-        this.questionCategory.questions = [...this.questionCategory.questions];
-      }
-    });
   }
 
   deleteQuestion(qId: number) {

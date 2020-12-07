@@ -13,7 +13,7 @@ import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-add-answers',
   templateUrl: './add-answers.component.html',
-  styleUrls: ['./add-answers.component.css'],
+  styleUrls: ['./add-answers.component.css']
 })
 export class AddAnswersComponent implements OnInit {
   // Question info
@@ -28,6 +28,8 @@ export class AddAnswersComponent implements OnInit {
   // UI variables
   canGoToPreviousQuestion = false;
   canGoToNextQuestion = true;
+  canGoToPreviousCategory = false;
+  canGoToNextCategory = true;
   displayEnd = false;
   progress: number;
 
@@ -78,6 +80,62 @@ export class AddAnswersComponent implements OnInit {
     this.progress = 0;
   }
 
+  nextCategory() {
+    const currentCat = this.allQuestions.find(
+      (x) => x.id === this.currentlySelectedQuestion.category.id
+    );
+    const currentQuestionIndex = currentCat.questions.indexOf(
+      this.currentlySelectedQuestion.question
+    );
+
+    // The +1 that needs to be done here is done in the nextQuestion method
+    const amountToAdd = currentCat.questions.length - currentQuestionIndex;
+
+    this.selectedQuestionIndex += amountToAdd - 1;
+
+    this.nextQuestion();
+  }
+
+  previousCategory() {
+    const currentCat = this.allQuestions.find(
+      (x) => x.id === this.currentlySelectedQuestion.category.id
+    );
+    const currentQuestionIndex = currentCat.questions.indexOf(
+      this.currentlySelectedQuestion.question
+    );
+
+    let previousCatInLoop;
+    let previousCat;
+
+    this.allQuestions.every((cat) => {
+      if (previousCat) {
+        return false;
+      }
+      cat.questions.forEach((q) => {
+        if (q === this.currentlySelectedQuestion.question) {
+          previousCat = previousCatInLoop;
+        }
+      });
+      previousCatInLoop = cat;
+      return true;
+    });
+
+    const firstQuestionWithPreviousCategory = this.questionsToAnswer.find(
+      (x) => x.category === previousCat
+    );
+
+    // The +1 that needs to be done here is done in the nextQuestion method
+    const amountToSubtract = currentCat.questions.length - currentQuestionIndex;
+
+    // -2:
+    // 1 for the difference in indexOf and index when querying an array
+    // 1 to compensate for the one that will be retracted in the next function
+    this.selectedQuestionIndex =
+      this.questionsToAnswer.indexOf(firstQuestionWithPreviousCategory) + 1;
+
+    this.previousQuestion();
+  }
+
   /** Go to the next question */
   nextQuestion() {
     this.canGoToPreviousQuestion = true;
@@ -96,6 +154,8 @@ export class AddAnswersComponent implements OnInit {
 
     // set the progress bar
     this.setProgress();
+
+    this.checkIfAbleToGoToNextCategory();
 
     // Find the answers for the newly selected question
     this.findAnswerInPreviouslyGivenAnswersForQuestion(
@@ -121,6 +181,8 @@ export class AddAnswersComponent implements OnInit {
       this.selectedQuestionIndex
     ];
 
+    this.checkIfAbleToGoToNextCategory();
+
     // Set the progress bar
     this.setProgress();
 
@@ -141,6 +203,35 @@ export class AddAnswersComponent implements OnInit {
     )?.answer;
   }
 
+  /** Check if the buttons for next or previous category can be clicked */
+  checkIfAbleToGoToNextCategory() {
+    this.canGoToPreviousCategory = true;
+    this.canGoToNextCategory = true;
+
+    if (this.displayEnd) {
+      this.canGoToNextCategory = false;
+      return;
+    }
+
+    // Update the category buttons
+    if (
+      this.questionsToAnswer[0].category ===
+      this.currentlySelectedQuestion.category
+    ) {
+      this.canGoToPreviousCategory = false;
+      this.canGoToNextCategory = true;
+    }
+
+    // If the last category is the same as the current category, unable to go to next page
+    else if (
+      this.questionsToAnswer[this.questionsToAnswer.length - 1].category ===
+      this.currentlySelectedQuestion.category
+    ) {
+      this.canGoToPreviousCategory = true;
+      this.canGoToNextCategory = false;
+    }
+  }
+
   /** Save the answer */
   saveAnswer(answer: Answer): void {
     // Update the answer in the list so that it can correctly be displayed when the user navigates through the questions
@@ -154,14 +245,14 @@ export class AddAnswersComponent implements OnInit {
       this.previouslyGivenAnswers.push({
         answer,
         character: this.character,
-        question: this.currentlySelectedQuestion.question,
+        question: this.currentlySelectedQuestion.question
       });
     }
 
     const body = {
       questionId: this.currentlySelectedQuestion.question.id,
       answerId: answer.id,
-      characterId: this.character.id,
+      characterId: this.character.id
     };
 
     this.answerService.submitAnswer(body).subscribe(
@@ -177,7 +268,7 @@ export class AddAnswersComponent implements OnInit {
     );
   }
 
-  /** Set the progress bar at the top of the page. If the  */
+  /** Set the progress bar at the top of the page. If the end has been reached, display end page */
   setProgress() {
     // 100 / the amount of questions gives a single percentage
     // Multiply that by the index of the question to get the progess

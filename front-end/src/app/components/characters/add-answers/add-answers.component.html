@@ -1,8 +1,11 @@
 <mat-card>
 	<div class="mat-card-content">
 		<h1 class="mat-h1">Add answers for {{character?.characterName}}</h1>
-		<p>You don't need to fill all the question for professions. You can leave the answer empty for the professions you don't need to fill in.<br/>
-		When you have filled in an answer, it will automatically go to the next question.</p>
+		<p>You don't need to fill all the question for professions. You can leave the answer empty for the professions
+			you don't need to fill in.</p>
+		<p>When you have filled in an answer, it will automatically go to the next question.</p>
+		<p>The first item is the category, the second item is the question. For example, 'Shadowmages' is the category,
+			'cantips' is the question.</p>
 		<p class="subtle">Progress is automatically saved when an answer is selected.</p>
 		<p class="subtle" *ngIf="!displayEnd">Currently answering question {{this.selectedQuestionIndex + 1}} of
 			{{questionsToAnswer.length}}. </p>
@@ -11,15 +14,21 @@
 		<mat-progress-bar mode="determinate" color="primary" [value]="progress"></mat-progress-bar>
 
 		<div class="question-manage-buttons">
+			<button mat-stroked-button color="warn" (click)="previousCategory()" [disabled]="!canGoToPreviousCategory"
+				class="q-progress-btn">Previous category</button>
 			<button mat-stroked-button color="warn" (click)="previousQuestion()" [disabled]="!canGoToPreviousQuestion"
 				class="q-progress-btn">Previous question</button>
 			<button mat-stroked-button color="primary" (click)="nextQuestion()" [disabled]="!canGoToNextQuestion"
 				class="q-progress-btn">Next
 				question</button>
+			<button mat-stroked-button color="primary" (click)="nextCategory()" [disabled]="!canGoToNextCategory"
+				class="q-progress-btn">Next
+				category</button>
 		</div>
 
 		<div *ngIf="!displayEnd">
-			<app-submit-answer [holder]="currentlySelectedQuestion" (questionAnswered)="saveAnswer($event)" [selectedAnswerId]="answerForQuestion?.id">
+			<app-submit-answer [holder]="currentlySelectedQuestion" (questionAnswered)="saveAnswer($event)"
+				[selectedAnswerId]="answerForQuestion?.id">
 			</app-submit-answer>
 		</div>
 		<div *ngIf="displayEnd">

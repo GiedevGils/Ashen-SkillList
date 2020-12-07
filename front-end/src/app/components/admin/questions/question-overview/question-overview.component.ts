@@ -11,7 +11,7 @@ import { AddEditQuestionComponent } from '../add-edit-question/add-edit-question
 @Component({
   selector: 'app-question-overview',
   templateUrl: './question-overview.component.html',
-  styleUrls: ['./question-overview.component.css'],
+  styleUrls: ['./question-overview.component.css']
 })
 export class QuestionOverviewComponent implements OnInit {
   readyForTable: boolean;
@@ -40,8 +40,8 @@ export class QuestionOverviewComponent implements OnInit {
       data: {
         title: 'Are you sure?',
         text:
-          'This will delete the category, all the questions in the category, and the answers to the questions.<br/><b>This is not reversible.</b>',
-      },
+          'This will delete the category, all the questions in the category, and the answers to the questions.<br/><b>This is not reversible.</b>'
+      }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -82,12 +82,15 @@ export class QuestionOverviewComponent implements OnInit {
 
   addQuestion(c: QuestionCategory) {
     const dialogRef = this.dialog.open(AddEditQuestionComponent, {
-      data: { categoryId: c.id },
+      data: { categoryId: c.id }
     });
 
     dialogRef.afterClosed().subscribe((createdQuestion) => {
       if (!createdQuestion) {
         return;
+      }
+      if (!c.questions) {
+        c.questions = [];
       }
       c.questions.push(createdQuestion);
       // for reasons unknown, this is needed to reload the data
@@ -98,7 +101,7 @@ export class QuestionOverviewComponent implements OnInit {
 
   editCategory(cat: QuestionCategory) {
     this.dialog.open(AddEditCategoryComponent, {
-      data: { category: cat },
+      data: { category: cat }
     });
   }
 
@@ -108,7 +111,11 @@ export class QuestionOverviewComponent implements OnInit {
 
       // https://stackoverflow.com/a/17387454
       this.questionCategories.sort((x, y) => {
-        return x.isProfessionCategory === y.isProfessionCategory ? 0 : x.isProfessionCategory ? -1 : 1;
+        return x.isProfessionCategory === y.isProfessionCategory
+          ? 0
+          : x.isProfessionCategory
+          ? -1
+          : 1;
       });
 
       this.readyForTable = true;
