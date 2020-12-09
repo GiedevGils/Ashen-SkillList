@@ -46,11 +46,6 @@ namespace SkillListBackEnd.Controllers
         [HttpGet("get-all-questions")]
         public async Task<IActionResult> GetAllQuestions()
         {
-            int userId = GetUserIdFromToken();
-
-            if (!_adminHelper.IsUserAdmin(userId))
-                return Unauthorized();
-
             var result = await _questionRepository.GetAllQuestions();
 
             return Ok(result);
