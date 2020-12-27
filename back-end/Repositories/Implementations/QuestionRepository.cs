@@ -110,6 +110,10 @@ namespace SkillListBackEnd.Repositories.Implementations
             return true;
         }
 
-        
+        public async Task<IEnumerable<QuestionCategory>> GetAllQuestionsWithoutAnswers()
+        {
+            IEnumerable<QuestionCategory> questions = _context.Categories.Include(x => x.Questions);
+            return questions;
+        }
     }
 }

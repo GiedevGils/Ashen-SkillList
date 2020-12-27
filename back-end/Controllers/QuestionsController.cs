@@ -51,6 +51,14 @@ namespace SkillListBackEnd.Controllers
             return Ok(result);
         }
 
+        [HttpGet("get-all-questions-without-answers")]
+        public async Task<IActionResult> GetAllQuestionsWithoutAnswers()
+        {
+            var result = await _questionRepository.GetAllQuestionsWithoutAnswers();
+
+            return Ok(result);
+        }
+
         [HttpPut("update-category")]
         public async Task<IActionResult> UpdateCategory(CategoryForUpdateDto categoryToUpdate)
         {

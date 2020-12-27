@@ -23,6 +23,12 @@ namespace SkillListBackEnd.Repositories.Interfaces
         Task<IEnumerable<QuestionCategory>> GetAllQuestions();
 
         /// <summary>
+        /// Get all questions without answers, to make the strain on the database and package size smaller
+        /// </summary>
+        /// <returns>A list of questions</returns>
+        Task<IEnumerable<QuestionCategory>> GetAllQuestionsWithoutAnswers();
+
+        /// <summary>
         /// Update a question category
         /// </summary>
         /// <param name="cat">The category with updated values</param>
