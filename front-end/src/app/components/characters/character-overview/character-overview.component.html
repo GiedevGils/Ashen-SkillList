@@ -3,7 +3,7 @@
 <div *ngIf="userInfo">
 	<h1 *ngIf="userInfo.isAdmin" class="mat-h1">All characters</h1>
 	<h1 *ngIf="!userInfo.isAdmin" class="mat-h1">Your characters</h1>
-	<mat-grid-list [cols]="amountOfColumns" (window:resize)="setGridColumnNumber($event)" rowHeight="8em"
+	<mat-grid-list [cols]="amountOfColumns" (window:resize)="setGridColumnNumber($event)" rowHeight="15em"
 		gutterSize="15px">
 		<mat-grid-tile *ngFor='let char of characters'>
 			<mat-card class="character-card">
@@ -14,13 +14,16 @@
 					<mat-card-title>{{char.characterName}}</mat-card-title>
 					<mat-card-subtitle>{{char.squad}} - {{char.profession}}</mat-card-subtitle>
 				</mat-card-header>
-				<mat-card-actions align="end">
-					<button mat-stroked-button [routerLink]="['/answer-overview', char.id]">Overview
+				<mat-card-content>
+					<button mat-stroked-button [routerLink]="['/answer-overview', char.id]">Inspect given
 						answers</button>
 					<button *ngIf="!userInfo.isAdmin" mat-stroked-button [routerLink]="['/answers', char.id]">Anwer
 						questions</button>
 					<button *ngIf="userInfo.isAdmin" mat-stroked-button [routerLink]="['/answers', char.id]">Answer
 						questions (as admin)</button>
+				</mat-card-content>
+				<mat-card-actions align="end">
+
 					<button mat-icon-button label="Edit character" (click)="openEdit(char)">
 						<mat-icon>edit</mat-icon>
 					</button>
