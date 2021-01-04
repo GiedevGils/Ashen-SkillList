@@ -3,8 +3,8 @@
 <div *ngIf="userInfo">
 	<h1 *ngIf="userInfo.isAdmin" class="mat-h1">All characters</h1>
 	<h1 *ngIf="!userInfo.isAdmin" class="mat-h1">Your characters</h1>
-	<mat-grid-list [cols]="amountOfColumns" (window:resize)="setGridColumnNumber($event)" rowHeight="12em"
-		gutterSize="25px">
+	<mat-grid-list [cols]="amountOfColumns" (window:resize)="setGridColumnNumber($event)" rowHeight="8em"
+		gutterSize="15px">
 		<mat-grid-tile *ngFor='let char of characters'>
 			<mat-card class="character-card">
 				<mat-card-header>
@@ -20,8 +20,7 @@
 					<button *ngIf="!userInfo.isAdmin" mat-stroked-button [routerLink]="['/answers', char.id]">Anwer
 						questions</button>
 					<button *ngIf="userInfo.isAdmin" mat-stroked-button [routerLink]="['/answers', char.id]">Answer
-						questions for
-						character</button>
+						questions (as admin)</button>
 					<button mat-icon-button label="Edit character" (click)="openEdit(char)">
 						<mat-icon>edit</mat-icon>
 					</button>

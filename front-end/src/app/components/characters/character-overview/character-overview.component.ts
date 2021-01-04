@@ -67,9 +67,9 @@ export class CharacterOverviewComponent implements OnInit {
       return;
     }
 
-    if (windowWidth <= 1050) {
+    if (windowWidth <= 1100) {
       this.amountOfColumns = 1;
-    } else if (windowWidth <= 1500) {
+    } else if (windowWidth <= 1700) {
       this.amountOfColumns = 2;
     } else {
       this.amountOfColumns = 3;
