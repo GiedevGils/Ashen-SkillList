@@ -1,0 +1,20 @@
+<mat-card>
+    <mat-card-title>Answer overview for {{selectedCharacter?.characterName}}</mat-card-title>
+    <mat-card-subtitle>See all the answers you've submitted for this character.</mat-card-subtitle>
+
+    <mat-card-content>
+        <table>
+            <div *ngFor="let 'qh' of questionHolder">
+                <tr>
+                    <th colspan="2">{{qh.category.description}}</th>
+                </tr>
+                <tr *ngFor="let 'q' of qh.answers">
+                    <td>{{q.question.description}}</td>
+                    <td>{{q.answer.rating}} ({{q.answer.description}})</td>
+                </tr>
+                <tr class="empty"></tr>
+            </div>
+        </table>
+    </mat-card-content>
+
+</mat-card>

@@ -14,3 +14,7 @@ body {
 .mat-menu-panel {
   overflow: hidden !important;
 }
+
+.full-width {
+  width: 100%
+}

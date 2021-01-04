@@ -50,6 +50,7 @@ import { LoginComponent } from './components/account/login/login.component';
 import { RegisterComponent } from './components/account/register/register.component';
 import { CharacterAdminOverviewComponent } from './components/admin/character-admin-overview/character-admin-overview.component';
 import { QuestionSelectDropdownComponent } from './components/characters/question-select-dropdown/question-select-dropdown.component';
+import { GivenAnswerOverviewComponent } from './components/characters/given-answer-overview/given-answer-overview.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { QuestionSelectDropdownComponent } from './components/characters/questio
     SubmitAnswerComponent,
     LandingComponent,
     CharacterAdminOverviewComponent,
-    QuestionSelectDropdownComponent
+    QuestionSelectDropdownComponent,
+    GivenAnswerOverviewComponent
   ],
   imports: [
     BrowserModule,

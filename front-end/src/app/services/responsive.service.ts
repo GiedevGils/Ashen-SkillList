@@ -25,14 +25,14 @@ export class ResponsiveService {
   init(size: number) {
     this.resize.subscribe((event: any) => {
       const width = event.target.innerWidth;
-      if (width <= 1200) {
+      if (width <= 1400) {
         this.shouldViewBeCompact = true;
       } else {
         this.shouldViewBeCompact = false;
       }
     });
 
-    if (size <= 1200) {
+    if (size <= 1400) {
       this.shouldViewBeCompact = true;
     }
   }

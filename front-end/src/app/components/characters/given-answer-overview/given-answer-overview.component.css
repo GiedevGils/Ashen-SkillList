@@ -1,0 +1,41 @@
+table,
+table > div {
+  border-collapse: collapse;
+  width: 100%;
+  display: table;
+}
+
+th {
+  width: 100%;
+  font-weight: 500;
+  text-decoration: 1px solid #aaa;
+}
+
+tr {
+  width: 100%;
+}
+
+td,
+th {
+  padding: 8px;
+  border: 1px solid #aaa;
+}
+
+td {
+  width: 50%;
+}
+
+tr:nth-child(even) {
+  background-color: #333;
+}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #222;
+}
+
+mat-card {
+  margin-bottom: 25px;
+}

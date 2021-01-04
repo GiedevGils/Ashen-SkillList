@@ -21,6 +21,12 @@ export class QuestionService {
     );
   }
 
+  getAllQuestionsWithoutAnswers(): Observable<QuestionCategory[]> {
+    return this.http.get<QuestionCategory[]>(
+      `${this.baseUrl}/get-all-questions-without-answers`
+    )
+  }
+
   formatToQuestionHolder(input: QuestionCategory[]): QuestionHolder[] {
     const holder = [];
     input.forEach((cat) => {
