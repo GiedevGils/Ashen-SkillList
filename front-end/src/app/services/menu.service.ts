@@ -20,13 +20,13 @@ export class MenuService {
       icon: 'question_answer',
     },
     {
-      text: 'View all characters',
+      text: 'Find character for skill',
       link: '/admin-character-overview',
       isAdminLink: true,
-      icon: 'groups',
+      icon: 'person_search',
     },
     {
-      text: 'Manage users',
+      text: 'View users',
       link: '/user-overview',
       isAdminLink: true,
       icon: 'people',
