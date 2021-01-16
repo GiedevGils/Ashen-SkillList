@@ -6,11 +6,16 @@
 		<p>When you have filled in an answer, it will automatically go to the next question.</p>
 		<p>The first item is the category, the second item is the question. For example, 'Shadowmages' is the category,
 			'cantips' is the question.</p>
-			<p>To quickly find a question, use the field labelled <i>"Find a question"</i>. Start typing the question you're looking for, and select it when it comes up.</p>
+		<p>To quickly find a question, use the field labelled <i>"Find a question"</i>. Start typing the question you're
+			looking for, and select it when it comes up.</p>
 		<p class="subtle">Progress is automatically saved when an answer is selected.</p>
 		<p class="subtle" *ngIf="!displayEnd">Currently answering question {{this.selectedQuestionIndex + 1}} of
 			{{questionsToAnswer.length}}. </p>
 		<p class="subtle" *ngIf="displayEnd">You have answered all {{questionsToAnswer.length}} questions</p>
+		<p><span style="color: #a3d1f7;">The point has been raised that sometimes a character could have advanced
+				theoretical knowlege, but limited or no practical knowledge. In the near future (hopefully around the
+				end of January) an option will be added to add comments to a specific answer, so you can add extra
+				details if you consider it needed.</span></p>
 
 		<mat-progress-bar mode="determinate" color="primary" [value]="progress"></mat-progress-bar>
 
@@ -25,7 +30,8 @@
 			<button mat-stroked-button color="primary" (click)="nextCategory()" [disabled]="!canGoToNextCategory"
 				class="q-progress-btn">Next
 				category</button>
-			<app-question-select-dropdown [listOfQuestions]="allQuestions" (questionSelect)="onReceiveAnswer($event)"></app-question-select-dropdown>
+			<app-question-select-dropdown [listOfQuestions]="allQuestions" (questionSelect)="onReceiveAnswer($event)">
+			</app-question-select-dropdown>
 
 		</div>
 
