@@ -16,7 +16,7 @@ namespace SkillListBackEnd.Models
         [MaxLength(15)]
         public string Squad { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(20)]
         public string Profession { get; set; }
     }
 }
