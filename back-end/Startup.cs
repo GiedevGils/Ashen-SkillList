@@ -17,6 +17,9 @@ namespace SkillListBackEnd
 {
     public class Startup
     {
+
+        readonly string CorsOrigins = "_ashenSkillList";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -52,6 +55,20 @@ namespace SkillListBackEnd
             services.AddScoped<ICharacterRepository, CharacterRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
+
+            // CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    name: CorsOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("https://ilthy.dev")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    }
+                );
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,11 +80,11 @@ namespace SkillListBackEnd
             }
             else
             {
-                // todo
+                app.UseDeveloperExceptionPage();
             }
 
             app.UseHttpsRedirection();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(CorsOrigins);
 
             app.UseRouting();
 

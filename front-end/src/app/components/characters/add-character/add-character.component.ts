@@ -27,7 +27,7 @@ export class AddCharacterComponent implements OnInit {
     'Mesmer',
   ].sort();
 
-  squads = ['Lance', 'Blade'].sort();
+  squads = ['Lance', 'Blade', 'Reserves'].sort();
 
   characterName = new FormControl('', [Validators.required]);
   squad = new FormControl('', [Validators.required]);
