@@ -63,7 +63,8 @@ namespace SkillListBackEnd
                     name: CorsOrigins,
                     builder =>
                     {
-                        builder.WithOrigins("https://ilthy.dev")
+                        builder
+                            .AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     }
