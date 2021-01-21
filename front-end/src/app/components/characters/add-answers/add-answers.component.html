@@ -20,6 +20,8 @@
 		<mat-progress-bar mode="determinate" color="primary" [value]="progress"></mat-progress-bar>
 
 		<div class="question-manage-buttons">
+			<button mat-stroked-button color="accent" [routerLink]="['/answer-overview', character?.id]"
+				class="q-progress-btn">Overview given answers</button>
 			<button mat-stroked-button color="warn" (click)="previousCategory()" [disabled]="!canGoToPreviousCategory"
 				class="q-progress-btn">Previous category</button>
 			<button mat-stroked-button color="warn" (click)="previousQuestion()" [disabled]="!canGoToPreviousQuestion"
